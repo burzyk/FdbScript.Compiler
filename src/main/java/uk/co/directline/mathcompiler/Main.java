@@ -2,6 +2,8 @@ package uk.co.directline.mathcompiler;
 
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
+import uk.co.directline.mathcompiler.operations.LoadValueOperaiton;
+import uk.co.directline.mathcompiler.operations.PlusOperation;
 
 
 /**
@@ -20,8 +22,6 @@ public class Main {
         ConstantPoolGen cp = cg.getConstantPool(); // cg creates constant pool
         InstructionList il = new InstructionList();
 
-        int str = cp.addString("Hello World 1");
-
         MethodGen mg = new MethodGen(
                 Constants.ACC_STATIC | Constants.ACC_PUBLIC, // access flags
                 Type.VOID,               // return type
@@ -39,15 +39,21 @@ public class Main {
                 new ObjectType("java.io.PrintStream"),
                 Constants.GETSTATIC));
 
-        il.append(new LDC(str));
+        new LoadValueOperaiton(3).execute(il, factory);
+        new LoadValueOperaiton(8).execute(il, factory);
+        new PlusOperation().execute(il, factory);
+
+        il.append(factory.createInvoke(
+                "java.lang.Integer",
+                "toString",
+                Type.STRING, new Type[]{Type.INT},
+                Constants.INVOKESTATIC));
 
         il.append(factory.createInvoke(
                 "java.io.PrintStream",
                 "println",
                 Type.VOID, new Type[]{Type.STRING},
                 Constants.INVOKEVIRTUAL));
-
-        il.append(factory.createPrintln("Hello World 2"));
 
         il.append(InstructionConstants.RETURN);
 
