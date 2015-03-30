@@ -1,12 +1,12 @@
 
 // Define a grammar called Hello
-grammar calc;
+grammar Calc;
 
 
 
 cmd : 'CALC' expr ;
 
-expr : NUMBER  { System.out.println($NUMBER.text); }
+expr : NUMBER
 	| expr '*' expr
 	| expr '/' expr
 	| expr '+' expr

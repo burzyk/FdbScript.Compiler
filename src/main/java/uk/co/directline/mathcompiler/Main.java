@@ -1,9 +1,18 @@
 package uk.co.directline.mathcompiler;
 
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.TokenStream;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
+import uk.co.directline.mathcompiler.antlr.CalcLexer;
+import uk.co.directline.mathcompiler.antlr.CalcParser;
+import uk.co.directline.mathcompiler.operations.BaseOperation;
 import uk.co.directline.mathcompiler.operations.LoadValueOperaiton;
 import uk.co.directline.mathcompiler.operations.PlusOperation;
+
+import java.util.List;
 
 
 /**
@@ -12,6 +21,18 @@ import uk.co.directline.mathcompiler.operations.PlusOperation;
 public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
+        CharStream input = new ANTLRInputStream(" 12 + 7 * 6 / 13 - 7 * 9");
+        CalcLexer lexer = new CalcLexer(input);
+        TokenStream tokens = new CommonTokenStream(lexer);
+        CalcParser parser = new CalcParser(tokens);
+        //parser.addParseListener(new CalcLi());
+        parser.expr();
+
+
+        System.out.println("Done");
+    }
+
+    public static void generateBytecode(List<BaseOperation> operations) {
         ClassGen cg = new ClassGen(
                 "HelloWorld",
                 "java.lang.Object",
@@ -39,9 +60,9 @@ public class Main {
                 new ObjectType("java.io.PrintStream"),
                 Constants.GETSTATIC));
 
-        new LoadValueOperaiton(3).execute(il, factory);
-        new LoadValueOperaiton(8).execute(il, factory);
-        new PlusOperation().execute(il, factory);
+        for (BaseOperation operation : operations) {
+            operation.execute(il, factory);
+        }
 
         il.append(factory.createInvoke(
                 "java.lang.Integer",
