@@ -21,13 +21,15 @@ import java.util.List;
 public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
+        CalcEmitListener listener = new CalcEmitListener();
         CharStream input = new ANTLRInputStream(" 12 + 7 * 6 / 13 - 7 * 9");
         CalcLexer lexer = new CalcLexer(input);
         TokenStream tokens = new CommonTokenStream(lexer);
         CalcParser parser = new CalcParser(tokens);
-        //parser.addParseListener(new CalcLi());
+        parser.addParseListener(listener);
         parser.expr();
 
+        generateBytecode(listener.getOperations());
 
         System.out.println("Done");
     }
