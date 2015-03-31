@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import uk.co.directline.mathcompiler.antlr.CalcListener;
 import uk.co.directline.mathcompiler.antlr.CalcParser;
 import uk.co.directline.mathcompiler.operations.BaseOperation;
+import uk.co.directline.mathcompiler.operations.LoadValueOperaiton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +38,35 @@ public class CalcEmitListener implements CalcListener {
 
     @Override
     public void enterExpr(@NotNull CalcParser.ExprContext ctx) {
-        int w = 0;
-
+        printIfNotNull("enter: ", ctx.NUMBER());
+        printIfNotNull("enter: ", ctx.PLUS());
+        printIfNotNull("enter: ", ctx.MINUS());
+        printIfNotNull("enter: ", ctx.DIV());
+        printIfNotNull("enter: ", ctx.MUL());
     }
 
     @Override
     public void exitExpr(@NotNull CalcParser.ExprContext ctx) {
-        int w = 0;
+        if (ctx.NUMBER() != null) {
+            this.operations.add(new LoadValueOperaiton(Integer.parseInt(ctx.NUMBER().toString())));
+
+
+        }
+
+
+
+
+        printIfNotNull("exit: ", ctx.NUMBER());
+        printIfNotNull("exit: ", ctx.PLUS());
+        printIfNotNull("exit: ", ctx.MINUS());
+        printIfNotNull("exit: ", ctx.DIV());
+        printIfNotNull("exit: ", ctx.MUL());
+    }
+
+    private void printIfNotNull(String state, Object o) {
+        if (o != null) {
+            System.out.println(state + o);
+        }
     }
 
     @Override

@@ -7,10 +7,10 @@ grammar Calc;
 cmd : 'CALC' expr ;
 
 expr : NUMBER
-	| expr '*' expr
-	| expr '/' expr
-	| expr '+' expr
-	| expr '-' expr
+	| expr MUL expr
+	| expr DIV expr
+	| expr PLUS expr
+	| expr MINUS expr
 	;
 
 
@@ -18,4 +18,8 @@ expr : NUMBER
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 NUMBER : [0-9]+ ;
 ID : [a-z]+ ;
+PLUS : '+' ;
+MINUS : '-' ;
+DIV : '/' ;
+MUL : '*' ;
 

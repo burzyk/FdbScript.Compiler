@@ -8,9 +8,8 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
 import uk.co.directline.mathcompiler.antlr.CalcLexer;
 import uk.co.directline.mathcompiler.antlr.CalcParser;
+import uk.co.directline.mathcompiler.antlr.CalcVisitor;
 import uk.co.directline.mathcompiler.operations.BaseOperation;
-import uk.co.directline.mathcompiler.operations.LoadValueOperaiton;
-import uk.co.directline.mathcompiler.operations.PlusOperation;
 
 import java.util.List;
 
@@ -22,14 +21,17 @@ public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
         CalcEmitListener listener = new CalcEmitListener();
-        CharStream input = new ANTLRInputStream(" 12 + 7 * 6 / 13 - 7 * 9");
+        CalcEmitVisitor visitor = new CalcEmitVisitor();
+        CharStream input = new ANTLRInputStream(" 2 + 2 * 2");
         CalcLexer lexer = new CalcLexer(input);
         TokenStream tokens = new CommonTokenStream(lexer);
         CalcParser parser = new CalcParser(tokens);
-        parser.addParseListener(listener);
-        parser.expr();
+        //parser.addParseListener(listener);
 
-        generateBytecode(listener.getOperations());
+
+        visitor.visit(parser.expr());
+
+        generateBytecode(visitor.getOperations());
 
         System.out.println("Done");
     }
