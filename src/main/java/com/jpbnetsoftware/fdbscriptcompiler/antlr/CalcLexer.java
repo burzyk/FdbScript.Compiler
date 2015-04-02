@@ -1,5 +1,5 @@
 // Generated from /Users/pawel/work/java/MathCompiler/src/main/antlr/Calc.g4 by ANTLR 4.5
-package uk.co.directline.mathcompiler.antlr;
+package com.jpbnetsoftware.fdbscriptcompiler.antlr;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

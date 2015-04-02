@@ -1,4 +1,4 @@
-package uk.co.directline.mathcompiler.operations;
+package com.jpbnetsoftware.fdbscriptcompiler.operations;
 
 import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.InstructionFactory;

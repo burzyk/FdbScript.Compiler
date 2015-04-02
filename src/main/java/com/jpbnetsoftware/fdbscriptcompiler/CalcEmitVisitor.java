@@ -1,14 +1,9 @@
-package uk.co.directline.mathcompiler;
+package com.jpbnetsoftware.fdbscriptcompiler;
 
+import com.jpbnetsoftware.fdbscriptcompiler.operations.*;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import uk.co.directline.mathcompiler.antlr.CalcBaseVisitor;
-import uk.co.directline.mathcompiler.antlr.CalcParser;
-import uk.co.directline.mathcompiler.antlr.CalcVisitor;
-import uk.co.directline.mathcompiler.operations.*;
+import com.jpbnetsoftware.fdbscriptcompiler.antlr.CalcBaseVisitor;
+import com.jpbnetsoftware.fdbscriptcompiler.antlr.CalcParser;
 
 import java.util.ArrayList;
 import java.util.List;

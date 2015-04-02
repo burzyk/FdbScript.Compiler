@@ -1,6 +1,6 @@
 
 // Define a grammar called Hello
-grammar Calc;
+grammar FdbScript;
 
 
 
@@ -17,7 +17,7 @@ expr : NUMBER
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 NUMBER : [0-9]+ ;
-ID : [a-z]+ ;
+ID : [a-zA-Z]+ ;
 PLUS : '+' ;
 MINUS : '-' ;
 DIV : '/' ;

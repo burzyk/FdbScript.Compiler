@@ -1,15 +1,14 @@
-package uk.co.directline.mathcompiler;
+package com.jpbnetsoftware.fdbscriptcompiler;
 
+import com.jpbnetsoftware.fdbscriptcompiler.antlr.CalcParser;
+import com.jpbnetsoftware.fdbscriptcompiler.operations.BaseOperation;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
-import uk.co.directline.mathcompiler.antlr.CalcLexer;
-import uk.co.directline.mathcompiler.antlr.CalcParser;
-import uk.co.directline.mathcompiler.antlr.CalcVisitor;
-import uk.co.directline.mathcompiler.operations.BaseOperation;
+import com.jpbnetsoftware.fdbscriptcompiler.antlr.CalcLexer;
 
 import java.util.List;
 
