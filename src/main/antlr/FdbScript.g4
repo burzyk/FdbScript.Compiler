@@ -1,12 +1,27 @@
+// Difines grammar for fdb script
+// sample application
+/*
+module Fib
 
-// Define a grammar called Hello
+    fibAcc = f(n, acc):
+        (n == -0 || n == 7) -> acc
+        _ -> fibAcc(n - 1, acc * n)
+
+    fib = f(n): fibAcc(n, 1)
+
+    x = fib(10)
+
+    x()
+*/
+
+
 grammar FdbScript;
 
-program : ('module' MODULEID)? (assign*) expr ;
+program : ('module' MODULEID)? (assign)* expr ;
 
 assign : ID '=' expr ;
 
-function : 'f' '(' (ID (',' ID)* )? ')' ':' (assign*) expr ;
+function : 'f' '(' (ID (',' ID)* )? ')' ':' (assign)* expr ;
 
 invoke : ID '(' (expr (',' expr)* )? ')' ;
 
