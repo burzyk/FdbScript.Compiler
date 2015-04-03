@@ -1,27 +1,40 @@
 package com.jpbnetsoftware.fdbscriptcompiler;
 
+import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptLexer;
+import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.TokenStream;
+
 /**
  * Created by pawel on 30/03/15.
  */
 public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
-        /*
-        CalcEmitListener listener = new CalcEmitListener();
+        String program = "module Fib\n" +
+                "\n" +
+                "    fibAcc = f(n, acc):\n" +
+                "        (n == -0 || n == 7) -> acc\n" +
+                "        _ -> fibAcc(n - 1, acc * n)\n" +
+                "\n" +
+                "    fib = f(n): fibAcc(n, 1)\n" +
+                "\n" +
+                "    x = fib(10)\n" +
+                "\n" +
+                "    x()";
+
+
         FdbScriptAstVisitor visitor = new FdbScriptAstVisitor();
-        CharStream input = new ANTLRInputStream(" 2 + 2 * 2");
-        CalcLexer lexer = new CalcLexer(input);
+        CharStream input = new ANTLRInputStream(program);
+        FdbScriptLexer lexer = new FdbScriptLexer(input);
         TokenStream tokens = new CommonTokenStream(lexer);
-        CalcParser parser = new CalcParser(tokens);
-        //parser.addParseListener(listener);
+        FdbScriptParser parser = new FdbScriptParser(tokens);
 
-
-        visitor.visit(parser.expr());
-
-        generateBytecode(visitor.getOperations());
+        visitor.visit(parser.programDeclaration());
 
         System.out.println("Done");
-        */
     }
 
     /*
