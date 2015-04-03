@@ -1,26 +1,14 @@
 package com.jpbnetsoftware.fdbscriptcompiler;
 
-import com.jpbnetsoftware.fdbscriptcompiler.antlr.CalcParser;
-import com.jpbnetsoftware.fdbscriptcompiler.operations.BaseOperation;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.TokenStream;
-import org.apache.bcel.Constants;
-import org.apache.bcel.generic.*;
-import com.jpbnetsoftware.fdbscriptcompiler.antlr.CalcLexer;
-
-import java.util.List;
-
-
 /**
  * Created by pawel on 30/03/15.
  */
 public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
+        /*
         CalcEmitListener listener = new CalcEmitListener();
-        CalcEmitVisitor visitor = new CalcEmitVisitor();
+        FdbScriptAstVisitor visitor = new FdbScriptAstVisitor();
         CharStream input = new ANTLRInputStream(" 2 + 2 * 2");
         CalcLexer lexer = new CalcLexer(input);
         TokenStream tokens = new CommonTokenStream(lexer);
@@ -33,8 +21,10 @@ public class Main {
         generateBytecode(visitor.getOperations());
 
         System.out.println("Done");
+        */
     }
 
+    /*
     public static void generateBytecode(List<BaseOperation> operations) {
         ClassGen cg = new ClassGen(
                 "HelloWorld",
@@ -90,4 +80,6 @@ public class Main {
             cg.getJavaClass().dump("HelloWorld.class");
         } catch(java.io.IOException e) { System.err.println(e); }
     }
+
+    */
 }

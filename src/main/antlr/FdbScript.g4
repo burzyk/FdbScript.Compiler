@@ -17,83 +17,83 @@ module Fib
 
 grammar FdbScript;
 
-program : ('module' MODULEID)? (assign)* expr ;
+programDeclaration : ('module' MODULEID)? (assignmentExpression)* expression ;
 
-assign : ID '=' expr ;
+assignmentExpression : ID '=' expression ;
 
-function : 'f' '(' (ID (',' ID)* )? ')' ':' (assign)* expr ;
+functionDeclaration : 'f' '(' (ID (',' ID)* )? ')' ':' (assignmentExpression)* expression ;
 
-invoke : ID '(' (expr (',' expr)* )? ')' ;
+invokeExpression : ID '(' (expression (',' expression)* )? ')' ;
 
-if : (condition)+ (else)? ;
+ifExpression : (conditionClause)+ (elseClause)? ;
 
-condition : '(' boolean ')' '->' expr ;
+conditionClause : '(' booleanExpression ')' '->' expression ;
 
-else : '_' '->' expr ;
+elseClause : '_' '->' expression ;
 
-expr
-    : computed
-    | math
-    | string
-    | boolean
-    | compare
+expression
+    : computedExpression
+    | mathExpression
+    | stringExpression
+    | booleanExpression
+    | compareExpression
     ;
 
-computed
-    : if
-    | function
-    | invoke
+computedExpression
+    : ifExpression
+    | functionDeclaration
+    | invokeExpression
     | ID
     ;
 
-boolean
-    : '(' boolean ')'
+booleanExpression
+    : '(' booleanExpression ')'
     | TRUE
     | FALSE
-    | boolean AND boolean
-    | boolean OR boolean
-    | computed
-    | compare
-    | equality
+    | booleanExpression AND booleanExpression
+    | booleanExpression OR booleanExpression
+    | computedExpression
+    | compareExpression
+    | equalityExpression
     ;
 
-equality
-    : '(' equality ')'
-    | equality_operand EQ equality_operand
-    | equality_operand NEQ equality_operand
+equalityExpression
+    : '(' equalityExpression ')'
+    | equalityOperand EQ equalityOperand
+    | equalityOperand NEQ equalityOperand
     ;
 
-equality_operand
+equalityOperand
     : TRUE
     | FALSE
-    | string
-    | computed
-    | math
+    | stringExpression
+    | computedExpression
+    | mathExpression
     ;
 
-compare
-    : '(' compare ')'
-    | math GT math
-    | math LT math
-    | math GE math
-    | math LE math
+compareExpression
+    : '(' compareExpression ')'
+    | mathExpression GT mathExpression
+    | mathExpression LT mathExpression
+    | mathExpression GE mathExpression
+    | mathExpression LE mathExpression
     ;
 
-math
-    : '(' math ')'
+mathExpression
+    : '(' mathExpression ')'
     | NUMBER
-    | math MUL math
-    | math DIV math
-    | math PLUS math
-    | math MINUS math
-    | computed
+    | mathExpression MUL mathExpression
+    | mathExpression DIV mathExpression
+    | mathExpression PLUS mathExpression
+    | mathExpression MINUS mathExpression
+    | computedExpression
     ;
 
-string
+stringExpression
     : STRING
-    | string PLUS string
-    | string PLUS math
-    | math PLUS string
+    | stringExpression PLUS stringExpression
+    | stringExpression PLUS mathExpression
+    | mathExpression PLUS stringExpression
     ;
 
 EQ : '==' ;
@@ -119,4 +119,3 @@ NUMBER : [+-]?[0-9]+('.'[0-9])? ;
 ID : [a-z][a-zA-Z]* ;
 MODULEID : [A-Z][a-zA-Z]* ;
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
-
