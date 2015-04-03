@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.TokenStream;
 public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
-        String program = "module Fib (2 + 2) * 2";
+        String program = "module Fib \"ala\" + (2 + 2) * 2 + \"ma\"+ \"kota\"";
 
 
         FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JavaGenerator());

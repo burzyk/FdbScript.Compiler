@@ -114,6 +114,15 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx) {
+
+        if(ctx.STRING() != null) {
+            return generator.generateString(ctx.STRING().toString());
+        }
+
+        if (ctx.PLUS() != null) {
+            return generator.generateStringConcat(this.visit(ctx.getChild(0)), this.visit(ctx.getChild(2)));
+        }
+
         return super.visitStringExpression(ctx);
     }
 

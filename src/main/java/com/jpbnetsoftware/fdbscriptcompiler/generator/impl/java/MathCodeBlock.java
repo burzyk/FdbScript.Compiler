@@ -34,16 +34,16 @@ public class MathCodeBlock implements ICodeBlock {
 
         switch (operation) {
             case Plus:
-                this.out.print("+");
+                this.out.print(" + ");
                 break;
             case Minus:
-                this.out.print("-");
+                this.out.print(" - ");
                 break;
             case Mul:
-                this.out.print("*");
+                this.out.print(" * ");
                 break;
             case Div:
-                this.out.print("/");
+                this.out.print(" / ");
                 break;
         }
 

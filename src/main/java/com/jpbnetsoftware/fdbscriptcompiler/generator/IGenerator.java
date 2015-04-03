@@ -9,6 +9,10 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
+    ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs);
+
+    ICodeBlock generateString(String text);
+
     ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs);
 
     ICodeBlock generateNumber(float number);

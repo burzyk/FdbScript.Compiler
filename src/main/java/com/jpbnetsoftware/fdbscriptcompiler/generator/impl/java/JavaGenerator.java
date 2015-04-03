@@ -17,6 +17,16 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
+    public ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs) {
+        return new StringConcatCodeBlock(lhs, rhs, System.out);
+    }
+
+    @Override
+    public ICodeBlock generateString(String text) {
+        return new StringCodeBock(text, System.out);
+    }
+
+    @Override
     public ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs) {
         return new MathCodeBlock(lhs, operation, rhs, System.out);
     }
