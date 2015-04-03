@@ -34,7 +34,7 @@ else : '_' '->' expr ;
 expr
     : computed
     | math
-    | STRING
+    | string
     | boolean
     | compare
     ;
@@ -66,7 +66,7 @@ equality
 equality_operand
     : TRUE
     | FALSE
-    | STRING
+    | string
     | computed
     | math
     ;
@@ -87,6 +87,13 @@ math
     | math PLUS math
     | math MINUS math
     | computed
+    ;
+
+string
+    : STRING
+    | string PLUS string
+    | string PLUS math
+    | math PLUS string
     ;
 
 EQ : '==' ;
