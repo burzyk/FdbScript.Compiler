@@ -2,6 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler;
 
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptLexer;
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java.JavaGenerator;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -13,28 +14,18 @@ import org.antlr.v4.runtime.TokenStream;
 public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
-        String program = "module Fib\n" +
-                "\n" +
-                "    fibAcc = f(n, acc):\n" +
-                "        (n == -0 || n == 7) -> acc\n" +
-                "        _ -> fibAcc(n - 1, acc * n)\n" +
-                "\n" +
-                "    fib = f(n): fibAcc(n, 1)\n" +
-                "\n" +
-                "    x = fib(10)\n" +
-                "\n" +
-                "    x()";
+        String program = "module Fib 8 + 8";
 
 
-        FdbScriptAstVisitor visitor = new FdbScriptAstVisitor();
+        FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JavaGenerator());
         CharStream input = new ANTLRInputStream(program);
         FdbScriptLexer lexer = new FdbScriptLexer(input);
         TokenStream tokens = new CommonTokenStream(lexer);
         FdbScriptParser parser = new FdbScriptParser(tokens);
 
-        visitor.visit(parser.programDeclaration());
+        visitor.visit(parser.programDeclaration()).emit();
 
-        System.out.println("Done");
+        //System.out.println("Done");
     }
 
     /*

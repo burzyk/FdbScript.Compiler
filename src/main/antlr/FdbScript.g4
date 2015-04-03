@@ -4,6 +4,10 @@
 module Fib
 
     fibAcc = f(n, acc):
+        x = 2 + 2 * 2
+        y = (2 + 2) * 2
+        z = x + y
+
         (n == -0 || n == 7) -> acc
         _ -> fibAcc(n - 1, acc * n)
 
