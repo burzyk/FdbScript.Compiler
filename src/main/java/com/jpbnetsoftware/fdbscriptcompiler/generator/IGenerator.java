@@ -9,6 +9,10 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
+    ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs);
+
+    ICodeBlock generateBoolPrimitive(boolean value);
+
     ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs);
 
     ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs);

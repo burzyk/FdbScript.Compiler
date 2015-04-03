@@ -15,7 +15,7 @@ public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
         String program = "module Fib " +
-                "(2 + 2) * 2 > 8 * 9 ";
+                "2 + 2 * 2 == (2 + 2) * 2";
 
 
         FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JavaGenerator());

@@ -77,11 +77,28 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitEqualityExpression(@NotNull FdbScriptParser.EqualityExpressionContext ctx) {
+
+        if (ctx.equalityOperand().size() == 2) {
+            return this.generator.generateEqualityTest(
+                    this.visitEqualityOperand(ctx.equalityOperand(0)),
+                    ctx.EQ() != null,
+                    this.visitEqualityOperand(ctx.equalityOperand(1)));
+        }
+
         return super.visitEqualityExpression(ctx);
     }
 
     @Override
     public ICodeBlock visitEqualityOperand(@NotNull FdbScriptParser.EqualityOperandContext ctx) {
+
+        if (ctx.TRUE() != null) {
+            return this.generator.generateBoolPrimitive(true);
+        }
+
+        if (ctx.FALSE() != null) {
+            return this.generator.generateBoolPrimitive(false);
+        }
+
         return super.visitEqualityOperand(ctx);
     }
 

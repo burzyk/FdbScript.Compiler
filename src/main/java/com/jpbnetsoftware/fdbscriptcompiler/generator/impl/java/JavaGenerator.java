@@ -18,6 +18,16 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
+    public ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs) {
+        return new EqualityTestCodeBlock(lhs, testEqual, rhs, System.out);
+    }
+
+    @Override
+    public ICodeBlock generateBoolPrimitive(boolean value) {
+        return new BoolPrimitiveCodeBlock(value, System.out);
+    }
+
+    @Override
     public ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs) {
         return new CompareCodeBlock(lhs, operation, rhs, System.out);
     }

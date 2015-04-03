@@ -73,6 +73,7 @@ equalityOperand
     | stringExpression
     | computedExpression
     | mathExpression
+    | compareExpression
     ;
 
 compareExpression
