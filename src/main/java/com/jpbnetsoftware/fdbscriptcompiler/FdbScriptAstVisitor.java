@@ -116,4 +116,9 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     public ICodeBlock visitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx) {
         return super.visitStringExpression(ctx);
     }
+
+    @Override
+    protected ICodeBlock aggregateResult(ICodeBlock aggregate, ICodeBlock nextResult) {
+        return nextResult == null ? aggregate : nextResult;
+    }
 }
