@@ -2,10 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler;
 
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptBaseVisitor;
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.CompareOperation;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.IGenerator;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;
@@ -72,6 +69,26 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitBooleanExpression(@NotNull FdbScriptParser.BooleanExpressionContext ctx) {
+
+        if (ctx.TRUE() != null) {
+            return this.generator.generateBoolPrimitive(true);
+        }
+
+        if (ctx.FALSE() != null) {
+            return this.generator.generateBoolPrimitive(false);
+        }
+
+        if (ctx.booleanExpression().size() == 2) {
+            BooleanOperation operation =
+                    ctx.AND() != null ? BooleanOperation.And :
+                            ctx.OR() != null ? BooleanOperation.Or : null;
+
+            return this.generator.generateBoolean(
+                    this.visitBooleanExpression(ctx.booleanExpression(0)),
+                    operation,
+                    this.visitBooleanExpression(ctx.booleanExpression(1)));
+        }
+
         return super.visitBooleanExpression(ctx);
     }
 

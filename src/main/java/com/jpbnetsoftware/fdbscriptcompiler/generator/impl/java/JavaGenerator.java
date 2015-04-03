@@ -1,9 +1,6 @@
 package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.CompareOperation;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.IGenerator;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
 
 import java.util.List;
 
@@ -15,6 +12,11 @@ public class JavaGenerator implements IGenerator {
     @Override
     public ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
         return new ModuleCodeBlock(name, assignments, expression, System.out);
+    }
+
+    @Override
+    public ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
+        return new BooleanCodeBlock(lhs, operation, rhs, System.out);
     }
 
     @Override
