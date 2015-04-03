@@ -2,6 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler;
 
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptBaseVisitor;
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.CompareOperation;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.IGenerator;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
@@ -86,6 +87,20 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx) {
+
+        if (ctx.mathExpression().size() == 2) {
+            CompareOperation operation =
+                    ctx.GE() != null ? CompareOperation.GreaterEqual :
+                            ctx.GT() != null ? CompareOperation.GreaterThan :
+                                    ctx.LE() != null ? CompareOperation.LessEqual :
+                                            ctx.LT() != null ? CompareOperation.LessThan : null;
+
+            return this.generator.generateCompare(
+                    this.visitMathExpression(ctx.mathExpression(0)),
+                    operation,
+                    this.visitMathExpression(ctx.mathExpression(1)));
+        }
+
         return super.visitCompareExpression(ctx);
     }
 

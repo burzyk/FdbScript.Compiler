@@ -9,6 +9,8 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
+    ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs);
+
     ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs);
 
     ICodeBlock generateString(String text);
