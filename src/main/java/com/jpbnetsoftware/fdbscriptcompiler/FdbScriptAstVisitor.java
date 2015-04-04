@@ -44,7 +44,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
         String name = ctx.ID().toString();
         ICodeBlock expression = this.visitExpression(ctx.expression());
-        ICodeBlock definition = this.generator.generateDefinition(name, expression);
+        IDefinitionCodeBlock definition = this.generator.generateDefinition(name, expression);
 
         this.scope.getCurrentScope().addDefinition(name, definition);
 
@@ -53,12 +53,31 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitFunctionDeclaration(@NotNull FdbScriptParser.FunctionDeclarationContext ctx) {
+
+        // TODO: define 'self()'
         return super.visitFunctionDeclaration(ctx);
     }
 
     @Override
     public ICodeBlock visitInvokeExpression(@NotNull FdbScriptParser.InvokeExpressionContext ctx) {
-        return super.visitInvokeExpression(ctx);
+
+        String name = ctx.ID().toString();
+        IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(name);
+        List<ICodeBlock> arguments = new ArrayList<ICodeBlock>();
+
+        for (FdbScriptParser.ExpressionContext e : ctx.expression()) {
+            arguments.add(this.visitExpression(e));
+        }
+
+        if (definition == null) {
+            System.out.println("Unable to find definition of: " + ctx.ID());
+        }
+
+        if (definition.getType() != BlockType.Function) {
+            System.out.println(ctx.ID() + " is not a function");
+        }
+
+        return this.generator.generateInvoke(definition, arguments);
     }
 
     @Override
@@ -89,7 +108,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     public ICodeBlock visitComputedExpression(@NotNull FdbScriptParser.ComputedExpressionContext ctx) {
 
         if (ctx.ID() != null) {
-            ICodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
+            IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
 
             if (definition == null) {
                 System.out.println("Unable to find definition of: " + ctx.ID());

@@ -15,6 +15,11 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
+    public ICodeBlock generateInvoke(IDefinitionCodeBlock definition, List<ICodeBlock> arguments) {
+        return new InvokeCodeBlock(definition, arguments, System.out);
+    }
+
+    @Override
     public ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression) {
         return new IfCodeBlock(conditions, elseExpression, System.out);
     }
@@ -30,13 +35,13 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateDefinition(String name, ICodeBlock expression) {
+    public IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression) {
         return new DefinitionCodeBlock(name, expression, System.out);
     }
 
     @Override
-    public ICodeBlock generateDefinitionInvoke(ICodeBlock definition) {
-        return new DefinitionInvokeCodeBlock((DefinitionCodeBlock) definition, System.out);
+    public ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition) {
+        return new DefinitionInvokeCodeBlock(definition, System.out);
     }
 
     @Override

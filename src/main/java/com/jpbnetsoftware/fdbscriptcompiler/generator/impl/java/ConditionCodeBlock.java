@@ -32,11 +32,6 @@ public class ConditionCodeBlock implements ICodeBlock {
 
     @Override
     public BlockType getType() {
-
-        if (this.condition.getType() != BlockType.Boolean) {
-            this.out.println("Invalid type");
-        }
-
         return this.expression.getType();
     }
 }

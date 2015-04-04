@@ -10,18 +10,18 @@ public class Scope {
 
     private Scope parent;
 
-    private Map<String, ICodeBlock> definitions = new HashMap<String, ICodeBlock>();
+    private Map<String, IDefinitionCodeBlock> definitions = new HashMap<String, IDefinitionCodeBlock>();
 
     public Scope(Scope parent) {
         this.parent = parent;
     }
 
-    public ICodeBlock findDefinition(String name) {
-        ICodeBlock block = this.definitions.getOrDefault(name, null);
+    public IDefinitionCodeBlock findDefinition(String name) {
+        IDefinitionCodeBlock block = this.definitions.getOrDefault(name, null);
         return block != null ? block : this.parent != null ? this.parent.findDefinition(name) : null;
     }
 
-    public void addDefinition(String name, ICodeBlock definition) {
+    public void addDefinition(String name, IDefinitionCodeBlock definition) {
         this.definitions.put(name, definition);
     }
 

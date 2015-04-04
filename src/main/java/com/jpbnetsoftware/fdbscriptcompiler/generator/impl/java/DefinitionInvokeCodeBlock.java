@@ -2,6 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
 import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.IDefinitionCodeBlock;
 
 import java.io.PrintStream;
 
@@ -10,11 +11,11 @@ import java.io.PrintStream;
  */
 public class DefinitionInvokeCodeBlock implements ICodeBlock {
 
-    private DefinitionCodeBlock definition;
+    private IDefinitionCodeBlock definition;
 
     private PrintStream out;
 
-    public DefinitionInvokeCodeBlock(DefinitionCodeBlock definition, PrintStream out) {
+    public DefinitionInvokeCodeBlock(IDefinitionCodeBlock definition, PrintStream out) {
         this.definition = definition;
         this.out = out;
     }

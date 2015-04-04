@@ -34,18 +34,6 @@ public class IfCodeBlock implements ICodeBlock {
 
     @Override
     public BlockType getType() {
-        BlockType t = this.conditions.get(0).getType();
-
-        for (ICodeBlock c : this.conditions) {
-            if (c.getType() != t) {
-                this.out.println("Invalid type");
-            }
-        }
-
-        if (this.elseBlock.getType() != t) {
-            this.out.println("Invalid type");
-        }
-
-        return t;
+        return this.elseBlock.getType();
     }
 }
