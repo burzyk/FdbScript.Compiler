@@ -27,6 +27,10 @@ public class DefinitionCodeBlock implements IDefinitionCodeBlock {
         return this.name;
     }
 
+    public ICodeBlock getExpression() {
+        return this.expression;
+    }
+
     @Override
     public void emit() {
         this.out.print(BlockTypeTranslator.getJavaTypeName(this.getType()) + " " + name);

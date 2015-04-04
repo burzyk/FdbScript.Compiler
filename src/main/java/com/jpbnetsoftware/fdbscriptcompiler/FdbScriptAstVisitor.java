@@ -4,6 +4,7 @@ import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptBaseVisitor;
 import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,27 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     @Override
     public ICodeBlock visitFunctionDeclaration(@NotNull FdbScriptParser.FunctionDeclarationContext ctx) {
 
-        // TODO: define 'self()'
-        return super.visitFunctionDeclaration(ctx);
+        this.scope.pushScope();
+
+        for (TerminalNode arg : ctx.ID()) {
+            String name = arg.toString();
+
+            this.scope.getCurrentScope().addDefinition(name, this.generator.generateArgumentDefinition(name));
+        }
+
+        this.scope.getCurrentScope().addDefinition("self", this.generator.generateSelfDefinition());
+
+        List<ICodeBlock> definitions = new ArrayList<ICodeBlock>();
+
+        for (FdbScriptParser.DefinitionExpressionContext d : ctx.definitionExpression()) {
+            definitions.add(this.visitDefinitionExpression(d));
+        }
+
+        IFunctionCodeBlock func = this.generator.generateFunction(definitions, this.visitExpression(ctx.expression()));
+
+        this.scope.popScope();
+
+        return func;
     }
 
     @Override

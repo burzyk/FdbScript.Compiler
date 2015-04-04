@@ -3,6 +3,7 @@ package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by pawel on 03/04/15.
@@ -12,6 +13,39 @@ public class JavaGenerator implements IGenerator {
     @Override
     public ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
         return new ModuleCodeBlock(name, assignments, expression, System.out);
+    }
+
+    @Override
+    public IFunctionCodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression) {
+
+        String randomName = "Util_" + UUID.randomUUID().toString().replace("-", "").substring(0, 4);
+
+        System.out.print(
+                " class " +
+                        randomName +
+                        " { public " +
+                        BlockTypeTranslator.getJavaTypeName(expression.getType()) +
+                        " invoke(...) { ");
+
+        for (ICodeBlock b : assignments) {
+            b.emit();
+        }
+
+        System.out.print(" return ");
+        expression.emit();
+        System.out.print("; } }");
+
+        return new FunctionCodeBlock(randomName, expression.getType(), System.out);
+    }
+
+    @Override
+    public IDefinitionCodeBlock generateArgumentDefinition(String name) {
+        return new DefinitionCodeBlock(name, null, System.out);
+    }
+
+    @Override
+    public IDefinitionCodeBlock generateSelfDefinition() {
+        return new DefinitionCodeBlock("this", null, System.out);
     }
 
     @Override

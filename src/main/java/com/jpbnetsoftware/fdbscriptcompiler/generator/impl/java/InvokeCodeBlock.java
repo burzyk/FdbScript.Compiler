@@ -33,7 +33,7 @@ public class InvokeCodeBlock implements ICodeBlock {
         for (ICodeBlock arg : this.arguments) {
             arg.emit();
 
-            if(this.arguments.indexOf(arg) != this.arguments.size() - 1) {
+            if (this.arguments.indexOf(arg) != this.arguments.size() - 1) {
                 this.out.print(", ");
             }
         }
@@ -43,6 +43,6 @@ public class InvokeCodeBlock implements ICodeBlock {
 
     @Override
     public BlockType getType() {
-        return null;
+        return ((FunctionCodeBlock) ((DefinitionCodeBlock) this.definition).getExpression()).getFunctionType();
     }
 }
