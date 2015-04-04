@@ -9,7 +9,7 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
-    IFunctionCodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression);
+    ICodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression);
 
     IDefinitionCodeBlock generateArgumentDefinition(String name);
 

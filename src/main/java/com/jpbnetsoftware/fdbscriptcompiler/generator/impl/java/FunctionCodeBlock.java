@@ -2,14 +2,13 @@ package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
 import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.IFunctionCodeBlock;
 
 import java.io.PrintStream;
 
 /**
  * Created by pawel on 04/04/15.
  */
-public class FunctionCodeBlock implements IFunctionCodeBlock {
+public class FunctionCodeBlock implements ICodeBlock {
 
     private String name;
 
@@ -33,7 +32,6 @@ public class FunctionCodeBlock implements IFunctionCodeBlock {
         return BlockType.Function;
     }
 
-    @Override
     public BlockType getFunctionType() {
         return this.type;
     }

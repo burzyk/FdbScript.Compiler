@@ -16,7 +16,7 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
-    public IFunctionCodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression) {
+    public ICodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression) {
 
         String randomName = "Util_" + UUID.randomUUID().toString().replace("-", "").substring(0, 4);
 

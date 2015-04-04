@@ -71,7 +71,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
             definitions.add(this.visitDefinitionExpression(d));
         }
 
-        IFunctionCodeBlock func = this.generator.generateFunction(definitions, this.visitExpression(ctx.expression()));
+        ICodeBlock func = this.generator.generateFunction(definitions, this.visitExpression(ctx.expression()));
 
         this.scope.popScope();
 
