@@ -15,6 +15,21 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
+    public ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression) {
+        return new IfCodeBlock(conditions, elseExpression, System.out);
+    }
+
+    @Override
+    public ICodeBlock generateCondition(ICodeBlock booleanExpression, ICodeBlock expression) {
+        return new ConditionCodeBlock(booleanExpression, expression, System.out);
+    }
+
+    @Override
+    public ICodeBlock generateElse(ICodeBlock expression) {
+        return new ElseCodeBlock(expression, System.out);
+    }
+
+    @Override
     public ICodeBlock generateDefinition(String name, ICodeBlock expression) {
         return new DefinitionCodeBlock(name, expression, System.out);
     }

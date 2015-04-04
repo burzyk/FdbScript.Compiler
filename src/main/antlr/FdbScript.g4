@@ -29,7 +29,7 @@ functionDeclaration : 'f' '(' (ID (',' ID)* )? ')' ':' (definitionExpression)* e
 
 invokeExpression : ID '(' (expression (',' expression)* )? ')' ;
 
-ifExpression : (conditionClause)+ (elseClause)? ;
+ifExpression : (conditionClause)+ (elseClause) ;
 
 conditionClause : '(' booleanExpression ')' '->' expression ;
 

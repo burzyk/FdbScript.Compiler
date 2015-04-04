@@ -9,6 +9,12 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
+    ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression);
+
+    ICodeBlock generateCondition(ICodeBlock booleanExpression, ICodeBlock expression);
+
+    ICodeBlock generateElse(ICodeBlock expression);
+
     ICodeBlock generateDefinition(String name, ICodeBlock expression);
 
     ICodeBlock generateDefinitionInvoke(ICodeBlock definition);

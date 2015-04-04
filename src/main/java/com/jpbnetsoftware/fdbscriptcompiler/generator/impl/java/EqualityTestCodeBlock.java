@@ -41,6 +41,11 @@ public class EqualityTestCodeBlock implements ICodeBlock {
 
     @Override
     public BlockType getType() {
+
+        if (this.lhs.getType() != this.rhs.getType()) {
+            this.out.println("Invalid type");
+        }
+
         return BlockType.Boolean;
     }
 }

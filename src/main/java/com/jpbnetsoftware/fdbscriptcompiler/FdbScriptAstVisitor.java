@@ -63,17 +63,26 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitIfExpression(@NotNull FdbScriptParser.IfExpressionContext ctx) {
-        return super.visitIfExpression(ctx);
+
+        List<ICodeBlock> conditions = new ArrayList<ICodeBlock>();
+
+        for (FdbScriptParser.ConditionClauseContext c : ctx.conditionClause()) {
+            conditions.add(this.visitConditionClause(c));
+        }
+
+        return this.generator.generateIf(conditions, this.visitElseClause(ctx.elseClause()));
     }
 
     @Override
     public ICodeBlock visitConditionClause(@NotNull FdbScriptParser.ConditionClauseContext ctx) {
-        return super.visitConditionClause(ctx);
+        return this.generator.generateCondition(
+                this.visitBooleanExpression(ctx.booleanExpression()),
+                this.visitExpression(ctx.expression()));
     }
 
     @Override
     public ICodeBlock visitElseClause(@NotNull FdbScriptParser.ElseClauseContext ctx) {
-        return super.visitElseClause(ctx);
+        return this.generator.generateElse(this.visitExpression(ctx.expression()));
     }
 
     @Override

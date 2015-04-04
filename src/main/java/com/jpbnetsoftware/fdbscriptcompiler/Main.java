@@ -15,7 +15,12 @@ public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
         String program = "module Fib\n" +
+                "    a = 8" +
+                "    l = (6 == a) -> 7 ( 8 == a) -> 8 * 8 _ -> 1" +
                 "    x = 8\n" +
+                "    y = 2 + 2 * 2" +
+                "    z = x + y + \"ala\"" +
+                "    w = x == y" +
                 "    2 + x + \"ala\"";
 
 
