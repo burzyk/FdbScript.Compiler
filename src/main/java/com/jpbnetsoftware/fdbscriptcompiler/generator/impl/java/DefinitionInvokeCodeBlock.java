@@ -1,5 +1,6 @@
 package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
+import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
 
 import java.io.PrintStream;
@@ -21,5 +22,10 @@ public class DefinitionInvokeCodeBlock implements ICodeBlock {
     @Override
     public void emit() {
         this.out.print(this.definition.getName());
+    }
+
+    @Override
+    public BlockType getType() {
+        return this.definition.getType();
     }
 }

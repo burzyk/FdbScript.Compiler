@@ -1,5 +1,6 @@
 package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
+import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
 
 import java.io.PrintStream;
@@ -21,5 +22,10 @@ public class NumberCodeBlock implements ICodeBlock {
     @Override
     public void emit() {
         out.print(this.number);
+    }
+
+    @Override
+    public BlockType getType() {
+        return BlockType.Number;
     }
 }

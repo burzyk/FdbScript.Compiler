@@ -1,5 +1,6 @@
 package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
+import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
 
@@ -50,5 +51,10 @@ public class MathCodeBlock implements ICodeBlock {
         this.rhs.emit();
 
         this.out.print(")");
+    }
+
+    @Override
+    public BlockType getType() {
+        return BlockType.Number;
     }
 }

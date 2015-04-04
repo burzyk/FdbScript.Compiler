@@ -1,5 +1,6 @@
 package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
+import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
 
 import java.io.PrintStream;
@@ -29,7 +30,7 @@ public class ModuleCodeBlock implements ICodeBlock {
     public void emit() {
 
         this.out.println("class " + this.name + " {");
-        this.out.println("    public Object main() {");
+        this.out.println("    public " + BlockTypeTranslator.getJavaTypeName(this.getType()) + " main() {");
 
         for (ICodeBlock cb : this.assignments) {
             cb.emit();
@@ -40,5 +41,10 @@ public class ModuleCodeBlock implements ICodeBlock {
         this.out.println(";");
         this.out.println("    }");
         this.out.println("}");
+    }
+
+    @Override
+    public BlockType getType() {
+        return this.expression.getType();
     }
 }

@@ -16,7 +16,7 @@ public class Main {
 
         String program = "module Fib\n" +
                 "    x = 8\n" +
-                "    2 + x";
+                "    2 + x + \"ala\"";
 
 
         FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JavaGenerator());
