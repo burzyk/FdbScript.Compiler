@@ -22,13 +22,13 @@ public class FdbScriptParser extends Parser {
 		DIV=20, MUL=21, TRUE=22, FALSE=23, STRING=24, NUMBER=25, ID=26, MODULEID=27, 
 		WS=28;
 	public static final int
-		RULE_programDeclaration = 0, RULE_assignmentExpression = 1, RULE_functionDeclaration = 2, 
+		RULE_programDeclaration = 0, RULE_definitionExpression = 1, RULE_functionDeclaration = 2, 
 		RULE_invokeExpression = 3, RULE_ifExpression = 4, RULE_conditionClause = 5, 
 		RULE_elseClause = 6, RULE_expression = 7, RULE_computedExpression = 8, 
 		RULE_booleanExpression = 9, RULE_equalityExpression = 10, RULE_equalityOperand = 11, 
 		RULE_compareExpression = 12, RULE_mathExpression = 13, RULE_stringExpression = 14;
 	public static final String[] ruleNames = {
-		"programDeclaration", "assignmentExpression", "functionDeclaration", "invokeExpression", 
+		"programDeclaration", "definitionExpression", "functionDeclaration", "invokeExpression", 
 		"ifExpression", "conditionClause", "elseClause", "expression", "computedExpression", 
 		"booleanExpression", "equalityExpression", "equalityOperand", "compareExpression", 
 		"mathExpression", "stringExpression"
@@ -98,11 +98,11 @@ public class FdbScriptParser extends Parser {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode MODULEID() { return getToken(FdbScriptParser.MODULEID, 0); }
-		public List<AssignmentExpressionContext> assignmentExpression() {
-			return getRuleContexts(AssignmentExpressionContext.class);
+		public List<DefinitionExpressionContext> definitionExpression() {
+			return getRuleContexts(DefinitionExpressionContext.class);
 		}
-		public AssignmentExpressionContext assignmentExpression(int i) {
-			return getRuleContext(AssignmentExpressionContext.class,i);
+		public DefinitionExpressionContext definitionExpression(int i) {
+			return getRuleContext(DefinitionExpressionContext.class,i);
 		}
 		public ProgramDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -150,7 +150,7 @@ public class FdbScriptParser extends Parser {
 					{
 					{
 					setState(34); 
-					assignmentExpression();
+					definitionExpression();
 					}
 					} 
 				}
@@ -173,33 +173,33 @@ public class FdbScriptParser extends Parser {
 		return _localctx;
 	}
 
-	public static class AssignmentExpressionContext extends ParserRuleContext {
+	public static class DefinitionExpressionContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(FdbScriptParser.ID, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public AssignmentExpressionContext(ParserRuleContext parent, int invokingState) {
+		public DefinitionExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_assignmentExpression; }
+		@Override public int getRuleIndex() { return RULE_definitionExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof FdbScriptListener ) ((FdbScriptListener)listener).enterAssignmentExpression(this);
+			if ( listener instanceof FdbScriptListener ) ((FdbScriptListener)listener).enterDefinitionExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof FdbScriptListener ) ((FdbScriptListener)listener).exitAssignmentExpression(this);
+			if ( listener instanceof FdbScriptListener ) ((FdbScriptListener)listener).exitDefinitionExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FdbScriptVisitor ) return ((FdbScriptVisitor<? extends T>)visitor).visitAssignmentExpression(this);
+			if ( visitor instanceof FdbScriptVisitor ) return ((FdbScriptVisitor<? extends T>)visitor).visitDefinitionExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final AssignmentExpressionContext assignmentExpression() throws RecognitionException {
-		AssignmentExpressionContext _localctx = new AssignmentExpressionContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_assignmentExpression);
+	public final DefinitionExpressionContext definitionExpression() throws RecognitionException {
+		DefinitionExpressionContext _localctx = new DefinitionExpressionContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_definitionExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -230,11 +230,11 @@ public class FdbScriptParser extends Parser {
 		public TerminalNode ID(int i) {
 			return getToken(FdbScriptParser.ID, i);
 		}
-		public List<AssignmentExpressionContext> assignmentExpression() {
-			return getRuleContexts(AssignmentExpressionContext.class);
+		public List<DefinitionExpressionContext> definitionExpression() {
+			return getRuleContexts(DefinitionExpressionContext.class);
 		}
-		public AssignmentExpressionContext assignmentExpression(int i) {
-			return getRuleContext(AssignmentExpressionContext.class,i);
+		public DefinitionExpressionContext definitionExpression(int i) {
+			return getRuleContext(DefinitionExpressionContext.class,i);
 		}
 		public FunctionDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -304,7 +304,7 @@ public class FdbScriptParser extends Parser {
 					{
 					{
 					setState(60); 
-					assignmentExpression();
+					definitionExpression();
 					}
 					} 
 				}

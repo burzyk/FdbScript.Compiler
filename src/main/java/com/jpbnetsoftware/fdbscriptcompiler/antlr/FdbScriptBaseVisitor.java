@@ -25,7 +25,7 @@ public class FdbScriptBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssignmentExpression(@NotNull FdbScriptParser.AssignmentExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

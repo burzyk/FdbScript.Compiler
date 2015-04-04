@@ -21,11 +21,11 @@ module Fib
 
 grammar FdbScript;
 
-programDeclaration : ('module' MODULEID)? (assignmentExpression)* expression ;
+programDeclaration : ('module' MODULEID)? (definitionExpression)* expression ;
 
-assignmentExpression : ID '=' expression ;
+definitionExpression : ID '=' expression ;
 
-functionDeclaration : 'f' '(' (ID (',' ID)* )? ')' ':' (assignmentExpression)* expression ;
+functionDeclaration : 'f' '(' (ID (',' ID)* )? ')' ':' (definitionExpression)* expression ;
 
 invokeExpression : ID '(' (expression (',' expression)* )? ')' ;
 

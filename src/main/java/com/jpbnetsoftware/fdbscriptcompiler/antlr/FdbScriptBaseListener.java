@@ -29,13 +29,13 @@ public class FdbScriptBaseListener implements FdbScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignmentExpression(@NotNull FdbScriptParser.AssignmentExpressionContext ctx) { }
+	@Override public void enterDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignmentExpression(@NotNull FdbScriptParser.AssignmentExpressionContext ctx) { }
+	@Override public void exitDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

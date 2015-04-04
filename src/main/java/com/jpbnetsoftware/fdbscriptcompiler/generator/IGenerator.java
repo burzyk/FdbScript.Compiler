@@ -9,6 +9,10 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
+    ICodeBlock generateDefinition(String name, ICodeBlock expression);
+
+    ICodeBlock generateDefinitionInvoke(ICodeBlock definition);
+
     ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs);
 
     ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs);

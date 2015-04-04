@@ -15,6 +15,16 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
+    public ICodeBlock generateDefinition(String name, ICodeBlock expression) {
+        return new DefinitionCodeBlock(name, expression, System.out);
+    }
+
+    @Override
+    public ICodeBlock generateDefinitionInvoke(ICodeBlock definition) {
+        return new DefinitionInvokeCodeBlock((DefinitionCodeBlock) definition, System.out);
+    }
+
+    @Override
     public ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
         return new BooleanCodeBlock(lhs, operation, rhs, System.out);
     }

@@ -6,6 +6,7 @@ import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pawel on 30/03/15.
@@ -14,22 +15,40 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     private IGenerator generator;
 
+    private ScopeManager scope;
+
     public FdbScriptAstVisitor(IGenerator generator) {
         this.generator = generator;
+        this.scope = new ScopeManager();
     }
 
     @Override
     public ICodeBlock visitProgramDeclaration(@NotNull FdbScriptParser.ProgramDeclarationContext ctx) {
 
+        this.scope.pushScope();
+
+        List<ICodeBlock> definitions = new ArrayList<ICodeBlock>();
+
+        for (FdbScriptParser.DefinitionExpressionContext d : ctx.definitionExpression()) {
+            definitions.add(this.visitDefinitionExpression(d));
+        }
+
         return generator.generateModule(
                 ctx.MODULEID().toString(),
-                new ArrayList<ICodeBlock>(),
+                definitions,
                 this.visitExpression(ctx.expression()));
     }
 
     @Override
-    public ICodeBlock visitAssignmentExpression(@NotNull FdbScriptParser.AssignmentExpressionContext ctx) {
-        return super.visitAssignmentExpression(ctx);
+    public ICodeBlock visitDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx) {
+
+        String name = ctx.ID().toString();
+        ICodeBlock expression = this.visitExpression(ctx.expression());
+        ICodeBlock definition = this.generator.generateDefinition(name, expression);
+
+        this.scope.getCurrentScope().addDefinition(name, definition);
+
+        return definition;
     }
 
     @Override
@@ -58,12 +77,18 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     }
 
     @Override
-    public ICodeBlock visitExpression(@NotNull FdbScriptParser.ExpressionContext ctx) {
-        return super.visitExpression(ctx);
-    }
-
-    @Override
     public ICodeBlock visitComputedExpression(@NotNull FdbScriptParser.ComputedExpressionContext ctx) {
+
+        if (ctx.ID() != null) {
+            ICodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
+
+            if (definition == null) {
+                System.out.println("Unable to find definition of: " + ctx.ID());
+            }
+
+            return this.generator.generateDefinitionInvoke(definition);
+        }
+
         return super.visitComputedExpression(ctx);
     }
 
@@ -164,7 +189,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     @Override
     public ICodeBlock visitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx) {
 
-        if(ctx.STRING() != null) {
+        if (ctx.STRING() != null) {
             return generator.generateString(ctx.STRING().toString());
         }
 

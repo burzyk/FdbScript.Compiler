@@ -18,11 +18,11 @@ public interface FdbScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgramDeclaration(@NotNull FdbScriptParser.ProgramDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#assignmentExpression}.
+	 * Visit a parse tree produced by {@link FdbScriptParser#definitionExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignmentExpression(@NotNull FdbScriptParser.AssignmentExpressionContext ctx);
+	T visitDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link FdbScriptParser#functionDeclaration}.
 	 * @param ctx the parse tree
