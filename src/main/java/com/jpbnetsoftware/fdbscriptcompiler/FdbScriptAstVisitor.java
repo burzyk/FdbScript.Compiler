@@ -215,7 +215,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     public ICodeBlock visitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx) {
 
         if (ctx.NUMBER() != null) {
-            return generator.generateNumber(Float.parseFloat(ctx.NUMBER().toString()));
+            return generator.generateNumber(Double.parseDouble(ctx.NUMBER().toString()));
         }
 
         if (ctx.mathExpression().size() == 2) {

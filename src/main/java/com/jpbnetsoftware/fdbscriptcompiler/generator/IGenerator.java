@@ -41,5 +41,5 @@ public interface IGenerator {
 
     ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs);
 
-    ICodeBlock generateNumber(float number);
+    ICodeBlock generateNumber(double number);
 }

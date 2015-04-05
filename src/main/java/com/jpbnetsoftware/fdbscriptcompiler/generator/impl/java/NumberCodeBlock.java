@@ -10,11 +10,11 @@ import java.io.PrintStream;
  */
 public class NumberCodeBlock implements ICodeBlock {
 
-    private float number;
+    private double number;
 
     private PrintStream out;
 
-    public NumberCodeBlock(float number, PrintStream out) {
+    public NumberCodeBlock(double number, PrintStream out) {
         this.number = number;
         this.out = out;
     }
