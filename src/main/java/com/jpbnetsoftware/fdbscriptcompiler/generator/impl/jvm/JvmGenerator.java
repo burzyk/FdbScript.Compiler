@@ -72,7 +72,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs) {
-        return null;
+        return new EqualityTestCodeBlock(this.provider, lhs, testEqual, rhs);
     }
 
     @Override

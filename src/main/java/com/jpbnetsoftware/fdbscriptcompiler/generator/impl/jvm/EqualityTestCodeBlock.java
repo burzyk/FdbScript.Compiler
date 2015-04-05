@@ -4,50 +4,56 @@ import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.CompareOperation;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
+import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
 
 /**
  * Created by pawel on 05/04/15.
  */
-public class CompareCodeBlock implements ICodeBlock {
+public class EqualityTestCodeBlock implements ICodeBlock {
 
     private BytecodeProvider provider;
 
     private ICodeBlock lhs;
 
-    private CompareOperation operation;
+    private boolean testEqual;
 
     private ICodeBlock rhs;
 
-    public CompareCodeBlock(BytecodeProvider provider, ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs) {
+    public EqualityTestCodeBlock(BytecodeProvider provider, ICodeBlock lhs, boolean testEqual, ICodeBlock rhs) {
         this.provider = provider;
         this.lhs = lhs;
-        this.operation = operation;
+        this.testEqual = testEqual;
         this.rhs = rhs;
     }
 
     @Override
     public void emit() {
         InstructionList il = this.provider.getInstructionList();
+        InstructionFactory factory = this.provider.getInstructionFactory();
 
         this.lhs.emit();
         this.rhs.emit();
 
-        il.append(InstructionConstants.DCMPL);
+        if (this.lhs.getType() == BlockType.Boolean) {
+            il.append(InstructionConstants.ISUB);
+        } else if (this.lhs.getType() == BlockType.Number) {
+            il.append(InstructionConstants.DCMPL);
+        } else if (this.lhs.getType() == BlockType.String) {
+            il.append(factory.createInvoke("java.lang.String",
+                    "compareTo",
+                    Type.INT,
+                    new Type[]{Type.STRING},
+                    Constants.INVOKEVIRTUAL));
+        } else {
+            // TODO: throw error
+        }
 
         InstructionHandle iconst_1 = il.append(InstructionConstants.ICONST_1);
         InstructionHandle iconst_0 = il.append(InstructionConstants.ICONST_0);
         InstructionHandle ifFalse = il.append(InstructionConstants.NOP);
 
-        IfInstruction jmp =
-                this.operation == CompareOperation.GreaterEqual ? new IFLT(iconst_0) :
-                        this.operation == CompareOperation.GreaterThan ? new IFLE(iconst_0) :
-                                this.operation == CompareOperation.LessEqual ? new IFGT(iconst_0) :
-                                        this.operation == CompareOperation.LessThan ? new IFGE(iconst_0) :
-                                                null;
-        // TODO: if jmp null then error
-
-        il.insert(iconst_1, jmp);
+        il.insert(iconst_1, this.testEqual ? new IFNE(iconst_0) : new IFEQ(iconst_0));
         il.insert(iconst_0, new GOTO(ifFalse));
     }
 
