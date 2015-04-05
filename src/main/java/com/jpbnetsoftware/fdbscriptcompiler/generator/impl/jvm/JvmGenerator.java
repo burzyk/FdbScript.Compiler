@@ -77,7 +77,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateBoolPrimitive(boolean value) {
-        return null;
+        return new BoolPrimitiveCodeBlock(this.provider, value);
     }
 
     @Override
