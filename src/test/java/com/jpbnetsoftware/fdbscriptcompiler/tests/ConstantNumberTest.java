@@ -1,5 +1,6 @@
 package com.jpbnetsoftware.fdbscriptcompiler.tests;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,5 @@ public class ConstantNumberTest {
 
     @Test
     public void simpleNumber() {
-
     }
 }

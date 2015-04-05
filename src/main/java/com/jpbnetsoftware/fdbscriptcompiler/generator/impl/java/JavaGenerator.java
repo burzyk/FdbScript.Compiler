@@ -11,7 +11,7 @@ import java.util.UUID;
 public class JavaGenerator implements IGenerator {
 
     @Override
-    public ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
+    public IModuleCodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
         return new ModuleCodeBlock(name, assignments, expression, System.out);
     }
 

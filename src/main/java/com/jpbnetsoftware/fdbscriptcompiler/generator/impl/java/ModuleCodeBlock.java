@@ -2,6 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
 
 import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.IModuleCodeBlock;
 
 import java.io.PrintStream;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by pawel on 03/04/15.
  */
-public class ModuleCodeBlock implements ICodeBlock {
+public class ModuleCodeBlock implements IModuleCodeBlock {
 
     private String name;
 
@@ -46,5 +47,10 @@ public class ModuleCodeBlock implements ICodeBlock {
     @Override
     public BlockType getType() {
         return this.expression.getType();
+    }
+
+    @Override
+    public byte[] getCompilationResult() {
+        return new byte[0];
     }
 }

@@ -2,6 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm;
 
 import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscriptcompiler.generator.IModuleCodeBlock;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by pawel on 05/04/15.
  */
-public class ModuleCodeBlock implements ICodeBlock {
+public class ModuleCodeBlock implements IModuleCodeBlock {
 
     private BytecodeProvider provider;
 
@@ -19,6 +20,8 @@ public class ModuleCodeBlock implements ICodeBlock {
     private List<ICodeBlock> definitions;
 
     private ICodeBlock expression;
+
+    private ClassGen moduleClass;
 
     public ModuleCodeBlock(BytecodeProvider provider, String name, List<ICodeBlock> definitions, ICodeBlock expression) {
         this.provider = provider;
@@ -31,14 +34,14 @@ public class ModuleCodeBlock implements ICodeBlock {
     @Override
     public void emit() {
         Type returnType = BlockTypeTranslator.getJavaTypeName(this.getType());
-        ClassGen cg = new ClassGen(
+        this.moduleClass = new ClassGen(
                 this.name,
                 "java.lang.Object",
                 "<generated>",
                 Constants.ACC_PUBLIC | Constants.ACC_SUPER,
                 null);
 
-        this.provider.setConstantPoolGen(cg.getConstantPool());
+        this.provider.setConstantPoolGen(this.moduleClass.getConstantPool());
         this.provider.setInstructionList(new InstructionList());
 
         MethodGen mg = new MethodGen(
@@ -51,7 +54,7 @@ public class ModuleCodeBlock implements ICodeBlock {
                 this.provider.getInstructionList(),
                 this.provider.getConstantPoolGen());
 
-        this.provider.setInstructionFactory(new InstructionFactory(cg));
+        this.provider.setInstructionFactory(new InstructionFactory(this.moduleClass));
 
         for (ICodeBlock d : this.definitions) {
             d.emit();
@@ -66,19 +69,18 @@ public class ModuleCodeBlock implements ICodeBlock {
         this.provider.getInstructionList().append(returnInstruction);
 
         mg.setMaxStack();
-        cg.addMethod(mg.getMethod());
+        this.moduleClass.addMethod(mg.getMethod());
         this.provider.getInstructionList().dispose(); // Allow instruction handles to be reused
-        cg.addEmptyConstructor(Constants.ACC_PUBLIC);
-
-        try {
-            cg.getJavaClass().dump(this.name + ".class");
-        } catch (java.io.IOException e) {
-            System.err.println(e);
-        }
+        this.moduleClass.addEmptyConstructor(Constants.ACC_PUBLIC);
     }
 
     @Override
     public BlockType getType() {
         return this.expression.getType();
+    }
+
+    @Override
+    public byte[] getCompilationResult() {
+        return this.moduleClass.getJavaClass().getBytes();
     }
 }

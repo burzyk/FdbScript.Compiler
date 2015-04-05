@@ -16,7 +16,7 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
+    public IModuleCodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
         return new ModuleCodeBlock(this.provider, name, assignments, expression);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface IGenerator {
 
-    ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
+    IModuleCodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
     ICodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression);
 
