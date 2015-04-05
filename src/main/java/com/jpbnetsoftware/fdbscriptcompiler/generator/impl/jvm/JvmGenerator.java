@@ -82,7 +82,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs) {
-        return null;
+        return new CompareCodeBlock(this.provider, lhs, operation, rhs);
     }
 
     @Override

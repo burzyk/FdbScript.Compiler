@@ -2,8 +2,8 @@
 
 class Test {
 
-	public String ttt(String a) {
-		return "12" + a;
+	public boolean ttt(double a, double b) {
+		return a >= b;
 	}
 
 	public static void main(String[] args) {
