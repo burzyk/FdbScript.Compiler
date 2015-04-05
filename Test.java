@@ -2,8 +2,8 @@
 
 class Test {
 
-	public double ttt() {
-		return 3.0;
+	public String ttt(String a) {
+		return "12" + a;
 	}
 
 	public static void main(String[] args) {

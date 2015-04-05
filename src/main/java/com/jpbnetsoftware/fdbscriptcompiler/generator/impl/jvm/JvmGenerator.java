@@ -87,7 +87,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs) {
-        return null;
+        return new StringConcatCodeBlock(this.provider, lhs, rhs);
     }
 
     @Override
