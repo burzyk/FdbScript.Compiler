@@ -15,7 +15,7 @@ public class Main {
     public static void main(String [] args) throws ClassNotFoundException {
 
         String program = "module Fib\n" +
-                "    3";
+                " \"ala ma kota\"";
 
 
         FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JvmGenerator());

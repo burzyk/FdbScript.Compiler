@@ -238,7 +238,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     public ICodeBlock visitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx) {
 
         if (ctx.STRING() != null) {
-            return generator.generateString(ctx.STRING().toString());
+            return generator.generateString(ctx.STRING().toString().replace("\"", ""));
         }
 
         if (ctx.PLUS() != null) {

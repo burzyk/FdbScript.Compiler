@@ -62,7 +62,7 @@ public class ModuleCodeBlock implements ICodeBlock {
         Instruction returnInstruction =
                 returnType == Type.DOUBLE ? InstructionConstants.DRETURN :
                         returnType == Type.BOOLEAN ? InstructionConstants.IRETURN : InstructionConstants.ARETURN;
-        
+
         this.provider.getInstructionList().append(returnInstruction);
 
         mg.setMaxStack();

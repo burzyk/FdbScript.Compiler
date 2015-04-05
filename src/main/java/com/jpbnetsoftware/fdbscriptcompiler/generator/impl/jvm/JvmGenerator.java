@@ -92,12 +92,12 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateString(String text) {
-        return null;
+        return new StringCodeBlock(this.provider, text);
     }
 
     @Override
     public ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs) {
-        return null;
+        return new MathCodeBlock(this.provider, lhs, operation, rhs);
     }
 
     @Override
