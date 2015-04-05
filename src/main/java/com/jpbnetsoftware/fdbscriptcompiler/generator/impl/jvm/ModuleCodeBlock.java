@@ -2,7 +2,7 @@ package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm;
 
 import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
-import com.sun.org.apache.bcel.internal.Constants;
+import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
 
 import java.util.List;
