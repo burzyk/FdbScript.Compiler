@@ -27,37 +27,15 @@ public class StringConcatCodeBlock implements ICodeBlock {
         InstructionList il = this.provider.getInstructionList();
         InstructionFactory factory = this.provider.getInstructionFactory();
 
-        il.append(factory.createNew(new ObjectType("java.lang.StringBuilder")));
-        il.append(InstructionConstants.DUP);
-        il.append(factory.createInvoke(
-                "java.lang.StringBuilder",
-                "<init>",
-                Type.VOID,
-                new Type[]{},
-                Constants.INVOKESPECIAL));
-
         this.lhs.emit();
-        il.append(factory.createInvoke(
-                "java.lang.StringBuilder",
-                "append",
-                new ObjectType("java.lang.StringBuilder"),
-                new Type[]{Type.OBJECT},
-                Constants.INVOKEVIRTUAL));
-
         this.rhs.emit();
-        il.append(factory.createInvoke(
-                "java.lang.StringBuilder",
-                "append",
-                new ObjectType("java.lang.StringBuilder"),
-                new Type[]{Type.OBJECT},
-                Constants.INVOKEVIRTUAL));
 
         il.append(factory.createInvoke(
-                "java.lang.StringBuilder",
-                "toString",
-                Type.STRING,
-                new Type[]{},
-                Constants.INVOKEVIRTUAL));
+                "com.jpbnetsoftware.fdbscript.runtime.StringRuntime",
+                "concat",
+                Type.OBJECT,
+                new Type[]{Type.OBJECT, Type.OBJECT},
+                Constants.INVOKESTATIC));
     }
 
     @Override
