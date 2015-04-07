@@ -1,6 +1,6 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.java;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
+import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 
 /**
  * Created by pawel on 04/04/15.

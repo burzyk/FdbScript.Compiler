@@ -1,6 +1,6 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.java;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
+import com.jpbnetsoftware.fdbscript.compiler.generator.*;
 
 import java.util.List;
 import java.util.UUID;

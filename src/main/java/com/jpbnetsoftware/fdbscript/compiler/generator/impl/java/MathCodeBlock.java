@@ -1,8 +1,8 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.java;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.java;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
+import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
+import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.MathOperation;
 
 import java.io.PrintStream;
 

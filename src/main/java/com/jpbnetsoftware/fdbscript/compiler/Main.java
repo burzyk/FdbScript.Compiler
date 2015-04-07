@@ -1,7 +1,8 @@
-package com.jpbnetsoftware.fdbscriptcompiler;
+package com.jpbnetsoftware.fdbscript.compiler;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.*;
 
 /**
  * Created by pawel on 30/03/15.

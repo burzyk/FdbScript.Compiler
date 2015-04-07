@@ -1,4 +1,4 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 
 import org.apache.bcel.generic.ConstantPoolGen;
 import org.apache.bcel.generic.InstructionFactory;

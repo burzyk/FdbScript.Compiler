@@ -1,8 +1,8 @@
-package com.jpbnetsoftware.fdbscriptcompiler;
+package com.jpbnetsoftware.fdbscript.compiler;
 
-import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptBaseVisitor;
-import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
+import com.jpbnetsoftware.fdbscript.compiler.antlr.FdbScriptBaseVisitor;
+import com.jpbnetsoftware.fdbscript.compiler.generator.*;
+import com.jpbnetsoftware.fdbscript.compiler.antlr.FdbScriptParser;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.TerminalNode;
 

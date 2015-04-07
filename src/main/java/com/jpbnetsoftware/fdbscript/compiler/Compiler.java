@@ -1,9 +1,9 @@
-package com.jpbnetsoftware.fdbscriptcompiler;
+package com.jpbnetsoftware.fdbscript.compiler;
 
-import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptLexer;
-import com.jpbnetsoftware.fdbscriptcompiler.antlr.FdbScriptParser;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.IModuleCodeBlock;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm.JvmGenerator;
+import com.jpbnetsoftware.fdbscript.compiler.antlr.FdbScriptLexer;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IModuleCodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.antlr.FdbScriptParser;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.JvmGenerator;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;

@@ -1,4 +1,4 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator;
+package com.jpbnetsoftware.fdbscript.compiler.generator;
 
 /**
  * Created by pawel on 05/04/15.

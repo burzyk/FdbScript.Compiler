@@ -1,4 +1,4 @@
-package com.jpbnetsoftware.fdbscriptcompiler.tests;
+package com.jpbnetsoftware.fdbscript.compiler.tests;
 
 import org.junit.Assert;
 import org.junit.Test;

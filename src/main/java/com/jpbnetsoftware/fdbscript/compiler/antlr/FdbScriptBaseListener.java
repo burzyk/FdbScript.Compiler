@@ -1,5 +1,5 @@
 // Generated from /Users/pawel/work/java/FdbScriptCompiler/src/main/antlr/FdbScript.g4 by ANTLR 4.5
-package com.jpbnetsoftware.fdbscriptcompiler.antlr;
+package com.jpbnetsoftware.fdbscript.compiler.antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;

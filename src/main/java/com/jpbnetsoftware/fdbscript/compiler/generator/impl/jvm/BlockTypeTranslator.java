@@ -1,6 +1,6 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
+import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import org.apache.bcel.generic.Type;
 
 /**

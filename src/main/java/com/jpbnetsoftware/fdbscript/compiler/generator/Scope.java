@@ -1,4 +1,4 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator;
+package com.jpbnetsoftware.fdbscript.compiler.generator;
 
 import java.util.HashMap;
 import java.util.Map;

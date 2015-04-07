@@ -1,9 +1,8 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.BlockType;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.CompareOperation;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscriptcompiler.generator.MathOperation;
+import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
+import com.jpbnetsoftware.fdbscript.compiler.generator.CompareOperation;
+import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import org.apache.bcel.generic.*;
 
 /**

@@ -1,6 +1,6 @@
-package com.jpbnetsoftware.fdbscriptcompiler.generator.impl.jvm;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 
-import com.jpbnetsoftware.fdbscriptcompiler.generator.*;
+import com.jpbnetsoftware.fdbscript.compiler.generator.*;
 
 import java.util.List;
 
