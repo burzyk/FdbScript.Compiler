@@ -33,7 +33,6 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
     @Override
     public void emit() {
-        Type returnType = BlockTypeTranslator.getJavaTypeName(this.getType());
         this.moduleClass = new ClassGen(
                 this.name,
                 "java.lang.Object",
@@ -46,7 +45,7 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
         MethodGen mg = new MethodGen(
                 Constants.ACC_PUBLIC, // access flags
-                returnType,               // return type
+                Type.OBJECT,               // return type
                 new Type[]{},
                 new String[]{}, // arg names
                 "invoke",
@@ -62,11 +61,7 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
         this.expression.emit();
 
-        Instruction returnInstruction =
-                returnType == Type.DOUBLE ? InstructionConstants.DRETURN :
-                        returnType == Type.BOOLEAN ? InstructionConstants.IRETURN : InstructionConstants.ARETURN;
-
-        this.provider.getInstructionList().append(returnInstruction);
+        this.provider.getInstructionList().append(InstructionConstants.ARETURN);
 
         mg.setMaxStack();
         this.moduleClass.addMethod(mg.getMethod());

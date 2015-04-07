@@ -3,8 +3,11 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.MathOperation;
+import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionConstants;
+import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
+import org.apache.bcel.generic.Type;
 
 /**
  * Created by pawel on 05/04/15.
@@ -29,24 +32,27 @@ public class MathCodeBlock implements ICodeBlock {
     @Override
     public void emit() {
         InstructionList il = this.provider.getInstructionList();
+        InstructionFactory factory = this.provider.getInstructionFactory();
 
         this.lhs.emit();
         this.rhs.emit();
 
-        switch (this.operation){
-            case Plus:
-                il.append(InstructionConstants.DADD);
-                break;
-            case Minus:
-                il.append(InstructionConstants.DSUB);
-                break;
-            case Mul:
-                il.append(InstructionConstants.DMUL);
-                break;
-            case Div:
-                il.append(InstructionConstants.DDIV);
-                break;
+        String operationMethod =
+                this.operation == MathOperation.Plus ? "add" :
+                        this.operation == MathOperation.Minus ? "sub" :
+                                this.operation == MathOperation.Mul ? "mul" :
+                                        this.operation == MathOperation.Div ? "div" : null;
+
+        if (operationMethod == null) {
+            System.out.println("Unable to find the valid operation");
         }
+
+        il.append(factory.createInvoke(
+                "com.jpbnetsoftware.fdbscript.runtime.MathRuntime",
+                operationMethod,
+                Type.OBJECT,
+                new Type[]{Type.OBJECT, Type.OBJECT},
+                Constants.INVOKESTATIC));
     }
 
     @Override
