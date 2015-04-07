@@ -67,7 +67,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
-        return null;
+        return new BooleanCodeBlock(this.provider, lhs, operation, rhs);
     }
 
     @Override
