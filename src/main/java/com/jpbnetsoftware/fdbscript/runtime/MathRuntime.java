@@ -6,18 +6,18 @@ package com.jpbnetsoftware.fdbscript.runtime;
 public class MathRuntime {
 
     public static Object add(Object lhs, Object rhs) {
-        return Double.valueOf((Double) lhs + (Double) rhs);
+        return (Double) lhs + (Double) rhs;
     }
 
     public static Object sub(Object lhs, Object rhs) {
-        return Double.valueOf((Double) lhs - (Double) rhs);
+        return (Double) lhs - (Double) rhs;
     }
 
     public static Object mul(Object lhs, Object rhs) {
-        return Double.valueOf((Double) lhs * (Double) rhs);
+        return (Double) lhs * (Double) rhs;
     }
 
     public static Object div(Object lhs, Object rhs) {
-        return Double.valueOf((Double) lhs / (Double) rhs);
+        return (Double) lhs / (Double) rhs;
     }
 }
