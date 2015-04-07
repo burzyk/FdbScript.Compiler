@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
 
         String program = "module Fib\n" +
-                " 2 + 2 * 2";
+                " \"ll\" + 2 + 2 * 2 + \"ll\" + \"kk\"";
 
         byte[] bytecode = Compiler.compileModule(program);
         FileOutputStream w = new FileOutputStream("Fib.class");

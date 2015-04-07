@@ -41,7 +41,7 @@ public class StringConcatCodeBlock implements ICodeBlock {
                 "java.lang.StringBuilder",
                 "append",
                 new ObjectType("java.lang.StringBuilder"),
-                new Type[]{BlockTypeTranslator.getJavaTypeName(this.lhs.getType())},
+                new Type[]{Type.OBJECT},
                 Constants.INVOKEVIRTUAL));
 
         this.rhs.emit();
@@ -49,7 +49,7 @@ public class StringConcatCodeBlock implements ICodeBlock {
                 "java.lang.StringBuilder",
                 "append",
                 new ObjectType("java.lang.StringBuilder"),
-                new Type[]{BlockTypeTranslator.getJavaTypeName(this.rhs.getType())},
+                new Type[]{Type.OBJECT},
                 Constants.INVOKEVIRTUAL));
 
         il.append(factory.createInvoke(
