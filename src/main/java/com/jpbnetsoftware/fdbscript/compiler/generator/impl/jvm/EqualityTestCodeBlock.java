@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
+import com.jpbnetsoftware.fdbscript.compiler.generator.CompareOperation;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
@@ -33,26 +34,18 @@ public class EqualityTestCodeBlock implements ICodeBlock {
         this.lhs.emit();
         this.rhs.emit();
 
-        if (this.lhs.getType() == BlockType.Boolean) {
-            il.append(InstructionConstants.ISUB);
-        } else if (this.lhs.getType() == BlockType.Number) {
-            il.append(InstructionConstants.DCMPL);
-        } else if (this.lhs.getType() == BlockType.String) {
-            il.append(factory.createInvoke("java.lang.String",
-                    "compareTo",
-                    Type.INT,
-                    new Type[]{Type.STRING},
-                    Constants.INVOKEVIRTUAL));
-        } else {
-            // TODO: throw error
+        String testMethod = this.testEqual ? "isEqual" : "isNotEqual";
+
+        if (testMethod == null) {
+            System.out.println("Unable to find the valid operation");
         }
 
-        InstructionHandle iconst_1 = il.append(InstructionConstants.ICONST_1);
-        InstructionHandle iconst_0 = il.append(InstructionConstants.ICONST_0);
-        InstructionHandle ifFalse = il.append(InstructionConstants.NOP);
-
-        il.insert(iconst_1, this.testEqual ? new IFNE(iconst_0) : new IFEQ(iconst_0));
-        il.insert(iconst_0, new GOTO(ifFalse));
+        il.append(factory.createInvoke(
+                "com.jpbnetsoftware.fdbscript.runtime.CompareRuntime",
+                testMethod,
+                Type.OBJECT,
+                new Type[]{Type.OBJECT, Type.OBJECT},
+                Constants.INVOKESTATIC));
     }
 
     @Override

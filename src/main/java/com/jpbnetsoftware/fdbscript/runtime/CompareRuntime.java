@@ -20,4 +20,12 @@ public class CompareRuntime {
     public static Object lessEqual(Object lhs, Object rhs) {
         return (Double) lhs <= (Double) rhs;
     }
+
+    public static Object isEqual(Object lhs, Object rhs) {
+        return lhs.equals(rhs);
+    }
+
+    public static Object isNotEqual(Object lhs, Object rhs) {
+        return !lhs.equals(rhs);
+    }
 }
