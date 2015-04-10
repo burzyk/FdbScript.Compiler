@@ -16,7 +16,7 @@ public class JavaGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression) {
+    public ICodeBlock generateFunction(List<ICodeBlock> argumentDefinitions, List<ICodeBlock> definitions, ICodeBlock expression) {
 
         String randomName = "Util_" + UUID.randomUUID().toString().replace("-", "").substring(0, 4);
 
@@ -27,7 +27,7 @@ public class JavaGenerator implements IGenerator {
                         BlockTypeTranslator.getJavaTypeName(expression.getType()) +
                         " invoke(...) { ");
 
-        for (ICodeBlock b : assignments) {
+        for (ICodeBlock b : definitions) {
             b.emit();
         }
 

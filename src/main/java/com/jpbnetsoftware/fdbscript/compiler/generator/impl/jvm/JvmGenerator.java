@@ -4,6 +4,7 @@ import com.jpbnetsoftware.fdbscript.compiler.IOutputManager;
 import com.jpbnetsoftware.fdbscript.compiler.generator.*;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.ClassGenerator;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.JvmFunctionScope;
 
 import java.util.List;
 
@@ -12,39 +13,38 @@ import java.util.List;
  */
 public class JvmGenerator implements IGenerator {
 
-    private BytecodeProvider provider;
-
     private IOutputManager outputManager;
 
-    // Java uses stack to pass parameters to any method
-    // first parameter is 'this', second parameter is always array of objects from IInvokable
-    private int nextVariableId = 2;
+    private JvmFunctionScope scope;
 
     public JvmGenerator(IOutputManager outputManager) {
-        this.provider = new BytecodeProvider();
+        this.scope = new JvmFunctionScope(null);
         this.outputManager = outputManager;
     }
 
     @Override
     public IModuleCodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression) {
-        return new ModuleCodeBlock(this.provider, name, assignments, expression);
+        return new ModuleCodeBlock(this.scope.getProvider(), name, assignments, expression);
     }
 
     @Override
-    public ICodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression) {
+    public ICodeBlock generateFunction(List<ICodeBlock> argumentDefinitions, List<ICodeBlock> definitions, ICodeBlock expression) {
 
         // TODO: class name generator
 
         String functionClassName = "FunctionXXX";
         ClassGenerator classGenerator = ClassGenerator.beginClass(functionClassName);
-        BytecodeProvider parentProvider = this.provider;
 
-        this.provider = new BytecodeProvider();
+        this.scope = new JvmFunctionScope(this.scope);
 
-        this.provider.setInstructionFactory(classGenerator.getInstructionFactory());
-        this.provider.setInstructionList(classGenerator.getInstructionList());
+        this.scope.getProvider().setInstructionFactory(classGenerator.getInstructionFactory());
+        this.scope.getProvider().setInstructionList(classGenerator.getInstructionList());
 
-        for (ICodeBlock d : assignments) {
+        for (ICodeBlock d : argumentDefinitions) {
+            d.emit();
+        }
+
+        for (ICodeBlock d : definitions) {
             d.emit();
         }
 
@@ -59,34 +59,34 @@ public class JvmGenerator implements IGenerator {
             e.printStackTrace();
         }
 
-        this.provider = parentProvider;
+        this.scope = this.scope.getParent();
 
-        return new FunctionCodeBlock(this.provider, functionClassName, expression.getType());
+        return new FunctionCodeBlock(this.scope.getProvider(), functionClassName, expression.getType());
     }
 
     @Override
     public IDefinitionCodeBlock generateArgumentDefinition(String name) {
-        return null;
+        return new ArgumentDefinitionCodeBlock(this.scope.getProvider(), this.scope.getNextArgumentId(), name);
     }
 
     @Override
     public IDefinitionCodeBlock generateSelfDefinition() {
-        return null;
+        return new SelfDefinitionCodeBlock(this.scope.getProvider(), 0, "self");
     }
 
     @Override
     public ICodeBlock generateInvoke(IDefinitionCodeBlock definition, List<ICodeBlock> arguments) {
-        return null;
+        return new InvokeCodeBlock(this.scope.getProvider(), definition, arguments);
     }
 
     @Override
     public ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression) {
-        return new IfCodeBlock(this.provider, conditions, elseExpression);
+        return new IfCodeBlock(this.scope.getProvider(), conditions, elseExpression);
     }
 
     @Override
     public ICodeBlock generateCondition(ICodeBlock booleanExpression, ICodeBlock expression) {
-        return new ConditionCodeBlock(this.provider, booleanExpression, expression);
+        return new ConditionCodeBlock(this.scope.getProvider(), booleanExpression, expression);
     }
 
     @Override
@@ -96,51 +96,51 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression) {
-        return new DefinitionCodeBlock(this.provider, this.nextVariableId++, name, expression);
+        return new DefinitionCodeBlock(this.scope.getProvider(), this.scope.getNextVariableId(), name, expression);
     }
 
     @Override
     public ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition) {
-        return new DefinitionInvokeCodeBlock(this.provider, definition);
+        return new DefinitionInvokeCodeBlock(this.scope.getProvider(), definition);
     }
 
     @Override
     public ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
-        return new BooleanCodeBlock(this.provider, lhs, operation, rhs);
+        return new BooleanCodeBlock(this.scope.getProvider(), lhs, operation, rhs);
     }
 
     @Override
     public ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs) {
-        return new EqualityTestCodeBlock(this.provider, lhs, testEqual, rhs);
+        return new EqualityTestCodeBlock(this.scope.getProvider(), lhs, testEqual, rhs);
     }
 
     @Override
     public ICodeBlock generateBoolPrimitive(boolean value) {
-        return new BoolPrimitiveCodeBlock(this.provider, value);
+        return new BoolPrimitiveCodeBlock(this.scope.getProvider(), value);
     }
 
     @Override
     public ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs) {
-        return new CompareCodeBlock(this.provider, lhs, operation, rhs);
+        return new CompareCodeBlock(this.scope.getProvider(), lhs, operation, rhs);
     }
 
     @Override
     public ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs) {
-        return new StringConcatCodeBlock(this.provider, lhs, rhs);
+        return new StringConcatCodeBlock(this.scope.getProvider(), lhs, rhs);
     }
 
     @Override
     public ICodeBlock generateString(String text) {
-        return new StringCodeBlock(this.provider, text);
+        return new StringCodeBlock(this.scope.getProvider(), text);
     }
 
     @Override
     public ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs) {
-        return new MathCodeBlock(this.provider, lhs, operation, rhs);
+        return new MathCodeBlock(this.scope.getProvider(), lhs, operation, rhs);
     }
 
     @Override
     public ICodeBlock generateNumber(double number) {
-        return new NumberCodeBlock(this.provider, number);
+        return new NumberCodeBlock(this.scope.getProvider(), number);
     }
 }

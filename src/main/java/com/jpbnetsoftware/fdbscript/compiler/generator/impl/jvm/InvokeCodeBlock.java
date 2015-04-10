@@ -3,39 +3,37 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.java.*;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.java.DefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
-import org.apache.bcel.generic.ALOAD;
-import org.apache.bcel.generic.InstructionList;
+
+import java.io.PrintStream;
+import java.util.List;
 
 /**
  * Created by pawel on 10/04/15.
  */
-public class DefinitionInvokeCodeBlock implements ICodeBlock {
+public class InvokeCodeBlock implements ICodeBlock {
 
     private BytecodeProvider provider;
 
     private IDefinitionCodeBlock definition;
 
-    public DefinitionInvokeCodeBlock(BytecodeProvider provider, IDefinitionCodeBlock definition) {
+    private List<ICodeBlock> arguments;
+
+    public InvokeCodeBlock(BytecodeProvider provider, IDefinitionCodeBlock definition, List<ICodeBlock> arguments) {
         this.provider = provider;
         this.definition = definition;
+        this.arguments = arguments;
     }
 
     @Override
     public void emit() {
-        InstructionList il = this.provider.getInstructionList();
-
-        if(!(this.definition instanceof BaseDefinitionCodeBlock)) {
-            // TODO : throw exception
-        }
-
-        int variableId = ((BaseDefinitionCodeBlock)this.definition).getVariableId();
-
-        il.append(new ALOAD(variableId));
+        // TODO: emit invoke that accepts array as parameter
     }
 
     @Override
     public BlockType getType() {
-        return this.definition.getType();
+        return BlockType.Any;
     }
 }

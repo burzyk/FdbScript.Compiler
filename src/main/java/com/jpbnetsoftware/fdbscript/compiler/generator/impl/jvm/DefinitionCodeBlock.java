@@ -10,33 +10,14 @@ import org.apache.bcel.generic.InstructionList;
 /**
  * Created by pawel on 10/04/15.
  */
-public class DefinitionCodeBlock implements IDefinitionCodeBlock {
-
-    private BytecodeProvider provider;
-
-    private int variableId;
-
-    private String name;
+public class DefinitionCodeBlock extends BaseDefinitionCodeBlock {
 
     private ICodeBlock expression;
 
     public DefinitionCodeBlock(BytecodeProvider provider, int variableId, String name, ICodeBlock expression) {
-        this.provider = provider;
-        this.variableId = variableId;
-        this.name = name;
+        super(provider, variableId, name);
+
         this.expression = expression;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getVariableId() {
-        return this.variableId;
-    }
-
-    public ICodeBlock getExpression() {
-        return this.expression;
     }
 
     @Override

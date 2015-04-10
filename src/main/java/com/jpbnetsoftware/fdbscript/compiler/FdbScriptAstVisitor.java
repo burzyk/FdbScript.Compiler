@@ -57,13 +57,17 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
         this.scope.pushScope();
 
+        this.scope.getCurrentScope().addDefinition("self", this.generator.generateSelfDefinition());
+
+        List<ICodeBlock> argumentDefinitions = new ArrayList<ICodeBlock>();
+
         for (TerminalNode arg : ctx.ID()) {
             String name = arg.toString();
+            IDefinitionCodeBlock definition = this.generator.generateArgumentDefinition(name);
 
-            this.scope.getCurrentScope().addDefinition(name, this.generator.generateArgumentDefinition(name));
+            argumentDefinitions.add(definition);
+            this.scope.getCurrentScope().addDefinition(name, definition);
         }
-
-        this.scope.getCurrentScope().addDefinition("self", this.generator.generateSelfDefinition());
 
         List<ICodeBlock> definitions = new ArrayList<ICodeBlock>();
 
@@ -71,7 +75,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
             definitions.add(this.visitDefinitionExpression(d));
         }
 
-        ICodeBlock func = this.generator.generateFunction(definitions, this.visitExpression(ctx.expression()));
+        ICodeBlock func = this.generator.generateFunction(argumentDefinitions, definitions, this.visitExpression(ctx.expression()));
 
         this.scope.popScope();
 
