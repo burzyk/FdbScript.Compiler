@@ -46,17 +46,17 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression) {
-        return null;
+        return new IfCodeBlock(this.provider, conditions, elseExpression);
     }
 
     @Override
     public ICodeBlock generateCondition(ICodeBlock booleanExpression, ICodeBlock expression) {
-        return null;
+        return new ConditionCodeBlock(this.provider, booleanExpression, expression);
     }
 
     @Override
     public ICodeBlock generateElse(ICodeBlock expression) {
-        return null;
+        return new ElseCodeBlock(expression);
     }
 
     @Override
