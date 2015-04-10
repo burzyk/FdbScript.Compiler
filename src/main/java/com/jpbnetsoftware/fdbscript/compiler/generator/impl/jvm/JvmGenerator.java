@@ -12,7 +12,7 @@ public class JvmGenerator implements IGenerator {
     private BytecodeProvider provider;
 
     // Java uses stack to pass parameters to any method
-    // first parameter is 'this', second parameter is always array of objects from IInvokeable
+    // first parameter is 'this', second parameter is always array of objects from IInvokable
     private int nextVariableId = 2;
 
     public JvmGenerator() {

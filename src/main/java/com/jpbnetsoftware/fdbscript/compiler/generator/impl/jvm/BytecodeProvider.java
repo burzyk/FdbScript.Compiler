@@ -9,8 +9,6 @@ import org.apache.bcel.generic.InstructionList;
  */
 public class BytecodeProvider {
 
-    private ConstantPoolGen constantPoolGen;
-
     private InstructionList instructionList;
 
     private InstructionFactory instructionFactory;
@@ -29,13 +27,5 @@ public class BytecodeProvider {
 
     public void setInstructionList(InstructionList instructionList) {
         this.instructionList = instructionList;
-    }
-
-    public ConstantPoolGen getConstantPoolGen() {
-        return constantPoolGen;
-    }
-
-    public void setConstantPoolGen(ConstantPoolGen constantPoolGen) {
-        this.constantPoolGen = constantPoolGen;
     }
 }

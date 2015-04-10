@@ -21,7 +21,7 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
     private ICodeBlock expression;
 
-    private ClassGen moduleClass;
+    private byte[] compilationResult;
 
     public ModuleCodeBlock(BytecodeProvider provider, String name, List<ICodeBlock> definitions, ICodeBlock expression) {
         this.provider = provider;
@@ -30,30 +30,12 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
         this.expression = expression;
     }
 
-
     @Override
     public void emit() {
-        this.moduleClass = new ClassGen(
-                this.name,
-                "java.lang.Object",
-                "<generated>",
-                Constants.ACC_PUBLIC | Constants.ACC_SUPER,
-                null);
+        ClassGenerator classGenerator = ClassGenerator.beginClass(this.name);
 
-        this.provider.setConstantPoolGen(this.moduleClass.getConstantPool());
-        this.provider.setInstructionList(new InstructionList());
-
-        MethodGen mg = new MethodGen(
-                Constants.ACC_PUBLIC, // access flags
-                Type.OBJECT,               // return type
-                new Type[]{new ArrayType(Type.OBJECT, 1)},
-                new String[]{"args"}, // arg names
-                "invoke",
-                this.name,    // method, class
-                this.provider.getInstructionList(),
-                this.provider.getConstantPoolGen());
-
-        this.provider.setInstructionFactory(new InstructionFactory(this.moduleClass));
+        this.provider.setInstructionFactory(classGenerator.getInstructionFactory());
+        this.provider.setInstructionList(classGenerator.getInstructionList());
 
         for (ICodeBlock d : this.definitions) {
             d.emit();
@@ -63,11 +45,7 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
         this.provider.getInstructionList().append(InstructionConstants.ARETURN);
 
-        mg.setMaxStack();
-        mg.setMaxLocals();
-        this.moduleClass.addMethod(mg.getMethod());
-        this.provider.getInstructionList().dispose(); // Allow instruction handles to be reused
-        this.moduleClass.addEmptyConstructor(Constants.ACC_PUBLIC);
+        this.compilationResult = classGenerator.endClass();
     }
 
     @Override
@@ -77,6 +55,6 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
     @Override
     public byte[] getCompilationResult() {
-        return this.moduleClass.getJavaClass().getBytes();
+        return this.compilationResult;
     }
 }
