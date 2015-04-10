@@ -11,7 +11,11 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
 
         String program = "module Fib\n" +
-                " 3 != 5 || 7 == 8";
+                " x = 4" +
+                " y = 9" +
+                " z = 10" +
+
+                " 3";
 
         byte[] bytecode = Compiler.compileModule(program);
         FileOutputStream w = new FileOutputStream("Fib.class");

@@ -46,8 +46,8 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
         MethodGen mg = new MethodGen(
                 Constants.ACC_PUBLIC, // access flags
                 Type.OBJECT,               // return type
-                new Type[]{},
-                new String[]{}, // arg names
+                new Type[]{new ArrayType(Type.OBJECT, 1)},
+                new String[]{"args"}, // arg names
                 "invoke",
                 this.name,    // method, class
                 this.provider.getInstructionList(),
@@ -64,6 +64,7 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
         this.provider.getInstructionList().append(InstructionConstants.ARETURN);
 
         mg.setMaxStack();
+        mg.setMaxLocals();
         this.moduleClass.addMethod(mg.getMethod());
         this.provider.getInstructionList().dispose(); // Allow instruction handles to be reused
         this.moduleClass.addEmptyConstructor(Constants.ACC_PUBLIC);

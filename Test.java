@@ -2,12 +2,13 @@
 
 class Test {
 
-	public boolean ttt(double a, double b) {
-		return a >= b;
+	public Object ttt(Object []args) {
+		Double x = Double.valueOf(4);
+		return Double.valueOf(3);
 	}
 
 	public static void main(String[] args) {
 		Fib f = new Fib();
-		System.out.println(f.invoke());
+		System.out.println(f.invoke(null));
 	}
 }

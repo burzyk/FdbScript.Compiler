@@ -11,6 +11,10 @@ public class JvmGenerator implements IGenerator {
 
     private BytecodeProvider provider;
 
+    // Java uses stack to pass parameters to any method
+    // first parameter is 'this', second parameter is always array of objects from IInvokeable
+    private int nextVariableId = 2;
+
     public JvmGenerator() {
         this.provider = new BytecodeProvider();
     }
@@ -57,7 +61,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression) {
-        return null;
+        return new DefinitionCodeBlock(this.provider, this.nextVariableId++, name, expression);
     }
 
     @Override
