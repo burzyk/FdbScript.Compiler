@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.generic.InstructionFactory;
@@ -15,12 +14,9 @@ public class FunctionCodeBlock implements ICodeBlock {
 
     private String name;
 
-    private BlockType type;
-
-    public FunctionCodeBlock(BytecodeProvider provider, String name, BlockType type) {
+    public FunctionCodeBlock(BytecodeProvider provider, String name) {
         this.provider = provider;
         this.name = name;
-        this.type = type;
     }
 
     @Override
@@ -29,10 +25,5 @@ public class FunctionCodeBlock implements ICodeBlock {
         InstructionFactory factory = this.provider.getInstructionFactory();
 
         il.append(factory.createNew(this.name));
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.type;
     }
 }

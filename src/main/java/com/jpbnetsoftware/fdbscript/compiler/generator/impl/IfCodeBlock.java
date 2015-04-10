@@ -1,9 +1,11 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
-import org.apache.bcel.generic.*;
+import org.apache.bcel.generic.GOTO;
+import org.apache.bcel.generic.InstructionHandle;
+import org.apache.bcel.generic.InstructionList;
+import org.apache.bcel.generic.NOP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +43,5 @@ public class IfCodeBlock implements ICodeBlock {
         for (InstructionHandle jumpToEndPlaceholder : jumpToEndPlaceholders) {
             il.insert(jumpToEndPlaceholder, new GOTO(endInstruction));
         }
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.elseBlock.getType();
     }
 }

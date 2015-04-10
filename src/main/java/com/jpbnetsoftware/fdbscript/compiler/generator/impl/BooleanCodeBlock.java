@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BooleanOperation;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
@@ -51,10 +50,5 @@ public class BooleanCodeBlock implements ICodeBlock {
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},
                 Constants.INVOKESTATIC));
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Boolean;
     }
 }

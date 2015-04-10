@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.MathOperation;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
@@ -53,10 +52,5 @@ public class MathCodeBlock implements ICodeBlock {
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},
                 Constants.INVOKESTATIC));
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Number;
     }
 }

@@ -1,8 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
-import com.jpbnetsoftware.fdbscript.compiler.generator.IModuleCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IModuleCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ClassGenerator;
 
@@ -44,11 +43,6 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
         this.expression.emit();
 
         this.compilationResult = classGenerator.endClass();
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.expression.getType();
     }
 
     @Override

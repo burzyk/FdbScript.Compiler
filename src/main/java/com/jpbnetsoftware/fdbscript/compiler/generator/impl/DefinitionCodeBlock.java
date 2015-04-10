@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.generic.ASTORE;
@@ -26,10 +25,5 @@ public class DefinitionCodeBlock extends BaseDefinitionCodeBlock {
         this.expression.emit();
 
         il.append(new ASTORE(this.variableId));
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.expression.getType();
     }
 }

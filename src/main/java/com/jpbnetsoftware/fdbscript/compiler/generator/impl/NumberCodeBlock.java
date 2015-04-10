@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
@@ -35,10 +34,5 @@ public class NumberCodeBlock implements ICodeBlock {
                 new ObjectType("java.lang.Double"),
                 new Type[]{Type.DOUBLE},
                 Constants.INVOKESTATIC));
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Number;
     }
 }

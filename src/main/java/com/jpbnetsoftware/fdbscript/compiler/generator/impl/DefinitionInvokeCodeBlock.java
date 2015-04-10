@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
@@ -32,10 +31,5 @@ public class DefinitionInvokeCodeBlock implements ICodeBlock {
         int variableId = ((BaseDefinitionCodeBlock)this.definition).getVariableId();
 
         il.append(new ALOAD(variableId));
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.definition.getType();
     }
 }

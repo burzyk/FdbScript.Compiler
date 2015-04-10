@@ -97,10 +97,6 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
             System.out.println("Unable to find definition of: " + ctx.ID());
         }
 
-        if (definition.getType() != BlockType.Function) {
-            System.out.println(ctx.ID() + " is not a function");
-        }
-
         return this.generator.generateInvoke(definition, arguments);
     }
 

@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 
 /**
@@ -17,10 +16,5 @@ public class ElseCodeBlock implements ICodeBlock {
     @Override
     public void emit() {
         this.expression.emit();
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.expression.getType();
     }
 }

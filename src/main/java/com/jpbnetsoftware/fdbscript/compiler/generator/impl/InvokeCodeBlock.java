@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
@@ -27,10 +26,5 @@ public class InvokeCodeBlock implements ICodeBlock {
     @Override
     public void emit() {
         // TODO: emit invoke that accepts array as parameter
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Any;
     }
 }

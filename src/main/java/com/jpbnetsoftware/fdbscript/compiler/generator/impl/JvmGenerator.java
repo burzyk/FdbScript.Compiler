@@ -60,7 +60,7 @@ public class JvmGenerator implements IGenerator {
 
         this.scope = this.scope.getParent();
 
-        return new FunctionCodeBlock(this.scope.getProvider(), functionClassName, expression.getType());
+        return new FunctionCodeBlock(this.scope.getProvider(), functionClassName);
     }
 
     @Override

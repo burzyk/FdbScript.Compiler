@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 
 /**
@@ -16,10 +15,5 @@ public class SelfDefinitionCodeBlock extends BaseDefinitionCodeBlock {
     public void emit() {
         // TODO: throw on invoke
         // empty
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Any;
     }
 }

@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
@@ -32,10 +31,5 @@ public class BoolPrimitiveCodeBlock implements ICodeBlock {
                 new ObjectType("java.lang.Boolean"),
                 new Type[]{Type.BOOLEAN},
                 Constants.INVOKESTATIC));
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Boolean;
     }
 }

@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
@@ -44,11 +43,6 @@ public class ConditionCodeBlock implements ICodeBlock {
         InstructionHandle endPlaceholder = il.append(new NOP());
 
         il.insert(comparePlaceholder, new IFEQ(endPlaceholder));
-    }
-
-    @Override
-    public BlockType getType() {
-        return this.expression.getType();
     }
 
     public InstructionHandle getJumpToEndPlaceholder() {

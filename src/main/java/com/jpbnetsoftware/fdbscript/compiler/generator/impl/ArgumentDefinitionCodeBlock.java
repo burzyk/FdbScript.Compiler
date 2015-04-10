@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 
 /**
@@ -16,10 +15,5 @@ public class ArgumentDefinitionCodeBlock extends BaseDefinitionCodeBlock {
     public void emit() {
         // emit bytecode definition which load the argumentId element
         // of the input array into a local variable
-    }
-
-    @Override
-    public BlockType getType() {
-        return BlockType.Any;
     }
 }
