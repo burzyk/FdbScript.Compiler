@@ -3,13 +3,11 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BooleanOperation;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscript.compiler.generator.MathOperation;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.Type;
-
-import java.io.PrintStream;
 
 /**
  * Created by pawel on 07/04/15.

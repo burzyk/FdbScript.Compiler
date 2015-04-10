@@ -3,8 +3,8 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IModuleCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
-import org.apache.bcel.Constants;
-import org.apache.bcel.generic.*;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.ClassGenerator;
 
 import java.util.List;
 
@@ -43,8 +43,6 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
 
         this.expression.emit();
 
-        this.provider.getInstructionList().append(InstructionConstants.ARETURN);
-
         this.compilationResult = classGenerator.endClass();
     }
 
@@ -56,5 +54,10 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
     @Override
     public byte[] getCompilationResult() {
         return this.compilationResult;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 }

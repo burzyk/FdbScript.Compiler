@@ -53,4 +53,9 @@ public class ModuleCodeBlock implements IModuleCodeBlock {
     public byte[] getCompilationResult() {
         return new byte[0];
     }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }

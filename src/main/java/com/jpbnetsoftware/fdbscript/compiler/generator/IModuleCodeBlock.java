@@ -5,4 +5,6 @@ package com.jpbnetsoftware.fdbscript.compiler.generator;
  */
 public interface IModuleCodeBlock extends ICodeBlock {
     byte[] getCompilationResult();
+
+    String getName();
 }

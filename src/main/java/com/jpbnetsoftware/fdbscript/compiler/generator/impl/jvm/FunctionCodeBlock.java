@@ -3,24 +3,24 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
-import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
-import org.apache.bcel.generic.ObjectType;
-import org.apache.bcel.generic.Type;
 
 /**
- * Created by pawel on 05/04/15.
+ * Created by pawel on 10/04/15.
  */
-public class NumberCodeBlock implements ICodeBlock {
+public class FunctionCodeBlock implements ICodeBlock {
 
     private BytecodeProvider provider;
 
-    private double number;
+    private String name;
 
-    public NumberCodeBlock(BytecodeProvider provider, double number) {
+    private BlockType type;
+
+    public FunctionCodeBlock(BytecodeProvider provider, String name, BlockType type) {
         this.provider = provider;
-        this.number = number;
+        this.name = name;
+        this.type = type;
     }
 
     @Override
@@ -28,17 +28,11 @@ public class NumberCodeBlock implements ICodeBlock {
         InstructionList il = this.provider.getInstructionList();
         InstructionFactory factory = this.provider.getInstructionFactory();
 
-        il.append(factory.createConstant(this.number));
-        il.append(factory.createInvoke(
-                "java.lang.Double",
-                "valueOf",
-                new ObjectType("java.lang.Double"),
-                new Type[]{Type.DOUBLE},
-                Constants.INVOKESTATIC));
+        il.append(factory.createNew(this.name));
     }
 
     @Override
     public BlockType getType() {
-        return BlockType.Number;
+        return this.type;
     }
 }

@@ -1,6 +1,9 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 
+import com.jpbnetsoftware.fdbscript.compiler.IOutputManager;
 import com.jpbnetsoftware.fdbscript.compiler.generator.*;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.ClassGenerator;
 
 import java.util.List;
 
@@ -11,12 +14,15 @@ public class JvmGenerator implements IGenerator {
 
     private BytecodeProvider provider;
 
+    private IOutputManager outputManager;
+
     // Java uses stack to pass parameters to any method
     // first parameter is 'this', second parameter is always array of objects from IInvokable
     private int nextVariableId = 2;
 
-    public JvmGenerator() {
+    public JvmGenerator(IOutputManager outputManager) {
         this.provider = new BytecodeProvider();
+        this.outputManager = outputManager;
     }
 
     @Override
@@ -26,7 +32,36 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateFunction(List<ICodeBlock> assignments, ICodeBlock expression) {
-        return null;
+
+        // TODO: class name generator
+
+        String functionClassName = "FunctionXXX";
+        ClassGenerator classGenerator = ClassGenerator.beginClass(functionClassName);
+        BytecodeProvider parentProvider = this.provider;
+
+        this.provider = new BytecodeProvider();
+
+        this.provider.setInstructionFactory(classGenerator.getInstructionFactory());
+        this.provider.setInstructionList(classGenerator.getInstructionList());
+
+        for (ICodeBlock d : assignments) {
+            d.emit();
+        }
+
+        expression.emit();
+
+        byte[] classContent = classGenerator.endClass();
+
+        try {
+            this.outputManager.append(functionClassName, classContent);
+        } catch (Exception e) {
+            //TODO: handle error
+            e.printStackTrace();
+        }
+
+        this.provider = parentProvider;
+
+        return new FunctionCodeBlock(this.provider, functionClassName, expression.getType());
     }
 
     @Override

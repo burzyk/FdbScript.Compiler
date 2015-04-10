@@ -1,10 +1,7 @@
-package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
-
-import java.util.List;
 
 /**
  * Created by pawel on 10/04/15.
@@ -53,6 +50,9 @@ public class ClassGenerator {
     }
 
     public byte[] endClass() {
+
+        this.instructionList.append(InstructionConstants.ARETURN);
+
         this.methodGen.setMaxStack();
         this.methodGen.setMaxLocals();
         this.moduleClass.addMethod(this.methodGen.getMethod());

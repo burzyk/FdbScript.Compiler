@@ -14,9 +14,9 @@ import org.antlr.v4.runtime.TokenStream;
  */
 public class Compiler {
 
-    public static byte[] compileModule(String moduleCode){
+    public static void compileModule(String moduleCode, IOutputManager outputManager) throws Exception {
 
-        FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JvmGenerator());
+        FdbScriptAstVisitor visitor = new FdbScriptAstVisitor(new JvmGenerator(outputManager));
         CharStream input = new ANTLRInputStream(moduleCode);
         FdbScriptLexer lexer = new FdbScriptLexer(input);
         TokenStream tokens = new CommonTokenStream(lexer);
@@ -26,6 +26,6 @@ public class Compiler {
 
         module.emit();
 
-        return module.getCompilationResult();
+        outputManager.append(module.getName(), module.getCompilationResult());
     }
 }

@@ -3,13 +3,9 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm;
 import com.jpbnetsoftware.fdbscript.compiler.generator.BlockType;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.java.*;
-import org.apache.bcel.generic.ALOAD;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.jvm.helpers.BytecodeProvider;
 import org.apache.bcel.generic.ASTORE;
-import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
-
-import java.io.PrintStream;
 
 /**
  * Created by pawel on 10/04/15.
