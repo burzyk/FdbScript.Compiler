@@ -66,7 +66,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition) {
-        return null;
+        return new DefinitionInvokeCodeBlock(this.provider, definition);
     }
 
     @Override

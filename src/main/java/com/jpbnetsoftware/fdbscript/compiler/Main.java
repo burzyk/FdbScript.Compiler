@@ -13,9 +13,9 @@ public class Main {
         String program = "module Fib\n" +
                 " x = 4" +
                 " y = 9" +
-                " z = 10" +
+                " z = x + y" +
 
-                " 3";
+                " z";
 
         byte[] bytecode = Compiler.compileModule(program);
         FileOutputStream w = new FileOutputStream("Fib.class");
