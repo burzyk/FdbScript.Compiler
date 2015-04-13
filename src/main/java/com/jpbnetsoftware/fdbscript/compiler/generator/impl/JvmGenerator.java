@@ -27,10 +27,7 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateFunction(List<ICodeBlock> argumentDefinitions, List<ICodeBlock> definitions, ICodeBlock expression) {
-
-        // TODO: class name generator
-
+    public void beginGenerateFunction() {
         String functionClassName = "FunctionXXX";
         ClassGenerator classGenerator = ClassGenerator.beginClass(functionClassName);
 
@@ -38,6 +35,16 @@ public class JvmGenerator implements IGenerator {
 
         this.scope.getProvider().setInstructionFactory(classGenerator.getInstructionFactory());
         this.scope.getProvider().setInstructionList(classGenerator.getInstructionList());
+        this.scope.setClassGenerator(classGenerator);
+        this.scope.setFunctionClassName(functionClassName);
+    }
+
+    @Override
+    public ICodeBlock generateFunction(List<ICodeBlock> argumentDefinitions, List<ICodeBlock> definitions, ICodeBlock expression) {
+
+        // TODO: class name generator
+        ClassGenerator classGenerator = this.scope.getClassGenerator();
+        String functionClassName = this.scope.getFunctionClassName();
 
         for (ICodeBlock d : argumentDefinitions) {
             d.emit();

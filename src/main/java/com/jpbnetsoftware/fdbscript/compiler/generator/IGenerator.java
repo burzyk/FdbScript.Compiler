@@ -9,6 +9,8 @@ public interface IGenerator {
 
     IModuleCodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
+    void beginGenerateFunction();
+
     ICodeBlock generateFunction(List<ICodeBlock> argumentDefinitions, List<ICodeBlock> definitions, ICodeBlock expression);
 
     IDefinitionCodeBlock generateArgumentDefinition(String name);

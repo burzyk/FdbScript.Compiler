@@ -52,6 +52,7 @@ public class InvokeCodeBlock implements ICodeBlock {
             c.emit();
 
             il.append(new AASTORE());
+            i++;
         }
 
         il.append(factory.createInvoke(

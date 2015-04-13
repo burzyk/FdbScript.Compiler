@@ -11,10 +11,12 @@ public class JvmFunctionScope {
 
     // Java uses stack to pass parameters to any method
     // first parameter is 'this', second parameter is always array of objects from IInvokable
-    private int nextVariableId = 1;
+    private int nextVariableId = 2;
 
     // this is index in the argument array
-    private int nextArgumentId = -1;
+    private int nextArgumentId = 0;
+    private ClassGenerator classGenerator;
+    private String functionClassName;
 
     public JvmFunctionScope(JvmFunctionScope parent) {
         this.parent = parent;
@@ -36,5 +38,21 @@ public class JvmFunctionScope {
 
     public JvmFunctionScope getParent() {
         return parent;
+    }
+
+    public void setClassGenerator(ClassGenerator classGenerator) {
+        this.classGenerator = classGenerator;
+    }
+
+    public ClassGenerator getClassGenerator() {
+        return classGenerator;
+    }
+
+    public void setFunctionClassName(String functionClassName) {
+        this.functionClassName = functionClassName;
+    }
+
+    public String getFunctionClassName() {
+        return functionClassName;
     }
 }
