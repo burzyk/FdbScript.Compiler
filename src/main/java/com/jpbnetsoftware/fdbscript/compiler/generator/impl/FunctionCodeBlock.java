@@ -12,11 +12,11 @@ public class FunctionCodeBlock implements ICodeBlock {
 
     private BytecodeProvider provider;
 
-    private String name;
+    private String className;
 
-    public FunctionCodeBlock(BytecodeProvider provider, String name) {
+    public FunctionCodeBlock(BytecodeProvider provider, String className) {
         this.provider = provider;
-        this.name = name;
+        this.className = className;
     }
 
     @Override
@@ -24,6 +24,10 @@ public class FunctionCodeBlock implements ICodeBlock {
         InstructionList il = this.provider.getInstructionList();
         InstructionFactory factory = this.provider.getInstructionFactory();
 
-        il.append(factory.createNew(this.name));
+        il.append(factory.createNew(this.className));
+    }
+
+    public String getClassName() {
+        return this.className;
     }
 }

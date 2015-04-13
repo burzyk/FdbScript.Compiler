@@ -65,7 +65,12 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public IDefinitionCodeBlock generateArgumentDefinition(String name) {
-        return new ArgumentDefinitionCodeBlock(this.scope.getProvider(), this.scope.getNextArgumentId(), name);
+        return new ArgumentDefinitionCodeBlock(
+                this.scope.getProvider(),
+                1,
+                this.scope.getNextArgumentId(),
+                this.scope.getNextVariableId(),
+                name);
     }
 
     @Override
@@ -75,7 +80,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateInvoke(IDefinitionCodeBlock definition, List<ICodeBlock> arguments) {
-        return new InvokeCodeBlock(this.scope.getProvider(), definition, arguments);
+        return new InvokeCodeBlock(this.scope.getProvider(), this.scope.getNextVariableId(), definition, arguments);
     }
 
     @Override

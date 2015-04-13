@@ -3,11 +3,9 @@
 class Test {
 
 	public Object ttt(Object []args) {
-		Double x = Double.valueOf(3);
-		Double y = Double.valueOf(4);
-		Double z = y + x;
+		Object array = new Object[] { new Double(3), new Double(4) };
 
-		return (z == 1) ? x : (z == 7) ? y : 8;
+		return null;
 	}
 
 	public static void main(String[] args) {
