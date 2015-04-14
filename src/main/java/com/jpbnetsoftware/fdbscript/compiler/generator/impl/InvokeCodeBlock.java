@@ -61,5 +61,6 @@ public class InvokeCodeBlock implements ICodeBlock {
                 Type.OBJECT,
                 new Type[]{new ArrayType(Type.OBJECT, 1)},
                 Constants.INVOKEINTERFACE));
+
     }
 }

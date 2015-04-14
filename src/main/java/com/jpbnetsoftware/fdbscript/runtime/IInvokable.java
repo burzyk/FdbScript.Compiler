@@ -6,5 +6,5 @@ import java.util.Objects;
  * Created by pawel on 07/04/15.
  */
 public interface IInvokable {
-    Objects invoke(Object[] args);
+    Objects invoke(InvokeContext context);
 }

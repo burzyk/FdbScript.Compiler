@@ -9,9 +9,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String program = "module Fib\n" +
-                " add = f(): 3" +
+                " x = 9" +
+                " z = 8" +
                 "" +
-                " add()";
+                " (x + z == 3) -> 4" +
+                " (x + z == 17) -> 5" +
+                " _ -> 10";
 
         Compiler.compileModule(program, new FileOutputManager());
 

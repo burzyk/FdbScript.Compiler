@@ -37,8 +37,8 @@ public class ClassGenerator {
         generator.methodGen = new MethodGen(
                 Constants.ACC_PUBLIC, // access flags
                 Type.OBJECT,               // return type
-                new Type[]{new ArrayType(Type.OBJECT, 1)},
-                new String[]{"args"}, // arg names
+                new Type[]{new ObjectType("com.jpbnetsoftware.fdbscript.runtime.InvokeContext")},
+                new String[]{"context"}, // arg names
                 "invoke",
                 name,    // method, class
                 generator.instructionList,
