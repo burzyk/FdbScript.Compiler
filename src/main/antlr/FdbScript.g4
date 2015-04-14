@@ -31,74 +31,61 @@ invokeExpression : ID '(' (expression (',' expression)* )? ')' ;
 
 ifExpression : (conditionClause)+ (elseClause) ;
 
-conditionClause : '(' booleanExpression ')' '->' expression ;
+conditionClause : '(' expression ')' '->' expression ;
 
 elseClause : '_' '->' expression ;
 
 expression
-    : computedExpression
+    : valueExpression
     | mathExpression
-    | stringExpression
-    | booleanExpression
     | compareExpression
+    | logicalExpression
     ;
 
-computedExpression
+valueExpression
     : ifExpression
     | functionDeclaration
     | invokeExpression
+    | '(' expression ')'
+    | NOT expression
     | ID
-    ;
-
-booleanExpression
-    : '(' booleanExpression ')'
     | TRUE
     | FALSE
-    | booleanExpression AND booleanExpression
-    | booleanExpression OR booleanExpression
-    | computedExpression
-    | compareExpression
-    | equalityExpression
-    ;
-
-equalityExpression
-    : '(' equalityExpression ')'
-    | equalityOperand EQ equalityOperand
-    | equalityOperand NEQ equalityOperand
-    ;
-
-equalityOperand
-    : TRUE
-    | FALSE
-    | stringExpression
-    | computedExpression
-    | mathExpression
-    | compareExpression
-    ;
-
-compareExpression
-    : '(' compareExpression ')'
-    | mathExpression GT mathExpression
-    | mathExpression LT mathExpression
-    | mathExpression GE mathExpression
-    | mathExpression LE mathExpression
+    | NUMBER
+    | STRING
     ;
 
 mathExpression
-    : '(' mathExpression ')'
-    | NUMBER
-    | mathExpression MUL mathExpression
-    | mathExpression DIV mathExpression
-    | mathExpression PLUS mathExpression
-    | mathExpression MINUS mathExpression
-    | computedExpression
+    : multiplicativeExpression
+    | additiveExpression
     ;
 
-stringExpression
-    : STRING
-    | stringExpression PLUS stringExpression
-    | stringExpression PLUS mathExpression
-    | mathExpression PLUS stringExpression
+additiveExpression
+    : additiveExpression PLUS multiplicativeExpression
+    | additiveExpression MINUS multiplicativeExpression
+    | multiplicativeExpression
+    ;
+
+multiplicativeExpression
+    : multiplicativeExpression MUL valueExpression
+    | multiplicativeExpression DIV valueExpression
+    | valueExpression
+    ;
+
+compareExpression
+    : compareExpression EQ mathExpression
+    | compareExpression NEQ mathExpression
+    | compareExpression GT mathExpression
+    | compareExpression LT mathExpression
+    | compareExpression GE mathExpression
+    | compareExpression LE mathExpression
+    | mathExpression
+    ;
+
+logicalExpression
+    : logicalExpression AND compareExpression
+    | logicalExpression OR compareExpression
+    | compareExpression
     ;
 
 EQ : '==' ;
@@ -108,8 +95,10 @@ GE : '>=' ;
 LE : '<=' ;
 NEQ : '!=' ;
 
-AND : '&&' ;
-OR : '||' ;
+AND : 'and' ;
+OR : 'or' ;
+
+NOT : '!' ;
 
 PLUS : '+' ;
 MINUS : '-' ;
