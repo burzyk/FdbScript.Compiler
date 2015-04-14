@@ -26,8 +26,4 @@ public class FunctionCodeBlock implements ICodeBlock {
 
         il.append(factory.createNew(this.className));
     }
-
-    public String getClassName() {
-        return this.className;
-    }
 }

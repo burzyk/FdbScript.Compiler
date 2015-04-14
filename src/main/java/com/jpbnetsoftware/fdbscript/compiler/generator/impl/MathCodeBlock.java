@@ -47,7 +47,7 @@ public class MathCodeBlock implements ICodeBlock {
         }
 
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.MathRuntime",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 operationMethod,
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},

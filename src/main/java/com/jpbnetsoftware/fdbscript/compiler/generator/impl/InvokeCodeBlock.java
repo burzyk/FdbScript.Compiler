@@ -34,6 +34,8 @@ public class InvokeCodeBlock implements ICodeBlock {
         InstructionFactory factory = this.provider.getInstructionFactory();
         int i = 0;
 
+        // TODO: reimplement with IInvokable
+
         if (!(definition instanceof BaseDefinitionCodeBlock)) {
             // TODO: runtime error
         }
@@ -61,6 +63,5 @@ public class InvokeCodeBlock implements ICodeBlock {
                 Type.OBJECT,
                 new Type[]{new ArrayType(Type.OBJECT, 1)},
                 Constants.INVOKEINTERFACE));
-
     }
 }

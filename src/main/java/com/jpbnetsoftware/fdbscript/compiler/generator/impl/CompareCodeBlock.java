@@ -48,7 +48,7 @@ public class CompareCodeBlock implements ICodeBlock {
         }
 
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.CompareRuntime",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 compareMethod,
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},

@@ -33,7 +33,7 @@ public class StringConcatCodeBlock implements ICodeBlock {
         this.rhs.emit();
 
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.StringRuntime",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 "concat",
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},

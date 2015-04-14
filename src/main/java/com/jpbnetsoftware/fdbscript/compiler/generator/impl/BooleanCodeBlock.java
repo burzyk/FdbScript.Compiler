@@ -45,7 +45,7 @@ public class BooleanCodeBlock implements ICodeBlock {
         }
 
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.BooleanRuntime",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 operationMethod,
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},

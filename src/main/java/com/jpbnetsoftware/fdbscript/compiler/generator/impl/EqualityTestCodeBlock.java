@@ -42,7 +42,7 @@ public class EqualityTestCodeBlock implements ICodeBlock {
         }
 
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.CompareRuntime",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 testMethod,
                 Type.OBJECT,
                 new Type[]{Type.OBJECT, Type.OBJECT},
