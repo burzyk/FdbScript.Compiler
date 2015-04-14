@@ -29,4 +29,11 @@ public class StringTests {
 
         Assert.assertEquals("ala ma kota, ola ma asa", result);
     }
+
+    @Test
+    public void concatMathTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test  4 + \"ala\" + 3");
+
+        Assert.assertEquals("4.0ala3.0", result);
+    }
 }
