@@ -115,6 +115,55 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitConditionClause(@NotNull FdbScriptParser.ConditionClauseContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitElseClause(@NotNull FdbScriptParser.ElseClauseContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitExpression(@NotNull FdbScriptParser.ExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitMultiplicativeExpression(@NotNull FdbScriptParser.MultiplicativeExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+    
+    @Override
+    public ICodeBlock visitLogicalExpression(@NotNull FdbScriptParser.LogicalExpressionContext ctx) {
+        return visitChildren(ctx);
+    }
+
+
+
+
+    /*
+    @Override
+    public ICodeBlock visitConditionClause(@NotNull FdbScriptParser.ConditionClauseContext ctx) {
         return this.generator.generateCondition(
                 this.visitBooleanExpression(ctx.booleanExpression()),
                 this.visitExpression(ctx.expression()));
@@ -253,4 +302,6 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     protected ICodeBlock aggregateResult(ICodeBlock aggregate, ICodeBlock nextResult) {
         return nextResult == null ? aggregate : nextResult;
     }
+
+    */
 }

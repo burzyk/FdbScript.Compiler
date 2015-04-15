@@ -89,55 +89,15 @@ public interface FdbScriptListener extends ParseTreeListener {
 	 */
 	void exitExpression(@NotNull FdbScriptParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link FdbScriptParser#computedExpression}.
+	 * Enter a parse tree produced by {@link FdbScriptParser#valueExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterComputedExpression(@NotNull FdbScriptParser.ComputedExpressionContext ctx);
+	void enterValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link FdbScriptParser#computedExpression}.
+	 * Exit a parse tree produced by {@link FdbScriptParser#valueExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitComputedExpression(@NotNull FdbScriptParser.ComputedExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link FdbScriptParser#booleanExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterBooleanExpression(@NotNull FdbScriptParser.BooleanExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link FdbScriptParser#booleanExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitBooleanExpression(@NotNull FdbScriptParser.BooleanExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link FdbScriptParser#equalityExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterEqualityExpression(@NotNull FdbScriptParser.EqualityExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link FdbScriptParser#equalityExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitEqualityExpression(@NotNull FdbScriptParser.EqualityExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link FdbScriptParser#equalityOperand}.
-	 * @param ctx the parse tree
-	 */
-	void enterEqualityOperand(@NotNull FdbScriptParser.EqualityOperandContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link FdbScriptParser#equalityOperand}.
-	 * @param ctx the parse tree
-	 */
-	void exitEqualityOperand(@NotNull FdbScriptParser.EqualityOperandContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link FdbScriptParser#compareExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link FdbScriptParser#compareExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx);
+	void exitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link FdbScriptParser#mathExpression}.
 	 * @param ctx the parse tree
@@ -149,13 +109,43 @@ public interface FdbScriptListener extends ParseTreeListener {
 	 */
 	void exitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link FdbScriptParser#stringExpression}.
+	 * Enter a parse tree produced by {@link FdbScriptParser#additiveExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx);
+	void enterAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link FdbScriptParser#stringExpression}.
+	 * Exit a parse tree produced by {@link FdbScriptParser#additiveExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx);
+	void exitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplicativeExpression(@NotNull FdbScriptParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplicativeExpression(@NotNull FdbScriptParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#compareExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#compareExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#logicalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalExpression(@NotNull FdbScriptParser.LogicalExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#logicalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalExpression(@NotNull FdbScriptParser.LogicalExpressionContext ctx);
 }

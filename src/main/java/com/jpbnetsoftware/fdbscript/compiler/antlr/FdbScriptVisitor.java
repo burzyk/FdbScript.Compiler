@@ -60,35 +60,11 @@ public interface FdbScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(@NotNull FdbScriptParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#computedExpression}.
+	 * Visit a parse tree produced by {@link FdbScriptParser#valueExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComputedExpression(@NotNull FdbScriptParser.ComputedExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#booleanExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBooleanExpression(@NotNull FdbScriptParser.BooleanExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#equalityExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEqualityExpression(@NotNull FdbScriptParser.EqualityExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#equalityOperand}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEqualityOperand(@NotNull FdbScriptParser.EqualityOperandContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#compareExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx);
+	T visitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link FdbScriptParser#mathExpression}.
 	 * @param ctx the parse tree
@@ -96,9 +72,27 @@ public interface FdbScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link FdbScriptParser#stringExpression}.
+	 * Visit a parse tree produced by {@link FdbScriptParser#additiveExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx);
+	T visitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplicativeExpression(@NotNull FdbScriptParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#compareExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#logicalExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalExpression(@NotNull FdbScriptParser.LogicalExpressionContext ctx);
 }
