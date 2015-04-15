@@ -115,58 +115,9 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     @Override
     public ICodeBlock visitConditionClause(@NotNull FdbScriptParser.ConditionClauseContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitElseClause(@NotNull FdbScriptParser.ElseClauseContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitExpression(@NotNull FdbScriptParser.ExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitMultiplicativeExpression(@NotNull FdbScriptParser.MultiplicativeExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-    
-    @Override
-    public ICodeBlock visitLogicalExpression(@NotNull FdbScriptParser.LogicalExpressionContext ctx) {
-        return visitChildren(ctx);
-    }
-
-
-
-
-    /*
-    @Override
-    public ICodeBlock visitConditionClause(@NotNull FdbScriptParser.ConditionClauseContext ctx) {
         return this.generator.generateCondition(
-                this.visitBooleanExpression(ctx.booleanExpression()),
-                this.visitExpression(ctx.expression()));
+                this.visitExpression(ctx.expression(0)),
+                this.visitExpression(ctx.expression(1)));
     }
 
     @Override
@@ -175,7 +126,11 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     }
 
     @Override
-    public ICodeBlock visitComputedExpression(@NotNull FdbScriptParser.ComputedExpressionContext ctx) {
+    public ICodeBlock visitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx) {
+
+        if (ctx.NOT() != null) {
+            // TODO: unimplemented
+        }
 
         if (ctx.ID() != null) {
             IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
@@ -187,12 +142,6 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
             return this.generator.generateDefinitionInvoke(definition);
         }
 
-        return super.visitComputedExpression(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitBooleanExpression(@NotNull FdbScriptParser.BooleanExpressionContext ctx) {
-
         if (ctx.TRUE() != null) {
             return this.generator.generateBoolPrimitive(true);
         }
@@ -201,107 +150,90 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
             return this.generator.generateBoolPrimitive(false);
         }
 
-        if (ctx.booleanExpression().size() == 2) {
-            BooleanOperation operation =
-                    ctx.AND() != null ? BooleanOperation.And :
-                            ctx.OR() != null ? BooleanOperation.Or : null;
+        if (ctx.NUMBER() != null) {
+            return this.generator.generateNumber(Double.parseDouble(ctx.NUMBER().toString()));
+        }
 
-            return this.generator.generateBoolean(
-                    this.visitBooleanExpression(ctx.booleanExpression(0)),
+        if (ctx.STRING() != null) {
+            return this.generator.generateString(ctx.STRING().toString().replace("\"", ""));
+        }
+
+        return super.visitValueExpression(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx) {
+        if (ctx.additiveExpression() != null && ctx.multiplicativeExpression() != null) {
+            MathOperation operation =
+                    ctx.PLUS() != null ? MathOperation.Plus :
+                            ctx.MINUS() != null ? MathOperation.Minus : null;
+
+            return generator.generateMath(
+                    this.visitAdditiveExpression(ctx.additiveExpression()),
                     operation,
-                    this.visitBooleanExpression(ctx.booleanExpression(1)));
+                    this.visitMultiplicativeExpression(ctx.multiplicativeExpression()));
         }
 
-        return super.visitBooleanExpression(ctx);
+        return super.visitAdditiveExpression(ctx);
     }
 
     @Override
-    public ICodeBlock visitEqualityExpression(@NotNull FdbScriptParser.EqualityExpressionContext ctx) {
+    public ICodeBlock visitMultiplicativeExpression(@NotNull FdbScriptParser.MultiplicativeExpressionContext ctx) {
 
-        if (ctx.equalityOperand().size() == 2) {
-            return this.generator.generateEqualityTest(
-                    this.visitEqualityOperand(ctx.equalityOperand(0)),
-                    ctx.EQ() != null,
-                    this.visitEqualityOperand(ctx.equalityOperand(1)));
+        if (ctx.multiplicativeExpression() != null && ctx.valueExpression() != null) {
+            MathOperation operation =
+                    ctx.MUL() != null ? MathOperation.Mul :
+                            ctx.DIV() != null ? MathOperation.Div : null;
+
+            return generator.generateMath(
+                    this.visitMultiplicativeExpression(ctx.multiplicativeExpression()),
+                    operation,
+                    this.visitValueExpression(ctx.valueExpression()));
         }
 
-        return super.visitEqualityExpression(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitEqualityOperand(@NotNull FdbScriptParser.EqualityOperandContext ctx) {
-
-        if (ctx.TRUE() != null) {
-            return this.generator.generateBoolPrimitive(true);
-        }
-
-        if (ctx.FALSE() != null) {
-            return this.generator.generateBoolPrimitive(false);
-        }
-
-        return super.visitEqualityOperand(ctx);
+        return super.visitMultiplicativeExpression(ctx);
     }
 
     @Override
     public ICodeBlock visitCompareExpression(@NotNull FdbScriptParser.CompareExpressionContext ctx) {
 
-        if (ctx.mathExpression().size() == 2) {
+        if (ctx.compareExpression() != null && ctx.mathExpression() != null) {
             CompareOperation operation =
                     ctx.GE() != null ? CompareOperation.GreaterEqual :
                             ctx.GT() != null ? CompareOperation.GreaterThan :
                                     ctx.LE() != null ? CompareOperation.LessEqual :
-                                            ctx.LT() != null ? CompareOperation.LessThan : null;
+                                            ctx.LT() != null ? CompareOperation.LessThan :
+                                                    ctx.EQ() != null ? CompareOperation.Equal :
+                                                            ctx.NEQ() != null ? CompareOperation.NotEqual : null;
 
             return this.generator.generateCompare(
-                    this.visitMathExpression(ctx.mathExpression(0)),
+                    this.visitCompareExpression(ctx.compareExpression()),
                     operation,
-                    this.visitMathExpression(ctx.mathExpression(1)));
+                    this.visitMathExpression(ctx.mathExpression()));
         }
 
-        return super.visitCompareExpression(ctx);
+        return this.visitCompareExpression(ctx);
     }
 
     @Override
-    public ICodeBlock visitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx) {
+    public ICodeBlock visitLogicalExpression(@NotNull FdbScriptParser.LogicalExpressionContext ctx) {
 
-        if (ctx.NUMBER() != null) {
-            return generator.generateNumber(Double.parseDouble(ctx.NUMBER().toString()));
-        }
+        if (ctx.logicalExpression() != null && ctx.compareExpression() != null) {
+            BooleanOperation operation =
+                    ctx.AND() != null ? BooleanOperation.And :
+                            ctx.OR() != null ? BooleanOperation.Or : null;
 
-        if (ctx.mathExpression().size() == 2) {
-            MathOperation operation =
-                    ctx.PLUS() != null ? MathOperation.Plus :
-                            ctx.MINUS() != null ? MathOperation.Minus :
-                                    ctx.MUL() != null ? MathOperation.Mul :
-                                            ctx.DIV() != null ? MathOperation.Div : null;
-
-            return generator.generateMath(
-                    this.visitMathExpression(ctx.mathExpression(0)),
+            return this.generator.generateBoolean(
+                    this.visitLogicalExpression(ctx.logicalExpression()),
                     operation,
-                    this.visitMathExpression(ctx.mathExpression(1)));
+                    this.visitCompareExpression(ctx.compareExpression()));
         }
 
-        return super.visitMathExpression(ctx);
-    }
-
-    @Override
-    public ICodeBlock visitStringExpression(@NotNull FdbScriptParser.StringExpressionContext ctx) {
-
-        if (ctx.STRING() != null) {
-            return generator.generateString(ctx.STRING().toString().replace("\"", ""));
-        }
-
-        if (ctx.PLUS() != null) {
-            return generator.generateStringConcat(this.visit(ctx.getChild(0)), this.visit(ctx.getChild(2)));
-        }
-
-        return super.visitStringExpression(ctx);
+        return super.visitLogicalExpression(ctx);
     }
 
     @Override
     protected ICodeBlock aggregateResult(ICodeBlock aggregate, ICodeBlock nextResult) {
         return nextResult == null ? aggregate : nextResult;
     }
-
-    */
 }

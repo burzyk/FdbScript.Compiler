@@ -41,7 +41,8 @@ public class CompareCodeBlock implements ICodeBlock {
                         this.operation == CompareOperation.GreaterThan ? "greaterThan" :
                                 this.operation == CompareOperation.LessEqual ? "lessEqual" :
                                         this.operation == CompareOperation.LessThan ? "lessThan" :
-                                                null;
+                                                this.operation == CompareOperation.Equal ? "isEqual" :
+                                                        this.operation == CompareOperation.NotEqual ? "isNotEqual" : null;
 
         if (compareMethod == null) {
             System.out.println("Unable to find the valid operation");

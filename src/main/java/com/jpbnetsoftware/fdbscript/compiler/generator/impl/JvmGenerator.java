@@ -121,11 +121,6 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs) {
-        return new EqualityTestCodeBlock(this.scope.getProvider(), lhs, testEqual, rhs);
-    }
-
-    @Override
     public ICodeBlock generateBoolPrimitive(boolean value) {
         return new BoolPrimitiveCodeBlock(this.scope.getProvider(), value);
     }
@@ -133,11 +128,6 @@ public class JvmGenerator implements IGenerator {
     @Override
     public ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs) {
         return new CompareCodeBlock(this.scope.getProvider(), lhs, operation, rhs);
-    }
-
-    @Override
-    public ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs) {
-        return new StringConcatCodeBlock(this.scope.getProvider(), lhs, rhs);
     }
 
     @Override

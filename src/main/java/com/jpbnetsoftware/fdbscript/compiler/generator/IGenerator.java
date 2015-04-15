@@ -31,13 +31,9 @@ public interface IGenerator {
 
     ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs);
 
-    ICodeBlock generateEqualityTest(ICodeBlock lhs, boolean testEqual, ICodeBlock rhs);
-
     ICodeBlock generateBoolPrimitive(boolean value);
 
     ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs);
-
-    ICodeBlock generateStringConcat(ICodeBlock lhs, ICodeBlock rhs);
 
     ICodeBlock generateString(String text);
 

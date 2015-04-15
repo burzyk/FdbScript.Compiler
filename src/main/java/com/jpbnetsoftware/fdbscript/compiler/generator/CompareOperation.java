@@ -7,5 +7,7 @@ public enum CompareOperation {
     GreaterThan,
     LessThan,
     GreaterEqual,
-    LessEqual
+    LessEqual,
+    Equal,
+    NotEqual
 }
