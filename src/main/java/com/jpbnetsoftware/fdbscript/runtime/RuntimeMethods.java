@@ -38,6 +38,16 @@ public class RuntimeMethods {
     }
 
     public static Object add(Object lhs, Object rhs) {
+
+        if (lhs instanceof String || rhs instanceof String) {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(lhs);
+            sb.append(rhs);
+
+            return sb.toString();
+        }
+
         return (Double) lhs + (Double) rhs;
     }
 
@@ -51,14 +61,5 @@ public class RuntimeMethods {
 
     public static Object div(Object lhs, Object rhs) {
         return (Double) lhs / (Double) rhs;
-    }
-
-    public static Object concat(Object lhs, Object rhs) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(lhs);
-        sb.append(rhs);
-
-        return sb.toString();
     }
 }
