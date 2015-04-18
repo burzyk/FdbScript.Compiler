@@ -1,12 +1,12 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
+import org.apache.bcel.Constants;
 import org.apache.bcel.generic.ALOAD;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
+import org.apache.bcel.generic.Type;
 
 /**
  * Created by pawel on 10/04/15.
@@ -21,16 +21,18 @@ public class DefinitionInvokeCodeBlock extends JvmCodeBlock {
 
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
-        if(!(this.definition instanceof BaseDefinitionCodeBlock)) {
-            // TODO : throw exception
-        }
 
-        // TODO: implement
+        // loads the InvokeContext
+        il.append(new ALOAD(1));
 
-        /*
-        int variableId = ((BaseDefinitionCodeBlock)this.definition).getVariableId();
+        // definition name
+        il.append(factory.createConstant(this.definition.getName()));
 
-        il.append(new ALOAD(variableId));
-        */
+        il.append(factory.createInvoke(
+                "com.jpbnetsoftware.fdbscript.runtime.InvokeContext",
+                "getValue",
+                Type.OBJECT,
+                new Type[]{Type.STRING},
+                Constants.INVOKEVIRTUAL));
     }
 }

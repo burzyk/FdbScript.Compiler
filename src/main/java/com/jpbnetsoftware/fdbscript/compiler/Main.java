@@ -8,13 +8,9 @@ import com.jpbnetsoftware.fdbscript.compiler.impl.FileOutputManager;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        String program = "module Fib\n" +
-                " x = 9" +
-                " z = 8" +
-                "" +
-                " (x + z == 3) -> 4" +
-                " (x + z == 17) -> 5" +
-                " _ -> 10";
+        String program = "module Fib " +
+                "one = 1" +
+                "one";
 
         Compiler.compileModule(program, new FileOutputManager());
 
