@@ -72,6 +72,8 @@ public class RuntimeMethods {
             context.defineValue(arguments[i++], arg);
         }
 
+        context.defineValue("self", func);
+
         return func.invoke(context);
     }
 }

@@ -91,6 +91,11 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
+    public IDefinitionCodeBlock generateSelfDefinition() {
+        return new SelfDefinitionCodeBlock();
+    }
+
+    @Override
     public ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition) {
         return new DefinitionInvokeCodeBlock(definition);
     }

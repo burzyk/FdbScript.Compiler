@@ -110,6 +110,6 @@ FALSE : 'false' ;
 
 STRING : '"' ~('\r' | '\n' | '"')* '"' ;
 NUMBER : [+-]?[0-9]+('.'[0-9])? ;
-ID : [a-z][a-zA-Z]* ;
+ID : [a-z][a-zA-Z0-9]* ;
 MODULEID : [A-Z][a-zA-Z]* ;
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines

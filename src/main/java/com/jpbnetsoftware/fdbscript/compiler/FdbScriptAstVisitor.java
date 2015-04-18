@@ -57,6 +57,8 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
         this.scope.pushScope();
 
+        this.scope.getCurrentScope().addDefinition("self", this.generator.generateSelfDefinition());
+
         List<IDefinitionCodeBlock> argumentDefinitions = new ArrayList<IDefinitionCodeBlock>();
 
         for (TerminalNode arg : ctx.ID()) {

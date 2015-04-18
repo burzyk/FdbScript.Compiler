@@ -23,6 +23,8 @@ public interface IGenerator {
 
     IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression);
 
+    IDefinitionCodeBlock generateSelfDefinition();
+
     ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition);
 
     ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs);
