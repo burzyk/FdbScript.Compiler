@@ -115,9 +115,16 @@ public class MathTests {
     }
 
     @Test
-    public void combination5Test() throws Exception {
+         public void combination5Test() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test (2 / 2) * 10");
 
         Assert.assertEquals(new Double(10), result);
+    }
+
+    @Test
+    public void combination6Test() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test 10 * (4 / 2)");
+
+        Assert.assertEquals(new Double(20), result);
     }
 }
