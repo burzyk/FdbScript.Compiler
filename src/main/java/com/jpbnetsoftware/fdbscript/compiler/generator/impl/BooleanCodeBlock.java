@@ -2,6 +2,7 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.BooleanOperation;
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionFactory;
@@ -11,9 +12,7 @@ import org.apache.bcel.generic.Type;
 /**
  * Created by pawel on 07/04/15.
  */
-public class BooleanCodeBlock implements ICodeBlock {
-
-    private BytecodeProvider provider;
+public class BooleanCodeBlock extends JvmCodeBlock {
 
     private ICodeBlock lhs;
 
@@ -21,20 +20,16 @@ public class BooleanCodeBlock implements ICodeBlock {
 
     private ICodeBlock rhs;
 
-    public BooleanCodeBlock(BytecodeProvider provider, ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
-        this.provider = provider;
+    public BooleanCodeBlock(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
         this.lhs = lhs;
         this.operation = operation;
         this.rhs = rhs;
     }
 
     @Override
-    public void emit() {
-        InstructionList il = this.provider.getInstructionList();
-        InstructionFactory factory = this.provider.getInstructionFactory();
-
-        this.lhs.emit();
-        this.rhs.emit();
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
+        this.lhs.emit(emitter);
+        this.rhs.emit(emitter);
 
         String operationMethod =
                 this.operation == BooleanOperation.And ? "and" :

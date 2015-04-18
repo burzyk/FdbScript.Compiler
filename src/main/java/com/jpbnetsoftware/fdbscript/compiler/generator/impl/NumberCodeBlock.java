@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionFactory;
@@ -11,22 +12,16 @@ import org.apache.bcel.generic.Type;
 /**
  * Created by pawel on 05/04/15.
  */
-public class NumberCodeBlock implements ICodeBlock {
-
-    private BytecodeProvider provider;
+public class NumberCodeBlock extends JvmCodeBlock {
 
     private double number;
 
-    public NumberCodeBlock(BytecodeProvider provider, double number) {
-        this.provider = provider;
+    public NumberCodeBlock(double number) {
         this.number = number;
     }
 
     @Override
-    public void emit() {
-        InstructionList il = this.provider.getInstructionList();
-        InstructionFactory factory = this.provider.getInstructionFactory();
-
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
         il.append(factory.createConstant(this.number));
         il.append(factory.createInvoke(
                 "java.lang.Double",

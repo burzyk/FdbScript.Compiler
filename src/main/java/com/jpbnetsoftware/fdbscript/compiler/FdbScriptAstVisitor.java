@@ -57,10 +57,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
         this.scope.pushScope();
 
-        this.generator.beginGenerateFunction();
-        this.scope.getCurrentScope().addDefinition("self", this.generator.generateSelfDefinition());
-
-        List<ICodeBlock> argumentDefinitions = new ArrayList<ICodeBlock>();
+        List<IDefinitionCodeBlock> argumentDefinitions = new ArrayList<IDefinitionCodeBlock>();
 
         for (TerminalNode arg : ctx.ID()) {
             String name = arg.toString();
@@ -129,7 +126,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     public ICodeBlock visitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx) {
 
         if (ctx.NOT() != null) {
-            // TODO: unimplemented
+            // TODO: not implemented
         }
 
         if (ctx.ID() != null) {

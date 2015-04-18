@@ -1,8 +1,8 @@
 package com.jpbnetsoftware.fdbscript.compiler;
 
 import com.jpbnetsoftware.fdbscript.compiler.antlr.FdbScriptLexer;
-import com.jpbnetsoftware.fdbscript.compiler.generator.IModuleCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.antlr.FdbScriptParser;
+import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.JvmGenerator;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
@@ -22,10 +22,8 @@ public class Compiler {
         TokenStream tokens = new CommonTokenStream(lexer);
         FdbScriptParser parser = new FdbScriptParser(tokens);
 
-        IModuleCodeBlock module = (IModuleCodeBlock)visitor.visit(parser.programDeclaration());
+        ICodeBlock module = (ICodeBlock)visitor.visit(parser.programDeclaration());
 
-        module.emit();
-
-        outputManager.append(module.getName(), module.getCompilationResult());
+        module.emit(null);
     }
 }

@@ -6,25 +6,15 @@ import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProv
 /**
  * Created by pawel on 10/04/15.
  */
-public abstract class BaseDefinitionCodeBlock implements IDefinitionCodeBlock {
-
-    protected BytecodeProvider provider;
-
-    protected int variableId;
+public abstract class BaseDefinitionCodeBlock extends JvmCodeBlock implements IDefinitionCodeBlock {
 
     protected String name;
 
-    public BaseDefinitionCodeBlock(BytecodeProvider provider, int variableId, String name) {
-        this.provider = provider;
-        this.variableId = variableId;
+    public BaseDefinitionCodeBlock(String name) {
         this.name = name;
     }
 
     public String getName() {
         return this.name;
-    }
-
-    public int getVariableId() {
-        return this.variableId;
     }
 }

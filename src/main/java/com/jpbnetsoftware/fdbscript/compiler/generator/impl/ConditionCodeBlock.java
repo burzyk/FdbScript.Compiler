@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
@@ -8,9 +9,7 @@ import org.apache.bcel.generic.*;
 /**
  * Created by pawel on 10/04/15.
  */
-public class ConditionCodeBlock implements ICodeBlock {
-
-    private BytecodeProvider provider;
+public class ConditionCodeBlock extends JvmCodeBlock {
 
     private ICodeBlock condition;
 
@@ -18,18 +17,18 @@ public class ConditionCodeBlock implements ICodeBlock {
 
     private InstructionHandle jumpToEndPlaceholder;
 
-    public ConditionCodeBlock(BytecodeProvider provider, ICodeBlock condition, ICodeBlock expression) {
-        this.provider = provider;
+    public ConditionCodeBlock(ICodeBlock condition, ICodeBlock expression) {
         this.condition = condition;
         this.expression = expression;
     }
 
-    @Override
-    public void emit() {
-        InstructionList il = this.provider.getInstructionList();
-        InstructionFactory factory = this.provider.getInstructionFactory();
+    public InstructionHandle getJumpToEndPlaceholder() {
+        return jumpToEndPlaceholder;
+    }
 
-        this.condition.emit();
+    @Override
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
+        this.condition.emit(emitter);
         il.append(factory.createCheckCast(new ObjectType("java.lang.Boolean")));
         il.append(factory.createInvoke("java.lang.Boolean",
                 "booleanValue",
@@ -38,14 +37,10 @@ public class ConditionCodeBlock implements ICodeBlock {
                 Constants.INVOKEVIRTUAL));
 
         InstructionHandle comparePlaceholder = il.append(new NOP());
-        this.expression.emit();
+        this.expression.emit(emitter);
         this.jumpToEndPlaceholder = il.append(new NOP());
         InstructionHandle endPlaceholder = il.append(new NOP());
 
         il.insert(comparePlaceholder, new IFEQ(endPlaceholder));
-    }
-
-    public InstructionHandle getJumpToEndPlaceholder() {
-        return jumpToEndPlaceholder;
     }
 }

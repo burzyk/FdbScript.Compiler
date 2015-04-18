@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.generic.*;
 
@@ -9,25 +10,11 @@ import org.apache.bcel.generic.*;
  */
 public class ArgumentDefinitionCodeBlock extends BaseDefinitionCodeBlock {
 
-    private int argumentId;
-
-    private int arrayVariableId;
-
-    public ArgumentDefinitionCodeBlock(BytecodeProvider provider, int arrayVariableId, int argumentId, int variableId, String name) {
-        super(provider, variableId, name);
-
-        this.arrayVariableId = arrayVariableId;
-        this.argumentId = argumentId;
+    public ArgumentDefinitionCodeBlock(String name) {
+        super(name);
     }
 
     @Override
-    public void emit() {
-        InstructionList il = this.provider.getInstructionList();
-        InstructionFactory factory = this.provider.getInstructionFactory();
-
-        il.append(new ALOAD(this.arrayVariableId));
-        il.append(factory.createConstant(this.argumentId));
-        il.append(new AALOAD());
-        il.append(new ASTORE(this.variableId));
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
     }
 }

@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.compiler.generator.MathOperation;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
@@ -11,9 +12,7 @@ import org.apache.bcel.generic.Type;
 /**
  * Created by pawel on 05/04/15.
  */
-public class MathCodeBlock implements ICodeBlock {
-
-    private BytecodeProvider provider;
+public class MathCodeBlock extends JvmCodeBlock {
 
     private ICodeBlock lhs;
 
@@ -21,20 +20,16 @@ public class MathCodeBlock implements ICodeBlock {
 
     private ICodeBlock rhs;
 
-    public MathCodeBlock(BytecodeProvider provider, ICodeBlock lhs, MathOperation operation, ICodeBlock rhs) {
-        this.provider = provider;
+    public MathCodeBlock(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs) {
         this.lhs = lhs;
         this.operation = operation;
         this.rhs = rhs;
     }
 
     @Override
-    public void emit() {
-        InstructionList il = this.provider.getInstructionList();
-        InstructionFactory factory = this.provider.getInstructionFactory();
-
-        this.lhs.emit();
-        this.rhs.emit();
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
+        this.lhs.emit(emitter);
+        this.rhs.emit(emitter);
 
         String operationMethod =
                 this.operation == MathOperation.Plus ? "add" :

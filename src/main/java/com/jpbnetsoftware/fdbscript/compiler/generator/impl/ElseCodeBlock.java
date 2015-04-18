@@ -1,11 +1,14 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
+import org.apache.bcel.generic.InstructionFactory;
+import org.apache.bcel.generic.InstructionList;
 
 /**
  * Created by pawel on 10/04/15.
  */
-public class ElseCodeBlock implements ICodeBlock {
+public class ElseCodeBlock extends JvmCodeBlock {
 
     private ICodeBlock expression;
 
@@ -14,7 +17,7 @@ public class ElseCodeBlock implements ICodeBlock {
     }
 
     @Override
-    public void emit() {
-        this.expression.emit();
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
+        this.expression.emit(emitter);
     }
 }

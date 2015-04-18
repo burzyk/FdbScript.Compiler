@@ -7,15 +7,11 @@ import java.util.List;
  */
 public interface IGenerator {
 
-    IModuleCodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
+    ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
-    void beginGenerateFunction();
-
-    ICodeBlock generateFunction(List<ICodeBlock> argumentDefinitions, List<ICodeBlock> definitions, ICodeBlock expression);
+    ICodeBlock generateFunction(List<IDefinitionCodeBlock> arguments, List<ICodeBlock> definitions, ICodeBlock expression);
 
     IDefinitionCodeBlock generateArgumentDefinition(String name);
-
-    IDefinitionCodeBlock generateSelfDefinition();
 
     ICodeBlock generateInvoke(IDefinitionCodeBlock definition, List<ICodeBlock> arguments);
 
