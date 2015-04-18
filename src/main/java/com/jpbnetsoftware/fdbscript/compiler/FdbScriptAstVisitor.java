@@ -209,7 +209,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
                     this.visitMathExpression(ctx.mathExpression()));
         }
 
-        return this.visitCompareExpression(ctx);
+        return super.visitCompareExpression(ctx);
     }
 
     @Override
