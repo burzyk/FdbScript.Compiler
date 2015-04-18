@@ -62,4 +62,16 @@ public class RuntimeMethods {
     public static Object div(Object lhs, Object rhs) {
         return (Double) lhs / (Double) rhs;
     }
+
+    public static Object invoke(InvokeContext parentContext, IInvokable func, Object[] args) {
+        InvokeContext context = new InvokeContext(parentContext);
+        String[] arguments = func.getArguments();
+        int i = 0;
+
+        for (Object arg : args) {
+            context.defineValue(arguments[i++], arg);
+        }
+
+        return func.invoke(context);
+    }
 }

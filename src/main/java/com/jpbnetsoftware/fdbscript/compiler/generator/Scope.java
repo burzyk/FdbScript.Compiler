@@ -17,7 +17,6 @@ public class Scope {
     }
 
     public IDefinitionCodeBlock findDefinition(String name) {
-        //TODO: fix parent scope
         IDefinitionCodeBlock block = this.definitions.getOrDefault(name, null);
         return block != null ? block : this.parent != null ? this.parent.findDefinition(name) : null;
     }

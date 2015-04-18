@@ -32,7 +32,7 @@ public class ModuleCodeBlock extends JvmCodeBlock {
 
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
-        ClassGenerator classGenerator = ClassGenerator.beginClass(this.name);
+        ClassGenerator classGenerator = ClassGenerator.beginClass(this.name, new String[]{});
 
         BytecodeProvider provider = new BytecodeProvider(
                 classGenerator.getInstructionList(),

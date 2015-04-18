@@ -25,41 +25,41 @@ public class InvokeCodeBlock extends JvmCodeBlock {
 
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
+
+        // loads the InvokeContext and gets the function
+        il.append(new ALOAD(1));
+        il.append(InstructionConstants.DUP);
+        il.append(factory.createConstant(this.definition.getName()));
+        il.append(factory.createInvoke(
+                "com.jpbnetsoftware.fdbscript.runtime.InvokeContext",
+                "getValue",
+                Type.OBJECT,
+                new Type[]{Type.STRING},
+                Constants.INVOKEVIRTUAL));
+
+        // creates an array of arguments
+        il.append(factory.createConstant(this.arguments.size()));
+        il.append(factory.createNewArray(Type.OBJECT, (short) 1));
+        il.append(new ASTORE(2));
         int i = 0;
 
-
-
-        // TODO: reimplement with IInvokable
-
-        /*
-        if (!(definition instanceof BaseDefinitionCodeBlock)) {
-            // TODO: runtime error
-        }
-
-        BaseDefinitionCodeBlock definitionCodeBlock = (BaseDefinitionCodeBlock) definition;
-
-        il.append(new ALOAD((definitionCodeBlock).getVariableId()));
-        il.append(factory.createConstant(arguments.size()));
-        il.append(factory.createNewArray(Type.OBJECT, (short) 1));
-        il.append(InstructionConstants.DUP);
-        il.append(new ASTORE(this.argumentsArrayVariableId));
-
         for (ICodeBlock c : arguments) {
-            il.append(new ALOAD(this.argumentsArrayVariableId));
-            il.append(factory.createConstant(i));
+            il.append(new ALOAD(2));
+            il.append(factory.createConstant(i++));
             c.emit(emitter);
-
             il.append(new AASTORE());
-            i++;
         }
 
+        // call 'invoke' from runtime
+        il.append(new ALOAD(2));
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.IInvokable",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 "invoke",
                 Type.OBJECT,
-                new Type[]{new ArrayType(Type.OBJECT, 1)},
-                Constants.INVOKEINTERFACE));
-
-        */
+                new Type[]{
+                        new ObjectType("com.jpbnetsoftware.fdbscript.runtime.InvokeContext"),
+                        new ObjectType("com.jpbnetsoftware.fdbscript.runtime.IInvokable"),
+                        new ArrayType(Type.OBJECT, 1)},
+                Constants.INVOKESTATIC));
     }
 }

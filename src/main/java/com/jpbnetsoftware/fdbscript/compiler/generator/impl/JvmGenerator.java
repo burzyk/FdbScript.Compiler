@@ -6,6 +6,7 @@ import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProv
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ClassGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by pawel on 05/04/15.
@@ -13,6 +14,8 @@ import java.util.List;
 public class JvmGenerator implements IGenerator {
 
     private IOutputManager outputManager;
+
+    private int functionCounter = 0;
 
     public JvmGenerator(IOutputManager outputManager) {
         this.outputManager = outputManager;
@@ -26,9 +29,15 @@ public class JvmGenerator implements IGenerator {
     @Override
     public ICodeBlock generateFunction(List<IDefinitionCodeBlock> arguments, List<ICodeBlock> definitions, ICodeBlock expression) {
 
-        // TODO: class name generator
-        String functionClassName = "FunctionXXX";
-        ClassGenerator classGenerator = ClassGenerator.beginClass(functionClassName);
+        String functionClassName = "Function_" + this.functionCounter++;
+        String[] argumentNames = new String[arguments.size()];
+        int i = 0;
+
+        for (IDefinitionCodeBlock argument : arguments) {
+            argumentNames[i++] = argument.getName();
+        }
+
+        ClassGenerator classGenerator = ClassGenerator.beginClass(functionClassName, argumentNames);
         BytecodeProvider provider = new BytecodeProvider(
                 classGenerator.getInstructionList(),
                 classGenerator.getInstructionFactory());

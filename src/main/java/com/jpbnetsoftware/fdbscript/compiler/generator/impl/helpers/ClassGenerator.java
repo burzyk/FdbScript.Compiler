@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers;
 
 import org.apache.bcel.Constants;
+import org.apache.bcel.classfile.Field;
 import org.apache.bcel.generic.*;
 
 /**
@@ -21,7 +22,7 @@ public class ClassGenerator {
     private ClassGenerator() {
     }
 
-    public static ClassGenerator beginClass(String name) {
+    public static ClassGenerator beginClass(String name, String[] argumentNames) {
         ClassGenerator generator = new ClassGenerator();
 
         generator.moduleClass = new ClassGen(
@@ -46,7 +47,45 @@ public class ClassGenerator {
 
         generator.instructionFactory = new InstructionFactory(generator.moduleClass);
 
+        createGetArgumentsMethod(generator.moduleClass, argumentNames);
+
         return generator;
+    }
+
+    private static void createGetArgumentsMethod(ClassGen moduleClass, String[] argumentNames) {
+
+        InstructionList il = new InstructionList();
+        InstructionFactory factory = new InstructionFactory(moduleClass);
+
+        MethodGen method = new MethodGen(
+                Constants.ACC_PUBLIC,
+                new ArrayType(Type.STRING, 1),
+                new Type[]{},
+                new String[]{},
+                "getArguments",
+                moduleClass.getClassName(),
+                il,
+                moduleClass.getConstantPool());
+
+        il.append(factory.createConstant(argumentNames.length));
+        il.append(factory.createNewArray(Type.STRING, (short) 1));
+        il.append(new ASTORE(1));
+        int i = 0;
+
+        for (String s : argumentNames) {
+            il.append(new ALOAD(1));
+            il.append(factory.createConstant(i++));
+            il.append(factory.createConstant(s));
+            il.append(new AASTORE());
+        }
+
+        il.append(new ALOAD(1));
+        il.append(InstructionConstants.ARETURN);
+
+        method.setMaxStack();
+        method.setMaxLocals();
+        moduleClass.addMethod(method.getMethod());
+        il.dispose(); // Allow instruction handles to be reused
     }
 
     public byte[] endClass() {
