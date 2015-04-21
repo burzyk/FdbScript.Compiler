@@ -35,11 +35,24 @@ conditionClause : '(' expression ')' '->' expression ;
 
 elseClause : '_' '->' expression ;
 
+listExpression : '[' (expression (',' expression)* )? ']' ;
+
+indexExpression : '[' expression? ( ':' expression? )? ']' ;
+
+listAccessExpression
+    : ( '(' expression ')'
+      | ID
+      | invokeExpression
+      | listExpression
+      )
+    (indexExpression)+ ;
+
 expression
     : valueExpression
     | mathExpression
     | compareExpression
     | logicalExpression
+    | listExpression
     ;
 
 valueExpression
@@ -47,6 +60,8 @@ valueExpression
     | functionDeclaration
     | invokeExpression
     | '(' expression ')'
+    | listExpression
+    | listAccessExpression
     | NOT expression
     | ID
     | TRUE
