@@ -91,13 +91,13 @@ public class RuntimeMethods {
         int end = second != null ? (int) ((Double) second).doubleValue() : list.getList().length;
 
         if (singleElementAccess) {
-            return list.getList()[0];
+            return list.getList()[begin];
         } else {
             Object[] sub = new Object[end - begin];
             Object[] l = list.getList();
 
             for (int i = begin; i < end; i++) {
-                sub[i] = l[begin + i];
+                sub[i - begin] = l[i];
             }
 
             return RuntimeList.create(sub);

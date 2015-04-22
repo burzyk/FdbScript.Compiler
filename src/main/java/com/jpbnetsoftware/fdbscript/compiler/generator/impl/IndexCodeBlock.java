@@ -37,7 +37,7 @@ public class IndexCodeBlock extends JvmCodeBlock {
             il.append(InstructionConstants.ACONST_NULL);
         }
 
-        il.append(this.separatorPresent ? InstructionConstants.ICONST_1 : InstructionConstants.ICONST_0);
+        il.append(this.separatorPresent ? InstructionConstants.ICONST_0 : InstructionConstants.ICONST_1);
 
         il.append(factory.createInvoke(
                 "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",

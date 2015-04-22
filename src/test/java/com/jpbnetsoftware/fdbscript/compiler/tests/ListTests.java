@@ -38,6 +38,17 @@ public class ListTests {
     }
 
     @Test
+    public void indexDoubleNestedListTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test",
+                "module Test " +
+                        " z = [5, 6, 7]" +
+                        " x = [1, z, 3]" +
+                        " x[1][2]");
+
+        Assert.assertEquals(new Double(7), result);
+    }
+
+    @Test
     public void rangeSingleTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x[:]");
 
@@ -45,9 +56,9 @@ public class ListTests {
         Object[] array = ((RuntimeList) result).getList();
 
         Assert.assertEquals(3, array.length);
-        Assert.assertEquals(1, array[0]);
-        Assert.assertEquals(2, array[1]);
-        Assert.assertEquals(3, array[2]);
+        Assert.assertEquals(1.0, array[0]);
+        Assert.assertEquals(2.0, array[1]);
+        Assert.assertEquals(3.0, array[2]);
     }
 
     @Test
@@ -58,8 +69,8 @@ public class ListTests {
         Object[] array = ((RuntimeList) result).getList();
 
         Assert.assertEquals(2, array.length);
-        Assert.assertEquals(2, array[0]);
-        Assert.assertEquals(3, array[1]);
+        Assert.assertEquals(2.0, array[0]);
+        Assert.assertEquals(3.0, array[1]);
     }
 
     @Test
@@ -70,7 +81,7 @@ public class ListTests {
         Object[] array = ((RuntimeList) result).getList();
 
         Assert.assertEquals(2, array.length);
-        Assert.assertEquals(2, array[0]);
-        Assert.assertEquals(3, array[1]);
+        Assert.assertEquals(2.0, array[0]);
+        Assert.assertEquals(3.0, array[1]);
     }
 }
