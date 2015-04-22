@@ -13,7 +13,7 @@ public interface IGenerator {
 
     IDefinitionCodeBlock generateArgumentDefinition(String name);
 
-    ICodeBlock generateInvoke(IDefinitionCodeBlock definition, List<ICodeBlock> arguments);
+    ICodeBlock generateInvoke(String functionName, List<ICodeBlock> arguments);
 
     ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression);
 

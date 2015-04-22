@@ -14,12 +14,12 @@ import java.util.List;
  */
 public class InvokeCodeBlock extends JvmCodeBlock {
 
-    private IDefinitionCodeBlock definition;
+    private String functionName;
 
     private List<ICodeBlock> arguments;
 
-    public InvokeCodeBlock(IDefinitionCodeBlock definition, List<ICodeBlock> arguments) {
-        this.definition = definition;
+    public InvokeCodeBlock(String functionName, List<ICodeBlock> arguments) {
+        this.functionName = functionName;
         this.arguments = arguments;
     }
 
@@ -28,14 +28,9 @@ public class InvokeCodeBlock extends JvmCodeBlock {
 
         // loads the InvokeContext and gets the function
         il.append(new ALOAD(1));
-        il.append(InstructionConstants.DUP);
-        il.append(factory.createConstant(this.definition.getName()));
-        il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.InvokeContext",
-                "getValue",
-                Type.OBJECT,
-                new Type[]{Type.STRING},
-                Constants.INVOKEVIRTUAL));
+
+        // load the function name
+        il.append(factory.createConstant(this.functionName));
 
         // creates an array of arguments
         il.append(factory.createConstant(this.arguments.size()));
@@ -58,7 +53,7 @@ public class InvokeCodeBlock extends JvmCodeBlock {
                 Type.OBJECT,
                 new Type[]{
                         new ObjectType("com.jpbnetsoftware.fdbscript.runtime.InvokeContext"),
-                        new ObjectType("com.jpbnetsoftware.fdbscript.runtime.IInvokable"),
+                        Type.STRING,
                         new ArrayType(Type.OBJECT, 1)},
                 Constants.INVOKESTATIC));
     }

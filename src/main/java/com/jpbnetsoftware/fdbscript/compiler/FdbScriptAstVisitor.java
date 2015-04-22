@@ -85,19 +85,14 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     @Override
     public ICodeBlock visitInvokeExpression(@NotNull FdbScriptParser.InvokeExpressionContext ctx) {
 
-        String name = ctx.ID().toString();
-        IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(name);
+        String functionName = ctx.ID().toString();
         List<ICodeBlock> arguments = new ArrayList<ICodeBlock>();
 
         for (FdbScriptParser.ExpressionContext e : ctx.expression()) {
             arguments.add(this.visitExpression(e));
         }
 
-        if (definition == null) {
-            System.out.println("Unable to find definition of: " + ctx.ID());
-        }
-
-        return this.generator.generateInvoke(definition, arguments);
+        return this.generator.generateInvoke(functionName, arguments);
     }
 
     @Override
