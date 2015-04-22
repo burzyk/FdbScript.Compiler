@@ -92,7 +92,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateIndex(ICodeBlock first, ICodeBlock second, boolean separatorPresent) {
-        return null;
+        return new IndexCodeBlock(first, second, separatorPresent);
     }
 
     @Override

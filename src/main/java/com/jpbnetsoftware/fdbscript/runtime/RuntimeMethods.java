@@ -1,5 +1,7 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
+import java.util.DoubleSummaryStatistics;
+
 /**
  * Created by pawel on 14/04/15.
  */
@@ -81,5 +83,23 @@ public class RuntimeMethods {
         context.defineValue("self", func);
 
         return func.invoke(context);
+    }
+
+    public static Object index(RuntimeList list, Object first, Object second, Boolean singleElementAccess) {
+        int begin = first != null ? (int) ((Double) first).doubleValue() : 0;
+        int end = second != null ? (int) ((Double) second).doubleValue() : list.getList().length;
+
+        if (singleElementAccess) {
+            return list.getList()[0];
+        } else {
+            Object[] sub = new Object[end - begin];
+            Object[] l = list.getList();
+
+            for (int i = begin; i < end; i++) {
+                sub[i] = l[begin + i];
+            }
+
+            return RuntimeList.create(sub);
+        }
     }
 }
