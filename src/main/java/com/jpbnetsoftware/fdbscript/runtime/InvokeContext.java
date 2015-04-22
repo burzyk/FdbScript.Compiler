@@ -12,8 +12,16 @@ public class InvokeContext {
 
     private InvokeContext parent;
 
-    public InvokeContext(InvokeContext parent) {
+    private InvokeContext(InvokeContext parent) {
         this.parent = parent;
+    }
+
+    public static InvokeContext createRootScope() {
+        return new InvokeContext(null);
+    }
+
+    public static InvokeContext createChildScope(InvokeContext parent) {
+        return new InvokeContext(parent);
     }
 
     public void defineValue(String name, Object value) {

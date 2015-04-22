@@ -70,7 +70,7 @@ public class RuntimeMethods {
             // TODO: throw runtime exception
         }
 
-        InvokeContext context = new InvokeContext(parentContext);
+        InvokeContext context = InvokeContext.createChildScope(parentContext);
         String[] arguments = func.getArguments();
         int i = 0;
 

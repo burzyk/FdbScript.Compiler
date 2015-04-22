@@ -33,6 +33,6 @@ public class CompilerHelper {
 
     public static Object compileAndInvoke(String moduleName, String code) throws Exception {
         IInvokable application = CompilerHelper.compileModule(moduleName, code);
-        return application.invoke(new InvokeContext(null));
+        return application.invoke(InvokeContext.createRootScope());
     }
 }
