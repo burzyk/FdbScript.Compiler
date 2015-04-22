@@ -10,7 +10,17 @@ class Test {
 
 	public static void main(String[] args) {
 		Fib f = new Fib();
-		Function_0 f0 = new Function_0();
+		InvokeContext ctx = InvokeContext.createRootContext();
+
+		ctx.defineValue("x", RuntimeList.create(new Object[] {1.0, 2.0, 3.0}));
+
+		System.out.println(f.invoke(ctx));
+		
+
+
+
+
+		//Function_0 f0 = new Function_0();
 
 		//System.out.println(f0.invoke(new InvokeContext(null)));
 

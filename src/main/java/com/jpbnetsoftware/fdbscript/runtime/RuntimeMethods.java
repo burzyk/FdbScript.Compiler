@@ -85,7 +85,8 @@ public class RuntimeMethods {
         return func.invoke(context);
     }
 
-    public static Object index(RuntimeList list, Object first, Object second, Boolean singleElementAccess) {
+    public static Object index(Object listObject, Object first, Object second, boolean singleElementAccess) {
+        RuntimeList list = (RuntimeList)listObject;
         int begin = first != null ? (int) ((Double) first).doubleValue() : 0;
         int end = second != null ? (int) ((Double) second).doubleValue() : list.getList().length;
 
@@ -101,5 +102,9 @@ public class RuntimeMethods {
 
             return RuntimeList.create(sub);
         }
+    }
+
+    public static Object createList(Object[] initValues) {
+        return RuntimeList.create(initValues);
     }
 }

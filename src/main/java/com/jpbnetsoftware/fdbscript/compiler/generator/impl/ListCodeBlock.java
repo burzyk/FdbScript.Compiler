@@ -24,8 +24,8 @@ public class ListCodeBlock extends JvmCodeBlock {
 
         ArrayGenerator.emitArray(emitter, Type.OBJECT, this.initValues, 2);
         il.append(factory.createInvoke(
-                "com.jpbnetsoftware.fdbscript.runtime.RuntimeList",
-                "create",
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
+                "createList",
                 Type.OBJECT,
                 new Type[]{new ArrayType(Type.OBJECT, 1)},
                 Constants.INVOKESTATIC));

@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         String program = "module Fib " +
-                "add =   2\n" +
-                "2";
+                "x = [2]" +
+                "x[0:0]";
 
         Compiler.compileModule(program, new FileOutputManager());
 

@@ -37,14 +37,14 @@ public class IndexCodeBlock extends JvmCodeBlock {
             il.append(InstructionConstants.ACONST_NULL);
         }
 
-        new BoolPrimitiveCodeBlock(this.separatorPresent).emit(emitter);
+        il.append(this.separatorPresent ? InstructionConstants.ICONST_1 : InstructionConstants.ICONST_0);
 
         il.append(factory.createInvoke(
                 "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 "index",
                 Type.OBJECT,
                 new Type[]{
-                        new ObjectType("com.jpbnetsoftware.fdbscript.runtime.RuntimeList"),
+                        Type.OBJECT,
                         Type.OBJECT,
                         Type.OBJECT,
                         Type.BOOLEAN},
