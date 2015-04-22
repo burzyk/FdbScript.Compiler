@@ -37,15 +37,16 @@ elseClause : '_' '->' expression ;
 
 listExpression : '[' (expression (',' expression)* )? ']' ;
 
-indexExpression : '[' expression? ( ':' expression? )? ']' ;
+indexExpression : '[' expression? ( INDEXSEPARATOR expression? )? ']' ;
 
-listAccessExpression
-    : ( '(' expression ')'
-      | ID
-      | invokeExpression
-      | listExpression
-      )
-    (indexExpression)+ ;
+listAccessArgExpression
+    : '(' expression ')'
+    | ID
+    | invokeExpression
+    | listExpression
+    ;
+
+listAccessExpression : listAccessArgExpression (indexExpression)+ ;
 
 expression
     : valueExpression
@@ -122,6 +123,8 @@ MUL : '*' ;
 
 TRUE : 'true' ;
 FALSE : 'false' ;
+
+INDEXSEPARATOR : ':' ;
 
 STRING : '"' ~('\r' | '\n' | '"')* '"' ;
 NUMBER : [+-]?[0-9]+('.'[0-9])? ;

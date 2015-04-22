@@ -120,6 +120,56 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     }
 
     @Override
+    public ICodeBlock visitListExpression(@NotNull FdbScriptParser.ListExpressionContext ctx) {
+
+        List<ICodeBlock> initValues = new ArrayList<ICodeBlock>();
+
+        for (FdbScriptParser.ExpressionContext e : ctx.expression()) {
+            initValues.add(this.visitExpression(e));
+        }
+
+        return this.generator.generateList(initValues);
+    }
+
+    @Override
+    public ICodeBlock visitIndexExpression(@NotNull FdbScriptParser.IndexExpressionContext ctx) {
+
+        ICodeBlock first = ctx.expression().size() > 0 ? this.visitExpression(ctx.expression(0)) : null;
+        ICodeBlock second = ctx.expression().size() > 1 ? this.visitExpression(ctx.expression(1)) : null;
+
+        return this.generator.generateIndex(first, second, ctx.INDEXSEPARATOR() != null);
+    }
+
+    @Override
+    public ICodeBlock visitListAccessArgExpression(@NotNull FdbScriptParser.ListAccessArgExpressionContext ctx) {
+
+        if (ctx.ID() != null) {
+            IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
+
+            if (definition == null) {
+                System.out.println("Unable to find definition of: " + ctx.ID());
+            }
+
+            return this.generator.generateDefinitionInvoke(definition);
+        }
+
+        return super.visitListAccessArgExpression(ctx);
+    }
+
+    @Override
+    public ICodeBlock visitListAccessExpression(@NotNull FdbScriptParser.ListAccessExpressionContext ctx) {
+        List<ICodeBlock> indexExpressions = new ArrayList<ICodeBlock>();
+
+        for (FdbScriptParser.IndexExpressionContext i : ctx.indexExpression()) {
+            indexExpressions.add(this.visitIndexExpression(i));
+        }
+
+        return this.generator.generateListAccess(
+                this.visitListAccessArgExpression(ctx.listAccessArgExpression()),
+                indexExpressions);
+    }
+
+    @Override
     public ICodeBlock visitValueExpression(@NotNull FdbScriptParser.ValueExpressionContext ctx) {
 
         if (ctx.NOT() != null) {

@@ -79,6 +79,46 @@ public interface FdbScriptListener extends ParseTreeListener {
 	 */
 	void exitElseClause(@NotNull FdbScriptParser.ElseClauseContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#listExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterListExpression(@NotNull FdbScriptParser.ListExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#listExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitListExpression(@NotNull FdbScriptParser.ListExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#indexExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIndexExpression(@NotNull FdbScriptParser.IndexExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#indexExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIndexExpression(@NotNull FdbScriptParser.IndexExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#listAccessArgExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterListAccessArgExpression(@NotNull FdbScriptParser.ListAccessArgExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#listAccessArgExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitListAccessArgExpression(@NotNull FdbScriptParser.ListAccessArgExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#listAccessExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterListAccessExpression(@NotNull FdbScriptParser.ListAccessExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#listAccessExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitListAccessExpression(@NotNull FdbScriptParser.ListAccessExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link FdbScriptParser#expression}.
 	 * @param ctx the parse tree
 	 */
