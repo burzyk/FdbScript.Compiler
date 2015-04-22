@@ -22,7 +22,7 @@ public class ListCodeBlock extends JvmCodeBlock {
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
 
-        ArrayGenerator.emitArray(emitter, Type.OBJECT, this.initValues, 2);
+        ArrayGenerator.emitArray(emitter, Type.OBJECT, this.initValues);
         il.append(factory.createInvoke(
                 "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
                 "createList",

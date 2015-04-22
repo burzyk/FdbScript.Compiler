@@ -14,6 +14,18 @@ public class BytecodeProvider implements IEmitter {
 
     private InstructionFactory instructionFactory;
 
+    // first one is occupied by 'this', second one by 'InvokeContext'
+    private int currentLocalVariableId = 2;
+
+    public BytecodeProvider(InstructionList instructionList, InstructionFactory instructionFactory, boolean isForInvokable) {
+        this.instructionList = instructionList;
+        this.instructionFactory = instructionFactory;
+
+        if (!isForInvokable) {
+            this.currentLocalVariableId = 1;
+        }
+    }
+
     public BytecodeProvider(InstructionList instructionList, InstructionFactory instructionFactory) {
         this.instructionList = instructionList;
         this.instructionFactory = instructionFactory;
@@ -25,5 +37,9 @@ public class BytecodeProvider implements IEmitter {
 
     public InstructionList getInstructionList() {
         return instructionList;
+    }
+
+    public int getNextLocalVariableId() {
+        return this.currentLocalVariableId++;
     }
 }
