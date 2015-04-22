@@ -35,7 +35,7 @@ public class InvokeCodeBlock extends JvmCodeBlock {
         il.append(factory.createConstant(this.functionName));
 
         // create arguments array
-        ArrayGenerator.emitArray(emitter, il, factory, this.arguments, 2);
+        ArrayGenerator.emitArray(emitter, Type.OBJECT, this.arguments, 2);
 
         il.append(factory.createInvoke(
                 "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",

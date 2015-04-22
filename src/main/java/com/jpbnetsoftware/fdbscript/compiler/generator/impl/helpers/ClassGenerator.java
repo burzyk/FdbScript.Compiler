@@ -78,7 +78,7 @@ public class ClassGenerator {
             arguments.add(new StringCodeBlock(s));
         }
 
-        ArrayGenerator.emitArray(null, il, factory, arguments, 1);
+        ArrayGenerator.emitArray(new BytecodeProvider(il, factory), Type.STRING, arguments, 1);
 
         il.append(InstructionConstants.ARETURN);
 

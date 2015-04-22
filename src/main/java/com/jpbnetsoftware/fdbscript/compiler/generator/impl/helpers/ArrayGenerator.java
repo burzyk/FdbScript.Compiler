@@ -10,15 +10,18 @@ import java.util.List;
  * Created by pawel on 22/04/15.
  */
 public class ArrayGenerator {
-    public static void emitArray(IEmitter emitter, InstructionList il, InstructionFactory factory, List<ICodeBlock> expressions, int variableId) {
+    public static void emitArray(IEmitter emitter, Type arrayType, List<ICodeBlock> expressions, int variableId) {
+
+        InstructionList il = ((BytecodeProvider) emitter).getInstructionList();
+        InstructionFactory factory = ((BytecodeProvider) emitter).getInstructionFactory();
 
         il.append(factory.createConstant(expressions.size()));
-        il.append(factory.createNewArray(Type.OBJECT, (short) 1));
+        il.append(factory.createNewArray(arrayType, (short) 1));
         il.append(new ASTORE(variableId));
         int i = 0;
 
         for (ICodeBlock c : expressions) {
-            il.append(new ALOAD(2));
+            il.append(new ALOAD(variableId));
             il.append(factory.createConstant(i++));
             c.emit(emitter);
             il.append(new AASTORE());
