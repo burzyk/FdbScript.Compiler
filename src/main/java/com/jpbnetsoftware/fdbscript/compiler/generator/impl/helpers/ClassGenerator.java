@@ -1,8 +1,13 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers;
 
+import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.StringCodeBlock;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.Field;
 import org.apache.bcel.generic.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pawel on 10/04/15.
@@ -67,19 +72,14 @@ public class ClassGenerator {
                 il,
                 moduleClass.getConstantPool());
 
-        il.append(factory.createConstant(argumentNames.length));
-        il.append(factory.createNewArray(Type.STRING, (short) 1));
-        il.append(new ASTORE(1));
-        int i = 0;
+        List<ICodeBlock> arguments = new ArrayList<ICodeBlock>();
 
         for (String s : argumentNames) {
-            il.append(new ALOAD(1));
-            il.append(factory.createConstant(i++));
-            il.append(factory.createConstant(s));
-            il.append(new AASTORE());
+            arguments.add(new StringCodeBlock(s));
         }
 
-        il.append(new ALOAD(1));
+        ArrayGenerator.emitArray(null, il, factory, arguments, 1);
+
         il.append(InstructionConstants.ARETURN);
 
         method.setMaxStack();

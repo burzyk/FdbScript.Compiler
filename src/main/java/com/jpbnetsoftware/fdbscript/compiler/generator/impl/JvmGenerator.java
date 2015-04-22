@@ -87,6 +87,16 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateList(List<ICodeBlock> initValues) {
+        return new ListCodeBlock(initValues);
+    }
+
+    @Override
+    public ICodeBlock generateIndex(ICodeBlock first, ICodeBlock second, boolean separatorPresent) {
+        return null;
+    }
+
+    @Override
+    public ICodeBlock generateListAccess(ICodeBlock listSource, List<ICodeBlock> indexExpressions) {
         return null;
     }
 
@@ -133,15 +143,5 @@ public class JvmGenerator implements IGenerator {
     @Override
     public ICodeBlock generateNumber(double number) {
         return new NumberCodeBlock(number);
-    }
-
-    @Override
-    public ICodeBlock generateIndex(ICodeBlock first, ICodeBlock second, boolean separatorPresent) {
-        return null;
-    }
-
-    @Override
-    public ICodeBlock generateListAccess(ICodeBlock listSource, List<ICodeBlock> indexExpressions) {
-        return null;
     }
 }

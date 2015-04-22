@@ -6,9 +6,6 @@ import com.jpbnetsoftware.fdbscript.runtime.IInvokable;
 import com.jpbnetsoftware.fdbscript.runtime.InvokeContext;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by pawel on 14/04/15.
@@ -33,6 +30,6 @@ public class CompilerHelper {
 
     public static Object compileAndInvoke(String moduleName, String code) throws Exception {
         IInvokable application = CompilerHelper.compileModule(moduleName, code);
-        return application.invoke(InvokeContext.createRootScope());
+        return application.invoke(InvokeContext.createRootContext());
     }
 }

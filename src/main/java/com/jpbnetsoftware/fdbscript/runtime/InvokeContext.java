@@ -1,5 +1,7 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
+import com.jpbnetsoftware.fdbscript.runtime.methods.MapFunction;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +18,15 @@ public class InvokeContext {
         this.parent = parent;
     }
 
-    public static InvokeContext createRootScope() {
-        return new InvokeContext(null);
+    public static InvokeContext createRootContext() {
+        InvokeContext ctx = new InvokeContext(null);
+
+        ctx.defineValue("map", new MapFunction());
+
+        return ctx;
     }
 
-    public static InvokeContext createChildScope(InvokeContext parent) {
+    public static InvokeContext createChildContext(InvokeContext parent) {
         return new InvokeContext(parent);
     }
 

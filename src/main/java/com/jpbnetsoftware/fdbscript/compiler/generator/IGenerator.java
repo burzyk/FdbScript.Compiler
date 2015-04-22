@@ -23,6 +23,10 @@ public interface IGenerator {
 
     ICodeBlock generateList(List<ICodeBlock> initValues);
 
+    ICodeBlock generateIndex(ICodeBlock first, ICodeBlock second, boolean separatorPresent);
+
+    ICodeBlock generateListAccess(ICodeBlock listSource, List<ICodeBlock> indexExpressions);
+
     IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression);
 
     IDefinitionCodeBlock generateSelfDefinition();
@@ -40,8 +44,4 @@ public interface IGenerator {
     ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs);
 
     ICodeBlock generateNumber(double number);
-
-    ICodeBlock generateIndex(ICodeBlock first, ICodeBlock second, boolean separatorPresent);
-
-    ICodeBlock generateListAccess(ICodeBlock listSource, List<ICodeBlock> indexExpressions);
 }

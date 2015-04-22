@@ -41,7 +41,7 @@ indexExpression : '[' expression? ( INDEXSEPARATOR expression? )? ']' ;
 
 listAccessArgExpression
     : '(' expression ')'
-    | ID
+    | ID // TODO: refactor to definitionInvokeExpression
     | invokeExpression
     | listExpression
     ;
@@ -128,6 +128,6 @@ INDEXSEPARATOR : ':' ;
 
 STRING : '"' ~('\r' | '\n' | '"')* '"' ;
 NUMBER : [+-]?[0-9]+('.'[0-9])? ;
-ID : [a-z][a-zA-Z0-9]* ;
+ID : ['$']?[a-z][a-zA-Z0-9]* ;
 MODULEID : [A-Z][a-zA-Z]* ;
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
