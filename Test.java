@@ -1,4 +1,5 @@
 import com.jpbnetsoftware.fdbscript.runtime.*;
+import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
 
 class Test {
 
@@ -12,7 +13,7 @@ class Test {
 		Fib f = new Fib();
 		InvokeContext ctx = InvokeContext.createRootContext();
 
-		ctx.defineValue("x", RuntimeList.create(new Object[] {1.0, 2.0, 3.0}));
+		ctx.defineValue("x", RuntimeList.create(new Object[]{1.0, 2.0, 3.0}));
 
 		System.out.println(f.invoke(ctx));
 		

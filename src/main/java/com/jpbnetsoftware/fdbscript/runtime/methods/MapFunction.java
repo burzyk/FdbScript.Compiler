@@ -2,10 +2,7 @@ package com.jpbnetsoftware.fdbscript.runtime.methods;
 
 import com.jpbnetsoftware.fdbscript.runtime.IInvokable;
 import com.jpbnetsoftware.fdbscript.runtime.InvokeContext;
-import com.jpbnetsoftware.fdbscript.runtime.RuntimeList;
-import com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods;
-
-import java.util.Objects;
+import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
 
 /**
  * Created by pawel on 22/04/15.

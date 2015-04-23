@@ -1,7 +1,6 @@
-package com.jpbnetsoftware.fdbscript.runtime;
+package com.jpbnetsoftware.fdbscript.runtime.objects;
 
 import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * Created by pawel on 22/04/15.
@@ -72,5 +71,40 @@ public class RuntimeList implements Iterable {
                 return list[i++];
             }
         };
+    }
+
+    public RuntimeList getRange(int begin, int end) {
+        Object[] sub = new Object[end - begin];
+
+        for (int i = begin; i < end; i++) {
+            sub[i - begin] = this.internalList[i];
+        }
+
+        return RuntimeList.create(sub);
+    }
+
+    @Override
+    public boolean equals(Object second) {
+
+        if (!(second instanceof RuntimeList)) {
+            return false;
+        }
+
+        RuntimeList aList = this;
+        RuntimeList bList = (RuntimeList) second;
+
+        if (aList.getLength() != bList.getLength()) {
+            return false;
+        } else {
+            Iterator i = aList.iterator();
+            Iterator j = bList.iterator();
+            Boolean allEqual = true;
+
+            while (i.hasNext() && j.hasNext() && allEqual) {
+                allEqual = allEqual && i.next().equals(j.next());
+            }
+
+            return allEqual;
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.tests;
 
 import com.jpbnetsoftware.fdbscript.compiler.tests.helpers.CompilerHelper;
-import com.jpbnetsoftware.fdbscript.runtime.RuntimeList;
+import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
 import org.junit.Assert;
 import org.junit.Test;
 

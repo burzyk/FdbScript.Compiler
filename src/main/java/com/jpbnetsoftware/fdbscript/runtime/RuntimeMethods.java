@@ -1,11 +1,8 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.BooleanCodeBlock;
+import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
 
-import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by pawel on 14/04/15.
@@ -37,26 +34,6 @@ public class RuntimeMethods {
     }
 
     public static Object isEqual(Object lhs, Object rhs) {
-
-        if (lhs instanceof RuntimeList && rhs instanceof RuntimeList) {
-            RuntimeList aList = (RuntimeList) lhs;
-            RuntimeList bList = (RuntimeList) rhs;
-
-            if (aList.getLength() != bList.getLength()) {
-                return new Boolean(false);
-            } else {
-                Iterator i = aList.iterator();
-                Iterator j = bList.iterator();
-                Boolean allEqual = true;
-
-                while (i.hasNext() && j.hasNext() && allEqual) {
-                    allEqual = allEqual && (Boolean) isEqual(i.next(), j.next());
-                }
-
-                return allEqual;
-            }
-        }
-
         return lhs.equals(rhs);
     }
 
@@ -126,13 +103,7 @@ public class RuntimeMethods {
         if (singleElementAccess) {
             return list.getElementAt(begin);
         } else {
-            Object[] sub = new Object[end - begin];
-
-            for (int i = begin; i < end; i++) {
-                sub[i - begin] = list.getElementAt(i);
-            }
-
-            return RuntimeList.create(sub);
+            return list.getRange(begin, end);
         }
     }
 
