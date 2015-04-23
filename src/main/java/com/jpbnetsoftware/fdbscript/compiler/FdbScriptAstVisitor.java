@@ -206,6 +206,18 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     }
 
     @Override
+    public ICodeBlock visitListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx) {
+
+        if (ctx.listConcatExpression() != null && ctx.additiveExpression() != null) {
+            return this.generator.generateListConcat(
+                    this.visitListConcatExpression(ctx.listConcatExpression()),
+                    this.visitAdditiveExpression(ctx.additiveExpression()));
+        }
+
+        return super.visitListConcatExpression(ctx);
+    }
+
+    @Override
     public ICodeBlock visitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx) {
         if (ctx.additiveExpression() != null && ctx.multiplicativeExpression() != null) {
             MathOperation operation =

@@ -185,6 +185,18 @@ public class FdbScriptBaseListener implements FdbScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

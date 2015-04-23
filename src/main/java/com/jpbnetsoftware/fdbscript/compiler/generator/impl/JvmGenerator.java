@@ -144,4 +144,9 @@ public class JvmGenerator implements IGenerator {
     public ICodeBlock generateNumber(double number) {
         return new NumberCodeBlock(number);
     }
+
+    @Override
+    public ICodeBlock generateListConcat(ICodeBlock lhs, ICodeBlock rhs) {
+        return new ListConcatCodeBlock(lhs, rhs);
+    }
 }

@@ -44,4 +44,6 @@ public interface IGenerator {
     ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs);
 
     ICodeBlock generateNumber(double number);
+
+    ICodeBlock generateListConcat(ICodeBlock lhs, ICodeBlock rhs);
 }

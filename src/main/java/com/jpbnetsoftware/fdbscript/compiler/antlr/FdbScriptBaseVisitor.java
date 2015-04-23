@@ -116,6 +116,13 @@ public class FdbScriptBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitAdditiveExpression(@NotNull FdbScriptParser.AdditiveExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

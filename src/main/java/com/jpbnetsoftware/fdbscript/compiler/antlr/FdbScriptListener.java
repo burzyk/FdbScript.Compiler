@@ -149,6 +149,16 @@ public interface FdbScriptListener extends ParseTreeListener {
 	 */
 	void exitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#listConcatExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#listConcatExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link FdbScriptParser#additiveExpression}.
 	 * @param ctx the parse tree
 	 */

@@ -96,6 +96,12 @@ public interface FdbScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMathExpression(@NotNull FdbScriptParser.MathExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#listConcatExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListConcatExpression(@NotNull FdbScriptParser.ListConcatExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link FdbScriptParser#additiveExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

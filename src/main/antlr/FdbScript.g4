@@ -74,6 +74,12 @@ valueExpression
 mathExpression
     : multiplicativeExpression
     | additiveExpression
+    | listConcatExpression
+    ;
+
+listConcatExpression
+    : listConcatExpression LISTCONCAT additiveExpression
+    | additiveExpression
     ;
 
 additiveExpression
@@ -120,6 +126,7 @@ PLUS : '+' ;
 MINUS : '-' ;
 DIV : '/' ;
 MUL : '*' ;
+LISTCONCAT : '@' ;
 
 TRUE : 'true' ;
 FALSE : 'false' ;

@@ -146,9 +146,9 @@ public class ListTests {
     }
 
     @Test
-    public void listAddElementFrontTest() throws Exception {
+    public void listConcatElementFrontTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
-                "x1 = 1 + [2, 3, 4] " +
+                "x1 = 1 @ [2, 3, 4] " +
                 "x2 = [1, 2, 3, 4] " +
                 "x1 == x2");
 
@@ -156,9 +156,9 @@ public class ListTests {
     }
 
     @Test
-    public void listAddElementBackTest() throws Exception {
+    public void listConcatElementBackTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
-                "x1 = [2, 3, 4] + 1 " +
+                "x1 = [2, 3, 4] @ 1 " +
                 "x2 = [2, 3, 4, 1] " +
                 "x1 == x2");
 
@@ -166,9 +166,9 @@ public class ListTests {
     }
 
     @Test
-    public void listAddListFrontBackTest() throws Exception {
+    public void listConcatListFrontBackTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
-                "x1 = [1, 2, 3] +  [4, 5, 6] " +
+                "x1 = [1, 2, 3] @ [4, 5, 6] " +
                 "x2 = [1, 2, 3, 4, 5, 6] " +
                 "x1 == x2");
 
@@ -176,9 +176,9 @@ public class ListTests {
     }
 
     @Test
-    public void listAddListBackTest() throws Exception {
+    public void listConcatListBackTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
-                "x1 = [4, 5, 6] + [1, 2, 3] " +
+                "x1 = [4, 5, 6] @ [1, 2, 3] " +
                 "x2 = [ 4, 5, 6, 1, 2, 3] " +
                 "x1 == x2");
 
@@ -186,11 +186,22 @@ public class ListTests {
     }
 
     @Test
-    public void listAddListVariablesTest() throws Exception {
+    public void listConcatListVariablesTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
                 "z = [1, 2, 3]" +
-                "x1 = z + [4, 5, 6] + [1, 2, 3] + 8" +
+                "x1 = z @ [4, 5, 6] @ [1, 2, 3] @ 8" +
                 "x2 = [1, 2, 3, 4, 5, 6, 1, 2, 3, 8] " +
+                "x1 == x2");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void listConcatAndAddListVariablesTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "z = [1, 2, 3]" +
+                "x1 = z @ [4, 5, 6] @ [1, 2, 3] @ 8 + 10" +
+                "x2 = [1, 2, 3, 4, 5, 6, 1, 2, 3, 18] " +
                 "x1 == x2");
 
         Assert.assertEquals(new Boolean(true), result);

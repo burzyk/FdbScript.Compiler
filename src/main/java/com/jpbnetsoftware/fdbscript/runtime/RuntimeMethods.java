@@ -72,14 +72,15 @@ public class RuntimeMethods {
             return sb.toString();
         }
 
-        if (lhs instanceof RuntimeList || rhs instanceof RuntimeList) {
-            RuntimeList aList = lhs instanceof RuntimeList ? (RuntimeList) lhs : RuntimeList.create(new Object[]{lhs});
-            RuntimeList bList = rhs instanceof RuntimeList ? (RuntimeList) rhs : RuntimeList.create(new Object[]{rhs});
-
-            return RuntimeList.concat(aList, bList);
-        }
-
         return (Double) lhs + (Double) rhs;
+    }
+
+    public static Object listConcat(Object lhs, Object rhs) {
+
+        RuntimeList aList = lhs instanceof RuntimeList ? (RuntimeList) lhs : RuntimeList.create(new Object[]{lhs});
+        RuntimeList bList = rhs instanceof RuntimeList ? (RuntimeList) rhs : RuntimeList.create(new Object[]{rhs});
+
+        return RuntimeList.concat(aList, bList);
     }
 
     public static Object sub(Object lhs, Object rhs) {
