@@ -15,12 +15,12 @@ public class ListTests {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x");
 
         Assert.assertEquals(RuntimeList.class, result.getClass());
-        Object[] array = ((RuntimeList) result).getList();
+        RuntimeList list = (RuntimeList) result;
 
-        Assert.assertEquals(3, array.length);
-        Assert.assertEquals(1.0, array[0]);
-        Assert.assertEquals(2.0, array[1]);
-        Assert.assertEquals(3.0, array[2]);
+        Assert.assertEquals(3, list.getLength());
+        Assert.assertEquals(1.0, list.getElementAt(0));
+        Assert.assertEquals(2.0, list.getElementAt(1));
+        Assert.assertEquals(3.0, list.getElementAt(2));
     }
 
     @Test
@@ -53,12 +53,12 @@ public class ListTests {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x[:]");
 
         Assert.assertEquals(RuntimeList.class, result.getClass());
-        Object[] array = ((RuntimeList) result).getList();
+        RuntimeList list = (RuntimeList) result;
 
-        Assert.assertEquals(3, array.length);
-        Assert.assertEquals(1.0, array[0]);
-        Assert.assertEquals(2.0, array[1]);
-        Assert.assertEquals(3.0, array[2]);
+        Assert.assertEquals(3, list.getLength());
+        Assert.assertEquals(1.0, list.getElementAt(0));
+        Assert.assertEquals(2.0, list.getElementAt(1));
+        Assert.assertEquals(3.0, list.getElementAt(2));
     }
 
     @Test
@@ -66,11 +66,11 @@ public class ListTests {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x[:][1:]");
 
         Assert.assertEquals(RuntimeList.class, result.getClass());
-        Object[] array = ((RuntimeList) result).getList();
+        RuntimeList list = (RuntimeList) result;
 
-        Assert.assertEquals(2, array.length);
-        Assert.assertEquals(2.0, array[0]);
-        Assert.assertEquals(3.0, array[1]);
+        Assert.assertEquals(2, list.getLength());
+        Assert.assertEquals(2.0, list.getElementAt(0));
+        Assert.assertEquals(3.0, list.getElementAt(1));
     }
 
     @Test
@@ -78,11 +78,11 @@ public class ListTests {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3, 4, 5] x[1:3]");
 
         Assert.assertEquals(RuntimeList.class, result.getClass());
-        Object[] array = ((RuntimeList) result).getList();
+        RuntimeList list = (RuntimeList) result;
 
-        Assert.assertEquals(2, array.length);
-        Assert.assertEquals(2.0, array[0]);
-        Assert.assertEquals(3.0, array[1]);
+        Assert.assertEquals(2, list.getLength());
+        Assert.assertEquals(2.0, list.getElementAt(0));
+        Assert.assertEquals(3.0, list.getElementAt(1));
     }
 
     @Test

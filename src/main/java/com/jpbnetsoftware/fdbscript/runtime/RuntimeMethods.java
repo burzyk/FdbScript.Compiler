@@ -4,6 +4,7 @@ import com.jpbnetsoftware.fdbscript.compiler.generator.impl.BooleanCodeBlock;
 
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -38,16 +39,18 @@ public class RuntimeMethods {
     public static Object isEqual(Object lhs, Object rhs) {
 
         if (lhs instanceof RuntimeList && rhs instanceof RuntimeList) {
-            Object[] aList = ((RuntimeList) lhs).getList();
-            Object[] bList = ((RuntimeList) rhs).getList();
+            RuntimeList aList = (RuntimeList) lhs;
+            RuntimeList bList = (RuntimeList) rhs;
 
-            if (aList.length != bList.length) {
+            if (aList.getLength() != bList.getLength()) {
                 return new Boolean(false);
             } else {
+                Iterator i = aList.iterator();
+                Iterator j = bList.iterator();
                 Boolean allEqual = true;
 
-                for (int i = 0; i < aList.length && allEqual; i++) {
-                    allEqual = allEqual && (Boolean) isEqual(aList[i], bList[i]);
+                while (i.hasNext() && j.hasNext() && allEqual) {
+                    allEqual = allEqual && (Boolean) isEqual(i.next(), j.next());
                 }
 
                 return allEqual;
@@ -118,16 +121,15 @@ public class RuntimeMethods {
     public static Object index(Object listObject, Object first, Object second, boolean singleElementAccess) {
         RuntimeList list = (RuntimeList) listObject;
         int begin = first != null ? (int) ((Double) first).doubleValue() : 0;
-        int end = second != null ? (int) ((Double) second).doubleValue() : list.getList().length;
+        int end = second != null ? (int) ((Double) second).doubleValue() : list.getLength();
 
         if (singleElementAccess) {
-            return list.getList()[begin];
+            return list.getElementAt(begin);
         } else {
             Object[] sub = new Object[end - begin];
-            Object[] l = list.getList();
 
             for (int i = begin; i < end; i++) {
-                sub[i - begin] = l[i];
+                sub[i - begin] = list.getElementAt(i);
             }
 
             return RuntimeList.create(sub);
