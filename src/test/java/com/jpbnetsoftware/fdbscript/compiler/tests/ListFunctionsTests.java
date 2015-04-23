@@ -37,4 +37,24 @@ public class ListFunctionsTests {
 
         Assert.assertEquals(new Boolean(true), result);
     }
+
+    @Test
+    public void filterIndexSimpleTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = range(10, 20) " +
+                "x2 = filter(x1, f(e, i): 5 < i )" +
+                "x2 == [16, 17, 18, 19]");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void filterElementSimpleTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = range(10, 20) " +
+                "x2 = filter(x1, f(e, i): 13 < e and e < 16  )" +
+                "x2 == [14, 15]");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
 }

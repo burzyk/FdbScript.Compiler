@@ -1,5 +1,6 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
+import com.jpbnetsoftware.fdbscript.runtime.methods.FilterFunction;
 import com.jpbnetsoftware.fdbscript.runtime.methods.MapFunction;
 import com.jpbnetsoftware.fdbscript.runtime.methods.RangeFunction;
 
@@ -24,6 +25,7 @@ public class InvokeContext {
 
         ctx.defineValue("map", new MapFunction());
         ctx.defineValue("range", new RangeFunction());
+        ctx.defineValue("filter", new FilterFunction());
 
         return ctx;
     }
