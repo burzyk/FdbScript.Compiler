@@ -1,5 +1,7 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.BooleanCodeBlock;
+
 import java.util.DoubleSummaryStatistics;
 
 /**
@@ -32,11 +34,29 @@ public class RuntimeMethods {
     }
 
     public static Object isEqual(Object lhs, Object rhs) {
+
+        if (lhs instanceof RuntimeList && rhs instanceof RuntimeList) {
+            Object[] aList = ((RuntimeList) lhs).getList();
+            Object[] bList = ((RuntimeList) rhs).getList();
+
+            if (aList.length != bList.length) {
+                return new Boolean(false);
+            } else {
+                Boolean allEqual = true;
+
+                for (int i = 0; i < aList.length && allEqual; i++) {
+                    allEqual = allEqual && (Boolean) isEqual(aList[i], bList[i]);
+                }
+
+                return allEqual;
+            }
+        }
+
         return lhs.equals(rhs);
     }
 
     public static Object isNotEqual(Object lhs, Object rhs) {
-        return !lhs.equals(rhs);
+        return Boolean.valueOf(!(Boolean) isEqual(lhs, rhs));
     }
 
     public static Object add(Object lhs, Object rhs) {
@@ -86,7 +106,7 @@ public class RuntimeMethods {
     }
 
     public static Object index(Object listObject, Object first, Object second, boolean singleElementAccess) {
-        RuntimeList list = (RuntimeList)listObject;
+        RuntimeList list = (RuntimeList) listObject;
         int begin = first != null ? (int) ((Double) first).doubleValue() : 0;
         int end = second != null ? (int) ((Double) second).doubleValue() : list.getList().length;
 

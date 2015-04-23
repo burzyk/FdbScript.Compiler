@@ -84,4 +84,64 @@ public class ListTests {
         Assert.assertEquals(2.0, array[0]);
         Assert.assertEquals(3.0, array[1]);
     }
+
+    @Test
+    public void listEqualDifferentLengthTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [1, 2, 3, 4, 5] " +
+                "x2 = [1, 2, 3, 4] " +
+                "x1 == x2");
+
+        Assert.assertEquals(new Boolean(false), result);
+    }
+
+    @Test
+    public void listNotEqualDifferentLengthTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [1, 2, 3, 4, 5] " +
+                "x2 = [1, 2, 3, 4] " +
+                "x1 != x2");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void listEqualWithDifferentObjectTypesTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [1, 2, \"ala ma kota\", 4, 5] " +
+                "x2 = [1, 2, \"ala ma kota\", 4, 5] " +
+                "x1 == x2");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void listEqualNestedTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [1, 2, [1, 2, 3], 4, 5] " +
+                "x2 = [1, 2, [1, 2, 3], 4, 5] " +
+                "x1 == x2");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void listNotEqualNested1Test() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [1, 2, [1, 2, 3], 4, 5] " +
+                "x2 = [1, 2, [1, 7, 3], 4, 5] " +
+                "x1 == x2");
+
+        Assert.assertEquals(new Boolean(false), result);
+    }
+
+    @Test
+    public void listNotEqualNested2Test() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [1, 2, [1, 2, 3], 4, 5] " +
+                "x2 = [1, 2, [1, 7, 3], 4, 5] " +
+                "x1 != x2");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
 }
