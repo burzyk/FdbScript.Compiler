@@ -21,7 +21,7 @@ public class MapFunction implements IInvokable {
             InvokeContext ctx = InvokeContext.createChildContext(context);
 
             ctx.defineValue(funcArguments.length == 0 ? "$e" : funcArguments[0], item);
-            ctx.defineValue(funcArguments.length == 1 ? "$i" : funcArguments[1], i);
+            ctx.defineValue(funcArguments.length == 1 ? "$i" : funcArguments[1], (double)i);
 
             mapped[i] = func.invoke(ctx);
             i++;

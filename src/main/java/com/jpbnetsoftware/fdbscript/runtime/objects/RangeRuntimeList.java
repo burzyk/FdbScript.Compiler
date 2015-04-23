@@ -33,12 +33,12 @@ public class RangeRuntimeList extends RuntimeList {
 
     @Override
     public Iterator iterator() {
-        final int begin = this.start;
-        final int end = this.stop;
+        final double begin = this.start;
+        final double end = this.stop;
 
         return new Iterator() {
 
-            private int i = 0;
+            private double i = begin;
 
             @Override
             public boolean hasNext() {
@@ -47,7 +47,7 @@ public class RangeRuntimeList extends RuntimeList {
 
             @Override
             public Object next() {
-                return begin + i++;
+                return i++;
             }
         };
     }

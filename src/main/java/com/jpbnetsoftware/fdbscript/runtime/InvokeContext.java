@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
 import com.jpbnetsoftware.fdbscript.runtime.methods.MapFunction;
+import com.jpbnetsoftware.fdbscript.runtime.methods.RangeFunction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class InvokeContext {
         InvokeContext ctx = new InvokeContext(null);
 
         ctx.defineValue("map", new MapFunction());
+        ctx.defineValue("range", new RangeFunction());
 
         return ctx;
     }
