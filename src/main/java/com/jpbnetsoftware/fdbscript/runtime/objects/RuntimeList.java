@@ -1,25 +1,31 @@
 package com.jpbnetsoftware.fdbscript.runtime.objects;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by pawel on 22/04/15.
  */
-public class RuntimeList implements Iterable {
-
-    private Object[] internalList;
-
-    private RuntimeList(Object[] items) {
-        this.internalList = items;
-    }
+public abstract class RuntimeList implements Iterable {
 
     public static RuntimeList create(Object[] items) {
-        return new RuntimeList(items);
+        return new MaterializedRuntimeList(items);
     }
 
-    public static RuntimeList concat(RuntimeList a, RuntimeList b) {
-        Object[] aList = a.internalList;
-        Object[] bList = b.internalList;
+    public static RuntimeList create(int start, int stop) {
+        return new RangeRuntimeList(start, stop);
+    }
+
+    public static RuntimeList concat(RuntimeList lhs, RuntimeList rhs) {
+        return lhs.concat(rhs);
+    }
+
+    public RuntimeList concat(RuntimeList second) {
+        Object[] aList = this.materialize();
+        Object[] bList = second.materialize();
         Object[] result = new Object[aList.length + bList.length];
 
         System.arraycopy(aList, 0, result, 0, aList.length);
@@ -29,11 +35,24 @@ public class RuntimeList implements Iterable {
     }
 
     public Object getElementAt(int index) {
-        return this.internalList[index];
+        Iterator i = this.iterator();
+        Object value = null;
+
+        while (i.hasNext() && index-- > 0) {
+            value = i.next();
+        }
+        return value;
     }
 
     public int getLength() {
-        return this.internalList.length;
+        Iterator i = this.iterator();
+        int count = 0;
+
+        while (i.hasNext()) {
+            count++;
+        }
+
+        return count;
     }
 
     @Override
@@ -43,9 +62,9 @@ public class RuntimeList implements Iterable {
 
         sb.append("[ ");
 
-        for (Object o : this.internalList) {
+        for (Object o : this) {
             sb.append(o);
-            sb.append(++i == this.internalList.length ? "" : ", ");
+            sb.append(++i == this.getLength() ? "" : ", ");
         }
 
         sb.append(" ]");
@@ -53,34 +72,32 @@ public class RuntimeList implements Iterable {
         return sb.toString();
     }
 
-    @Override
-    public Iterator iterator() {
-        final Object[] list = this.internalList;
-
-        return new Iterator() {
-
-            private int i = 0;
-
-            @Override
-            public boolean hasNext() {
-                return i < list.length;
-            }
-
-            @Override
-            public Object next() {
-                return list[i++];
-            }
-        };
-    }
-
     public RuntimeList getRange(int begin, int end) {
+        Iterator iterator = this.iterator();
         Object[] sub = new Object[end - begin];
+        int i = 0;
 
-        for (int i = begin; i < end; i++) {
-            sub[i - begin] = this.internalList[i];
+        while (i < end && iterator.hasNext()) {
+            Object next = iterator.next();
+
+            if (i >= begin) {
+                sub[i - begin] = next;
+            }
+
+            i++;
         }
 
         return RuntimeList.create(sub);
+    }
+
+    public Object[] materialize() {
+        List<Object> list = new ArrayList<Object>();
+
+        for (Object item : this) {
+            list.add(item);
+        }
+
+        return list.toArray();
     }
 
     @Override

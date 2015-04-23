@@ -14,7 +14,6 @@ public class ListTests {
     public void initializerTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x");
 
-        Assert.assertEquals(RuntimeList.class, result.getClass());
         RuntimeList list = (RuntimeList) result;
 
         Assert.assertEquals(3, list.getLength());
@@ -52,7 +51,6 @@ public class ListTests {
     public void rangeSingleTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x[:]");
 
-        Assert.assertEquals(RuntimeList.class, result.getClass());
         RuntimeList list = (RuntimeList) result;
 
         Assert.assertEquals(3, list.getLength());
@@ -65,7 +63,6 @@ public class ListTests {
     public void rangeDoubleTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3] x[:][1:]");
 
-        Assert.assertEquals(RuntimeList.class, result.getClass());
         RuntimeList list = (RuntimeList) result;
 
         Assert.assertEquals(2, list.getLength());
@@ -77,7 +74,6 @@ public class ListTests {
     public void rangeBoundsTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test x = [1, 2, 3, 4, 5] x[1:3]");
 
-        Assert.assertEquals(RuntimeList.class, result.getClass());
         RuntimeList list = (RuntimeList) result;
 
         Assert.assertEquals(2, list.getLength());
