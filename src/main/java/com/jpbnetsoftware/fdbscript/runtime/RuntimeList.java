@@ -17,6 +17,17 @@ public class RuntimeList {
         return new RuntimeList(items);
     }
 
+    public static RuntimeList concat(RuntimeList a, RuntimeList b) {
+        Object[] aList = a.getList();
+        Object[] bList = b.getList();
+        Object[] result = new Object[aList.length + bList.length];
+
+        System.arraycopy(aList, 0, result, 0, aList.length);
+        System.arraycopy(bList, 0, result, aList.length, bList.length);
+
+        return RuntimeList.create(result);
+    }
+
     public Object[] getList() {
         return this.internalList;
     }

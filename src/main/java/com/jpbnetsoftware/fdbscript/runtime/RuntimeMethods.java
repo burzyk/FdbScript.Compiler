@@ -2,7 +2,9 @@ package com.jpbnetsoftware.fdbscript.runtime;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.BooleanCodeBlock;
 
+import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
+import java.util.List;
 
 /**
  * Created by pawel on 14/04/15.
@@ -68,6 +70,13 @@ public class RuntimeMethods {
             sb.append(rhs);
 
             return sb.toString();
+        }
+
+        if (lhs instanceof RuntimeList || rhs instanceof RuntimeList) {
+            RuntimeList aList = lhs instanceof RuntimeList ? (RuntimeList) lhs : RuntimeList.create(new Object[]{lhs});
+            RuntimeList bList = rhs instanceof RuntimeList ? (RuntimeList) rhs : RuntimeList.create(new Object[]{rhs});
+
+            return RuntimeList.concat(aList, bList);
         }
 
         return (Double) lhs + (Double) rhs;
