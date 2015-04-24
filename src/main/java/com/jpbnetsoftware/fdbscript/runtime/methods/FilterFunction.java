@@ -24,8 +24,8 @@ public class FilterFunction implements IInvokable {
         for (Object item : list) {
             InvokeContext ctx = InvokeContext.createChildContext(context);
 
-            ctx.defineValue(predicateArguments.length == 0 ? "$e" : predicateArguments[0], item);
-            ctx.defineValue(predicateArguments.length == 1 ? "$i" : predicateArguments[1], (double) i);
+            ctx.defineValue(predicateArguments.length <= 0 ? "$e" : predicateArguments[0], item);
+            ctx.defineValue(predicateArguments.length <= 1 ? "$i" : predicateArguments[1], (double) i);
 
             if (RuntimeMethods.isEqual(predicate.invoke(ctx), true) == Boolean.valueOf(true)) {
                 filtered.add(item);

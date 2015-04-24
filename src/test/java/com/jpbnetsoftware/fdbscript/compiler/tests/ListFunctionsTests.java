@@ -86,4 +86,13 @@ public class ListFunctionsTests {
 
         Assert.assertEquals(new Boolean(true), result);
     }
+
+    @Test
+    public void reduceSimpleTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = reduce(range(10, 15), 0, f(acc, e): acc + e)" +
+                "x1 == 60");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
 }

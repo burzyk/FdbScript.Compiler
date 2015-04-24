@@ -1,9 +1,6 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
-import com.jpbnetsoftware.fdbscript.runtime.methods.FilterFunction;
-import com.jpbnetsoftware.fdbscript.runtime.methods.MapFunction;
-import com.jpbnetsoftware.fdbscript.runtime.methods.RangeFunction;
-import com.jpbnetsoftware.fdbscript.runtime.methods.ReverseFunction;
+import com.jpbnetsoftware.fdbscript.runtime.methods.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +25,7 @@ public class InvokeContext {
         ctx.defineValue("range", new RangeFunction());
         ctx.defineValue("filter", new FilterFunction());
         ctx.defineValue("reverse", new ReverseFunction());
+        ctx.defineValue("reduce", new ReduceFunction());
 
         return ctx;
     }
