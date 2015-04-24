@@ -34,11 +34,6 @@ public class MaterializedRuntimeList extends RuntimeList {
     }
 
     @Override
-    public Object[] materialize() {
-        return this.internalList;
-    }
-
-    @Override
     public Object getElementAt(int index) {
         return this.internalList[index];
     }

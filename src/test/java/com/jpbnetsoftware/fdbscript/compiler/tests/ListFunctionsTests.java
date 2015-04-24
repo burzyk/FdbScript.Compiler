@@ -57,4 +57,33 @@ public class ListFunctionsTests {
 
         Assert.assertEquals(new Boolean(true), result);
     }
+
+    @Test
+    public void rangeReverseSimpleTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = range(2, 6) " +
+                "x2 = reverse(x1)" +
+                "x2 == [5, 4, 3, 2]");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void rangeReverseMaterializedTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = [4, 5, 9]" +
+                "x2 = reverse(x1)" +
+                "x2 == [9, 5, 4]");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void rangeFilterReverseMapChainTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = reverse(map(filter(range(10, 20), f(e, i): e > 15), f(e, i): e + 10))" +
+                "x1 == [29, 28, 27, 26]");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
 }

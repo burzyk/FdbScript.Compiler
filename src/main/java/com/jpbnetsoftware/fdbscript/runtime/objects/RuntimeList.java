@@ -4,6 +4,7 @@ import com.sun.javafx.scene.control.skin.VirtualFlow;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,9 +24,23 @@ public abstract class RuntimeList implements Iterable {
         return lhs.concat(rhs);
     }
 
+    public static RuntimeList reverse(RuntimeList list) {
+        return list.reverse();
+    }
+
+    public static Object[] materialize(RuntimeList list) {
+        List<Object> array = new ArrayList<Object>();
+
+        for (Object item : list) {
+            array.add(item);
+        }
+
+        return array.toArray();
+    }
+
     public RuntimeList concat(RuntimeList second) {
-        Object[] aList = this.materialize();
-        Object[] bList = second.materialize();
+        Object[] aList = RuntimeList.materialize(this);
+        Object[] bList = RuntimeList.materialize(second);
         Object[] result = new Object[aList.length + bList.length];
 
         System.arraycopy(aList, 0, result, 0, aList.length);
@@ -90,14 +105,14 @@ public abstract class RuntimeList implements Iterable {
         return RuntimeList.create(sub);
     }
 
-    public Object[] materialize() {
-        List<Object> list = new ArrayList<Object>();
+    public RuntimeList reverse() {
+        List<Object> list = new LinkedList<Object>();
 
         for (Object item : this) {
-            list.add(item);
+            list.add(0, item);
         }
 
-        return list.toArray();
+        return RuntimeList.create(list.toArray());
     }
 
     @Override

@@ -17,24 +17,34 @@ public class RangeRuntimeList extends RuntimeList {
     }
 
     @Override
+    public RuntimeList reverse() {
+        return new RangeRuntimeList(stop - 1, start - 1);
+    }
+
+    @Override
     public Object getElementAt(int index) {
-        return this.start + index;
+        return this.isReversed()
+                ? this.start - index
+                : this.start + index;
     }
 
     @Override
     public int getLength() {
-        return this.stop - this.start;
+        return Math.abs(this.stop - this.start);
     }
 
     @Override
     public RuntimeList getRange(int begin, int end) {
-        return new RangeRuntimeList(this.start + begin, this.start + end);
+        return this.isReversed()
+                ? new RangeRuntimeList(this.start - begin, this.start - end)
+                : new RangeRuntimeList(this.start + begin, this.start + end);
     }
 
     @Override
     public Iterator iterator() {
         final double begin = this.start;
         final double end = this.stop;
+        final boolean isReversed = this.isReversed();
 
         return new Iterator() {
 
@@ -42,13 +52,25 @@ public class RangeRuntimeList extends RuntimeList {
 
             @Override
             public boolean hasNext() {
-                return i < end;
+                return isReversed
+                        ? i > end
+                        : i < end;
             }
 
             @Override
             public Object next() {
-                return i++;
+                double current = i;
+
+                i = isReversed
+                        ? i - 1
+                        : i + 1;
+
+                return current;
             }
         };
+    }
+
+    private boolean isReversed() {
+        return this.start > this.stop;
     }
 }
