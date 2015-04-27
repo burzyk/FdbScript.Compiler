@@ -122,4 +122,22 @@ public class ListFunctionsTests {
 
         Assert.assertEquals(new Boolean(true), result);
     }
+
+    @Test
+    public void allSimpleTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = all([4, 7, 10, 10], f(e, i): e < 20)" +
+                "x1");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void allSimpleFalseTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = all([4, 7, 20, 10], f(e, i): e < 20)" +
+                "x1");
+
+        Assert.assertEquals(new Boolean(false), result);
+    }
 }
