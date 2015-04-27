@@ -95,4 +95,31 @@ public class ListFunctionsTests {
 
         Assert.assertEquals(new Boolean(true), result);
     }
+
+    @Test
+    public void reduceSimpleWithInjectedDefinitionsTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = reduce(range(10, 15), 0, f(): $acc + $e)" +
+                "x1 == 60");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void lengthRangeTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = length(range(10, 20))" +
+                "x1 == 10");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void lengthMaterializedTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = length([4, 7, 10, 10])" +
+                "x1 == 4");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
 }

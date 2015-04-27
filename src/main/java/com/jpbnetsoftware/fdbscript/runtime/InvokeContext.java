@@ -26,6 +26,7 @@ public class InvokeContext {
         ctx.defineValue("filter", new FilterFunction());
         ctx.defineValue("reverse", new ReverseFunction());
         ctx.defineValue("reduce", new ReduceFunction());
+        ctx.defineValue("length", new LengthFunction());
 
         return ctx;
     }

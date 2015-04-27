@@ -23,10 +23,11 @@ public class NumberCodeBlock extends JvmCodeBlock {
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
         il.append(factory.createConstant(this.number));
+
         il.append(factory.createInvoke(
-                "java.lang.Double",
-                "valueOf",
-                new ObjectType("java.lang.Double"),
+                "com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods",
+                "createNumber",
+                Type.OBJECT,
                 new Type[]{Type.DOUBLE},
                 Constants.INVOKESTATIC));
     }

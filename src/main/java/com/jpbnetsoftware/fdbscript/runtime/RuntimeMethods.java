@@ -9,6 +9,10 @@ import java.util.Iterator;
  */
 public class RuntimeMethods {
 
+    public static Object createNumber(double value) {
+        return Double.valueOf(value);
+    }
+
     public static Object and(Object lhs, Object rhs) {
         return (Boolean) lhs && (Boolean) rhs;
     }
