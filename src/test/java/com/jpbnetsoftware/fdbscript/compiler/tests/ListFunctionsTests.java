@@ -124,7 +124,7 @@ public class ListFunctionsTests {
     }
 
     @Test
-    public void allSimpleTest() throws Exception {
+         public void allSimpleTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
                 "x1 = all([4, 7, 10, 10], f(e, i): e < 20)" +
                 "x1");
@@ -136,6 +136,24 @@ public class ListFunctionsTests {
     public void allSimpleFalseTest() throws Exception {
         Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
                 "x1 = all([4, 7, 20, 10], f(e, i): e < 20)" +
+                "x1");
+
+        Assert.assertEquals(new Boolean(false), result);
+    }
+
+    @Test
+    public void anySimpleTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = any([4, 7, 10, 15], f(e, i): e > 11)" +
+                "x1");
+
+        Assert.assertEquals(new Boolean(true), result);
+    }
+
+    @Test
+    public void anySimpleFalseTest() throws Exception {
+        Object result = CompilerHelper.compileAndInvoke("Test", "module Test " +
+                "x1 = any([4, 7, 20, 15], f(e, i): e == 21)" +
                 "x1");
 
         Assert.assertEquals(new Boolean(false), result);

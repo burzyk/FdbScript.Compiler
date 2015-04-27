@@ -28,6 +28,7 @@ public class InvokeContext {
         ctx.defineValue("reduce", new ReduceFunction());
         ctx.defineValue("length", new LengthFunction());
         ctx.defineValue("all", new AllFunction());
+        ctx.defineValue("any", new AnyFunction());
 
         return ctx;
     }
