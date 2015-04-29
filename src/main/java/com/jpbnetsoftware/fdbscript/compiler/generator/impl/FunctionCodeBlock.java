@@ -1,9 +1,6 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.InstructionFactory;
@@ -19,9 +16,9 @@ public class FunctionCodeBlock extends JvmCodeBlock {
 
     private String className;
 
-    private List<IDefinitionCodeBlock> arguments;
+    private List<String> arguments;
 
-    public FunctionCodeBlock(String className, List<IDefinitionCodeBlock> arguments) {
+    public FunctionCodeBlock(String className, List<String> arguments) {
         this.className = className;
         this.arguments = arguments;
     }

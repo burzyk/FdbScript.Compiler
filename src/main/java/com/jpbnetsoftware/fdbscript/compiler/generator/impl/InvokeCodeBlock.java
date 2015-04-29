@@ -1,14 +1,11 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
-import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ArrayGenerator;
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.*;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 /**

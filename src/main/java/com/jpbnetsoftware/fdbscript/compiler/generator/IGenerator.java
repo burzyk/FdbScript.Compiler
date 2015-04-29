@@ -9,9 +9,7 @@ public interface IGenerator {
 
     ICodeBlock generateModule(String name, List<ICodeBlock> assignments, ICodeBlock expression);
 
-    ICodeBlock generateFunction(List<IDefinitionCodeBlock> arguments, List<ICodeBlock> definitions, ICodeBlock expression);
-
-    IDefinitionCodeBlock generateArgumentDefinition(String name);
+    ICodeBlock generateFunction(List<String> arguments, List<ICodeBlock> definitions, ICodeBlock expression);
 
     ICodeBlock generateInvoke(String functionName, List<ICodeBlock> arguments);
 
@@ -27,11 +25,9 @@ public interface IGenerator {
 
     ICodeBlock generateListAccess(ICodeBlock listSource, List<ICodeBlock> indexExpressions);
 
-    IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression);
+    ICodeBlock generateDefinition(String name, ICodeBlock expression);
 
-    IDefinitionCodeBlock generateSelfDefinition();
-
-    ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition);
+    ICodeBlock generateDefinitionInvoke(String definition);
 
     ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs);
 

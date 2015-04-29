@@ -16,17 +16,12 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
     private IGenerator generator;
 
-    private ScopeManager scope;
-
     public FdbScriptAstVisitor(IGenerator generator) {
         this.generator = generator;
-        this.scope = new ScopeManager();
     }
 
     @Override
     public ICodeBlock visitProgramDeclaration(@NotNull FdbScriptParser.ProgramDeclarationContext ctx) {
-
-        this.scope.pushScope();
 
         List<ICodeBlock> definitions = new ArrayList<ICodeBlock>();
 
@@ -45,28 +40,17 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
         String name = ctx.ID().toString();
         ICodeBlock expression = this.visitExpression(ctx.expression());
-        IDefinitionCodeBlock definition = this.generator.generateDefinition(name, expression);
 
-        this.scope.getCurrentScope().addDefinition(name, definition);
-
-        return definition;
+        return this.generator.generateDefinition(name, expression);
     }
 
     @Override
     public ICodeBlock visitFunctionDeclaration(@NotNull FdbScriptParser.FunctionDeclarationContext ctx) {
 
-        this.scope.pushScope();
-
-        this.scope.getCurrentScope().addDefinition("self", this.generator.generateSelfDefinition());
-
-        List<IDefinitionCodeBlock> argumentDefinitions = new ArrayList<IDefinitionCodeBlock>();
+        List<String> argumentDefinitions = new ArrayList<String>();
 
         for (TerminalNode arg : ctx.ID()) {
-            String name = arg.toString();
-            IDefinitionCodeBlock definition = this.generator.generateArgumentDefinition(name);
-
-            argumentDefinitions.add(definition);
-            this.scope.getCurrentScope().addDefinition(name, definition);
+            argumentDefinitions.add(arg.toString());
         }
 
         List<ICodeBlock> definitions = new ArrayList<ICodeBlock>();
@@ -76,8 +60,6 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
         }
 
         ICodeBlock func = this.generator.generateFunction(argumentDefinitions, definitions, this.visitExpression(ctx.expression()));
-
-        this.scope.popScope();
 
         return func;
     }
@@ -144,13 +126,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     public ICodeBlock visitListAccessArgExpression(@NotNull FdbScriptParser.ListAccessArgExpressionContext ctx) {
 
         if (ctx.ID() != null) {
-            IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
-
-            if (definition == null) {
-                System.out.println("Unable to find definition of: " + ctx.ID());
-            }
-
-            return this.generator.generateDefinitionInvoke(definition);
+            return this.generator.generateDefinitionInvoke(ctx.ID().toString());
         }
 
         return super.visitListAccessArgExpression(ctx);
@@ -177,13 +153,7 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
         }
 
         if (ctx.ID() != null) {
-            IDefinitionCodeBlock definition = this.scope.getCurrentScope().findDefinition(ctx.ID().toString());
-
-            if (definition == null) {
-                System.out.println("Unable to find definition of: " + ctx.ID());
-            }
-
-            return this.generator.generateDefinitionInvoke(definition);
+            return this.generator.generateDefinitionInvoke(ctx.ID().toString());
         }
 
         if (ctx.TRUE() != null) {

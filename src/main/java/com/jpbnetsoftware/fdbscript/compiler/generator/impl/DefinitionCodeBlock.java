@@ -9,13 +9,14 @@ import org.apache.bcel.generic.*;
 /**
  * Created by pawel on 10/04/15.
  */
-public class DefinitionCodeBlock extends BaseDefinitionCodeBlock {
+public class DefinitionCodeBlock extends JvmCodeBlock {
 
     private ICodeBlock expression;
 
-    public DefinitionCodeBlock(String name, ICodeBlock expression) {
-        super(name);
+    private String name;
 
+    public DefinitionCodeBlock(String name, ICodeBlock expression) {
+        this.name = name;
         this.expression = expression;
     }
 

@@ -27,14 +27,14 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateFunction(List<IDefinitionCodeBlock> arguments, List<ICodeBlock> definitions, ICodeBlock expression) {
+    public ICodeBlock generateFunction(List<String> arguments, List<ICodeBlock> definitions, ICodeBlock expression) {
 
         String functionClassName = "Function_" + this.functionCounter++;
         String[] argumentNames = new String[arguments.size()];
         int i = 0;
 
-        for (IDefinitionCodeBlock argument : arguments) {
-            argumentNames[i++] = argument.getName();
+        for (String argument : arguments) {
+            argumentNames[i++] = argument;
         }
 
         ClassGenerator classGenerator = ClassGenerator.beginClass(functionClassName, argumentNames);
@@ -58,11 +58,6 @@ public class JvmGenerator implements IGenerator {
         }
 
         return new FunctionCodeBlock(functionClassName, arguments);
-    }
-
-    @Override
-    public IDefinitionCodeBlock generateArgumentDefinition(String name) {
-        return new ArgumentDefinitionCodeBlock(name);
     }
 
     @Override
@@ -101,17 +96,12 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
-    public IDefinitionCodeBlock generateDefinition(String name, ICodeBlock expression) {
+    public ICodeBlock generateDefinition(String name, ICodeBlock expression) {
         return new DefinitionCodeBlock(name, expression);
     }
 
     @Override
-    public IDefinitionCodeBlock generateSelfDefinition() {
-        return new SelfDefinitionCodeBlock();
-    }
-
-    @Override
-    public ICodeBlock generateDefinitionInvoke(IDefinitionCodeBlock definition) {
+    public ICodeBlock generateDefinitionInvoke(String definition) {
         return new DefinitionInvokeCodeBlock(definition);
     }
 

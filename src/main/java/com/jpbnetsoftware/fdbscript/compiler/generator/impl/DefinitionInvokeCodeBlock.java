@@ -1,6 +1,5 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.IDefinitionCodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.ALOAD;
@@ -13,9 +12,9 @@ import org.apache.bcel.generic.Type;
  */
 public class DefinitionInvokeCodeBlock extends JvmCodeBlock {
 
-    private IDefinitionCodeBlock definition;
+    private String definition;
 
-    public DefinitionInvokeCodeBlock(IDefinitionCodeBlock definition) {
+    public DefinitionInvokeCodeBlock(String definition) {
         this.definition = definition;
     }
 
@@ -26,7 +25,7 @@ public class DefinitionInvokeCodeBlock extends JvmCodeBlock {
         il.append(new ALOAD(1));
 
         // definition name
-        il.append(factory.createConstant(this.definition.getName()));
+        il.append(factory.createConstant(this.definition));
 
         il.append(factory.createInvoke(
                 "com.jpbnetsoftware.fdbscript.runtime.InvokeContext",
