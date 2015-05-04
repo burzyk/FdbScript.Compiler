@@ -24,6 +24,12 @@ public interface FdbScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#definitionInvokeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefinitionInvokeExpression(@NotNull FdbScriptParser.DefinitionInvokeExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link FdbScriptParser#functionDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

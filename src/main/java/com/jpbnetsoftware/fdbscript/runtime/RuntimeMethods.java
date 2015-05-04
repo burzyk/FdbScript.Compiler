@@ -79,8 +79,8 @@ public class RuntimeMethods {
         return (Double) lhs / (Double) rhs;
     }
 
-    public static Object invoke(InvokeContext parentContext, String functionName, Object[] args) {
-        IInvokable func = (IInvokable) parentContext.getValue(functionName);
+    public static Object invoke(InvokeContext parentContext, Object function, Object[] args) {
+        IInvokable func = (IInvokable) function;
 
         if (func == null) {
             // TODO: throw runtime exception

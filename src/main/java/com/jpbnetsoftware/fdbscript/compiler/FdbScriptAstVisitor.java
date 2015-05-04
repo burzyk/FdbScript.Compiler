@@ -45,6 +45,11 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     }
 
     @Override
+    public ICodeBlock visitDefinitionInvokeExpression(@NotNull FdbScriptParser.DefinitionInvokeExpressionContext ctx) {
+        return this.generator.generateDefinitionInvoke(ctx.ID().toString());
+    }
+
+    @Override
     public ICodeBlock visitFunctionDeclaration(@NotNull FdbScriptParser.FunctionDeclarationContext ctx) {
 
         List<String> argumentDefinitions = new ArrayList<String>();
@@ -67,14 +72,14 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     @Override
     public ICodeBlock visitInvokeExpression(@NotNull FdbScriptParser.InvokeExpressionContext ctx) {
 
-        String functionName = ctx.ID().toString();
+        ICodeBlock definitionInvoke = this.visitDefinitionInvokeExpression(ctx.definitionInvokeExpression());
         List<ICodeBlock> arguments = new ArrayList<ICodeBlock>();
 
         for (FdbScriptParser.ExpressionContext e : ctx.expression()) {
             arguments.add(this.visitExpression(e));
         }
 
-        return this.generator.generateInvoke(functionName, arguments);
+        return this.generator.generateInvoke(definitionInvoke, arguments);
     }
 
     @Override
@@ -123,16 +128,6 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
     }
 
     @Override
-    public ICodeBlock visitListAccessArgExpression(@NotNull FdbScriptParser.ListAccessArgExpressionContext ctx) {
-
-        if (ctx.ID() != null) {
-            return this.generator.generateDefinitionInvoke(ctx.ID().toString());
-        }
-
-        return super.visitListAccessArgExpression(ctx);
-    }
-
-    @Override
     public ICodeBlock visitListAccessExpression(@NotNull FdbScriptParser.ListAccessExpressionContext ctx) {
         List<ICodeBlock> indexExpressions = new ArrayList<ICodeBlock>();
 
@@ -150,10 +145,6 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
 
         if (ctx.NOT() != null) {
             // TODO: not implemented
-        }
-
-        if (ctx.ID() != null) {
-            return this.generator.generateDefinitionInvoke(ctx.ID().toString());
         }
 
         if (ctx.TRUE() != null) {

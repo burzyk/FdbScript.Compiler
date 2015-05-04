@@ -25,9 +25,11 @@ programDeclaration : ('module' MODULEID)? (definitionExpression)* expression ;
 
 definitionExpression : ID '=' expression ;
 
+definitionInvokeExpression : ID ;
+
 functionDeclaration : 'f' '(' (ID (',' ID)* )? ')' ':' (definitionExpression)* expression ;
 
-invokeExpression : ID '(' (expression (',' expression)* )? ')' ;
+invokeExpression : definitionInvokeExpression '(' (expression (',' expression)* )? ')' ;
 
 ifExpression : (conditionClause)+ (elseClause) ;
 
@@ -41,7 +43,7 @@ indexExpression : '[' expression? ( INDEXSEPARATOR expression? )? ']' ;
 
 listAccessArgExpression
     : '(' expression ')'
-    | ID // TODO: refactor to definitionInvokeExpression
+    | definitionInvokeExpression
     | invokeExpression
     | listExpression
     ;
@@ -64,7 +66,7 @@ valueExpression
     | listExpression
     | listAccessExpression
     | NOT expression
-    | ID
+    | definitionInvokeExpression
     | TRUE
     | FALSE
     | NUMBER

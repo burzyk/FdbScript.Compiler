@@ -61,8 +61,8 @@ public class JvmGenerator implements IGenerator {
     }
 
     @Override
-    public ICodeBlock generateInvoke(String functionName, List<ICodeBlock> arguments) {
-        return new InvokeCodeBlock(functionName, arguments);
+    public ICodeBlock generateInvoke(ICodeBlock definitionInvoke, List<ICodeBlock> arguments) {
+        return new InvokeCodeBlock(definitionInvoke, arguments);
     }
 
     @Override

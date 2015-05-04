@@ -29,6 +29,16 @@ public interface FdbScriptListener extends ParseTreeListener {
 	 */
 	void exitDefinitionExpression(@NotNull FdbScriptParser.DefinitionExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link FdbScriptParser#definitionInvokeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefinitionInvokeExpression(@NotNull FdbScriptParser.DefinitionInvokeExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link FdbScriptParser#definitionInvokeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefinitionInvokeExpression(@NotNull FdbScriptParser.DefinitionInvokeExpressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link FdbScriptParser#functionDeclaration}.
 	 * @param ctx the parse tree
 	 */

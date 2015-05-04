@@ -13,23 +13,23 @@ import java.util.List;
  */
 public class InvokeCodeBlock extends JvmCodeBlock {
 
-    private String functionName;
+    private ICodeBlock definitionInvoke;
 
     private List<ICodeBlock> arguments;
 
-    public InvokeCodeBlock(String functionName, List<ICodeBlock> arguments) {
-        this.functionName = functionName;
+    public InvokeCodeBlock(ICodeBlock definitionInvoke, List<ICodeBlock> arguments) {
+        this.definitionInvoke = definitionInvoke;
         this.arguments = arguments;
     }
 
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
 
-        // loads the InvokeContext and gets the function
+        // loads the InvokeContext
         il.append(new ALOAD(1));
 
-        // load the function name
-        il.append(factory.createConstant(this.functionName));
+        // get the definition onto the stack
+        this.definitionInvoke.emit(emitter);
 
         // create arguments array
         ArrayGenerator.emitArray(emitter, Type.OBJECT, this.arguments);
@@ -40,7 +40,7 @@ public class InvokeCodeBlock extends JvmCodeBlock {
                 Type.OBJECT,
                 new Type[]{
                         new ObjectType("com.jpbnetsoftware.fdbscript.runtime.InvokeContext"),
-                        Type.STRING,
+                        Type.OBJECT,
                         new ArrayType(Type.OBJECT, 1)},
                 Constants.INVOKESTATIC));
     }

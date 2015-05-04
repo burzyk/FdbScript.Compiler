@@ -11,7 +11,7 @@ public interface IGenerator {
 
     ICodeBlock generateFunction(List<String> arguments, List<ICodeBlock> definitions, ICodeBlock expression);
 
-    ICodeBlock generateInvoke(String functionName, List<ICodeBlock> arguments);
+    ICodeBlock generateInvoke(ICodeBlock definitionInvoke, List<ICodeBlock> arguments);
 
     ICodeBlock generateIf(List<ICodeBlock> conditions, ICodeBlock elseExpression);
 
