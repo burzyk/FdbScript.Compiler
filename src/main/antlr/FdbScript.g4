@@ -41,6 +41,8 @@ listExpression : '[' (expression (',' expression)* )? ']' ;
 
 indexExpression : '[' expression? ( INDEXSEPARATOR expression? )? ']' ;
 
+objectExpression : '{' (ID ':' expression (',' ID ':' expression)* )? '}' ;
+
 listAccessArgExpression
     : '(' expression ')'
     | definitionInvokeExpression
@@ -62,6 +64,7 @@ valueExpression
     : ifExpression
     | functionDeclaration
     | invokeExpression
+    | objectExpression
     | '(' expression ')'
     | listExpression
     | listAccessExpression
