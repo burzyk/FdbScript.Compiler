@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pawel on 03/04/15.
@@ -42,4 +43,8 @@ public interface IGenerator {
     ICodeBlock generateNumber(double number);
 
     ICodeBlock generateListConcat(ICodeBlock lhs, ICodeBlock rhs);
+
+    ICodeBlock generateObject(Map<String, ICodeBlock> members);
+
+    ICodeBlock generateMemberAccess(ICodeBlock valueSource, List<String> ids);
 }

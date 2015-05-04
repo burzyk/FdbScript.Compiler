@@ -72,6 +72,18 @@ public interface FdbScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIndexExpression(@NotNull FdbScriptParser.IndexExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#objectExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectExpression(@NotNull FdbScriptParser.ObjectExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link FdbScriptParser#objectMemberAccessExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectMemberAccessExpression(@NotNull FdbScriptParser.ObjectMemberAccessExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link FdbScriptParser#listAccessArgExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

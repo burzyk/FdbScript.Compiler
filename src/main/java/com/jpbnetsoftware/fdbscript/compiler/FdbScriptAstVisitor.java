@@ -7,7 +7,9 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pawel on 30/03/15.
@@ -125,6 +127,31 @@ public class FdbScriptAstVisitor extends FdbScriptBaseVisitor<ICodeBlock> {
         ICodeBlock second = ctx.expression().size() > 1 ? this.visitExpression(ctx.expression(1)) : null;
 
         return this.generator.generateIndex(first, second, ctx.INDEXSEPARATOR() != null);
+    }
+
+    @Override
+    public ICodeBlock visitObjectExpression(@NotNull FdbScriptParser.ObjectExpressionContext ctx) {
+
+        Map<String, ICodeBlock> members = new HashMap<String, ICodeBlock>();
+
+        for (int i = 0; i < ctx.ID().size(); i++) {
+            members.put(ctx.ID(i).toString(), this.visitExpression(ctx.expression(i)));
+        }
+
+        return this.generator.generateObject(members);
+    }
+
+    @Override
+    public ICodeBlock visitObjectMemberAccessExpression(@NotNull FdbScriptParser.ObjectMemberAccessExpressionContext ctx) {
+
+        ICodeBlock valueSource = this.visitDefinitionInvokeExpression(ctx.definitionInvokeExpression());
+        List<String> ids = new ArrayList<String>();
+
+        for (TerminalNode id : ctx.ID()) {
+            ids.add(id.toString());
+        }
+
+        return this.generator.generateMemberAccess(valueSource, ids);
     }
 
     @Override

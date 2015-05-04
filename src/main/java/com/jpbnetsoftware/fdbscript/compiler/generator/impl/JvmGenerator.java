@@ -6,7 +6,7 @@ import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProv
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ClassGenerator;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 /**
  * Created by pawel on 05/04/15.
@@ -57,7 +57,7 @@ public class JvmGenerator implements IGenerator {
             e.printStackTrace();
         }
 
-        return new FunctionCodeBlock(functionClassName, arguments);
+        return new FunctionCodeBlock(functionClassName);
     }
 
     @Override
@@ -138,5 +138,15 @@ public class JvmGenerator implements IGenerator {
     @Override
     public ICodeBlock generateListConcat(ICodeBlock lhs, ICodeBlock rhs) {
         return new ListConcatCodeBlock(lhs, rhs);
+    }
+
+    @Override
+    public ICodeBlock generateObject(Map<String, ICodeBlock> members) {
+        return new ObjectCodeBlock(members);
+    }
+
+    @Override
+    public ICodeBlock generateMemberAccess(ICodeBlock valueSource, List<String> ids) {
+        return new MemberAccessCodeBlock(valueSource, ids);
     }
 }

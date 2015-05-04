@@ -137,6 +137,30 @@ public class FdbScriptBaseListener implements FdbScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterObjectExpression(@NotNull FdbScriptParser.ObjectExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectExpression(@NotNull FdbScriptParser.ObjectExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectMemberAccessExpression(@NotNull FdbScriptParser.ObjectMemberAccessExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectMemberAccessExpression(@NotNull FdbScriptParser.ObjectMemberAccessExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterListAccessArgExpression(@NotNull FdbScriptParser.ListAccessArgExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}

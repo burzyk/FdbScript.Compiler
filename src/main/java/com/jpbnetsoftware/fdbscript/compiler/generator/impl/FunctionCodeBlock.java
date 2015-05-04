@@ -1,6 +1,7 @@
 package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ObjectGenerator;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.InstructionFactory;
@@ -16,22 +17,13 @@ public class FunctionCodeBlock extends JvmCodeBlock {
 
     private String className;
 
-    private List<String> arguments;
-
-    public FunctionCodeBlock(String className, List<String> arguments) {
+    public FunctionCodeBlock(String className) {
         this.className = className;
-        this.arguments = arguments;
     }
 
     @Override
     protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
-        il.append(factory.createNew(this.className));
-        il.append(InstructionConstants.DUP);
-        il.append(factory.createInvoke(
-                this.className,
-                "<init>",
-                Type.VOID,
-                new Type[]{},
-                Constants.INVOKESPECIAL));
+
+        ObjectGenerator.emitNewObject(this.className, il, factory);
     }
 }

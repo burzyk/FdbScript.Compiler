@@ -1,6 +1,8 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ObjectGenerator;
 import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
+import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeObject;
 
 import java.util.Iterator;
 
@@ -113,5 +115,19 @@ public class RuntimeMethods {
 
     public static Object createList(Object[] initValues) {
         return RuntimeList.create(initValues);
+    }
+
+    public static Object createObject() {
+        return new RuntimeObject();
+    }
+
+    public static Object extendObject(Object object, String key, Object value) {
+        ((RuntimeObject) object).defineValue(key, value);
+
+        return object;
+    }
+
+    public static Object accessMember(Object object, String key) {
+        return ((RuntimeObject) object).getValue(key);
     }
 }
