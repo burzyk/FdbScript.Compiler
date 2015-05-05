@@ -126,7 +126,24 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateCompare(ICodeBlock lhs, CompareOperation operation, ICodeBlock rhs) {
-        return new CompareCodeBlock(lhs, operation, rhs);
+
+        switch (operation) {
+            case GreaterThan:
+                return new RuntimeCallCodeBlock("greaterThan", lhs, rhs);
+            case LessThan:
+                return new RuntimeCallCodeBlock("lessThan", lhs, rhs);
+            case GreaterEqual:
+                return new RuntimeCallCodeBlock("greaterEqual", lhs, rhs);
+            case LessEqual:
+                return new RuntimeCallCodeBlock("lessEqual", lhs, rhs);
+            case Equal:
+                return new RuntimeCallCodeBlock("isEqual", lhs, rhs);
+            case NotEqual:
+                return new RuntimeCallCodeBlock("isNotEqual", lhs, rhs);
+        }
+
+        // TODO: error handling
+        return null;
     }
 
     @Override
