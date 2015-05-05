@@ -176,7 +176,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateListConcat(ICodeBlock lhs, ICodeBlock rhs) {
-        return new ListConcatCodeBlock(lhs, rhs);
+        return new RuntimeCallCodeBlock("listConcat", lhs, rhs);
     }
 
     @Override
