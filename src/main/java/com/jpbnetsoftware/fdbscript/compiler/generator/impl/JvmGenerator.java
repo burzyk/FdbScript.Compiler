@@ -107,7 +107,16 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateBoolean(ICodeBlock lhs, BooleanOperation operation, ICodeBlock rhs) {
-        return new BooleanCodeBlock(lhs, operation, rhs);
+
+        switch (operation) {
+            case And:
+                return new RuntimeCallCodeBlock("and", lhs, rhs);
+            case Or:
+                return new RuntimeCallCodeBlock("or", lhs, rhs);
+        }
+
+        // TODO: exception
+        return null;
     }
 
     @Override
