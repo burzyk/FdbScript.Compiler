@@ -127,7 +127,20 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateMath(ICodeBlock lhs, MathOperation operation, ICodeBlock rhs) {
-        return new MathCodeBlock(lhs, operation, rhs);
+
+        switch (operation) {
+            case Plus:
+                return new RuntimeCallCodeBlock("add", lhs, rhs);
+            case Minus:
+                return new RuntimeCallCodeBlock("sub", lhs, rhs);
+            case Mul:
+                return new RuntimeCallCodeBlock("mul", lhs, rhs);
+            case Div:
+                return new RuntimeCallCodeBlock("div", lhs, rhs);
+        }
+
+        // TODO: exception
+        return null;
     }
 
     @Override
