@@ -103,7 +103,9 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateListAccess(ICodeBlock listSource, List<ICodeBlock> indexExpressions) {
-        return new ListAccessCodeBlock(listSource, indexExpressions);
+        return new AggregateCodeBlock(
+                listSource,
+                new AggregateCodeBlock(indexExpressions.toArray(new ICodeBlock[indexExpressions.size()])));
     }
 
     @Override
