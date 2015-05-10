@@ -37,8 +37,10 @@ public class InvokeContext {
         return new InvokeContext(parent);
     }
 
-    public void defineValue(String name, Object value) {
+    public Object defineValue(String name, Object value) {
+
         this.locals.put(name, value);
+        return value;
     }
 
     public Object getValue(String name) {

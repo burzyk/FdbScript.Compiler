@@ -97,7 +97,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateDefinition(String name, ICodeBlock expression) {
-        return new DefinitionCodeBlock(name, expression);
+        return new RuntimeCallCodeBlock("defineValue", new GetContextCodeBlock(), new StringCodeBlock(name), expression);
     }
 
     @Override
