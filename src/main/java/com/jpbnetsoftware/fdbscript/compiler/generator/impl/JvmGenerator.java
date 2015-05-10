@@ -184,7 +184,21 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateObject(Map<String, ICodeBlock> members) {
-        return new ObjectCodeBlock(members);
+        ICodeBlock[] initializers = new ICodeBlock[members.size()];
+        Object[] keys = members.keySet().toArray();
+
+        for (int i = 0; i < members.size(); i++) {
+            String key = (String) keys[i];
+            ICodeBlock value = members.get(key);
+
+            initializers[i] = new RuntimeCallCodeBlock(
+                    "extendObject",
+                    new EmptyCodeBlock(),
+                    new StringCodeBlock(key),
+                    value);
+        }
+
+        return new AggregateCodeBlock(new RuntimeCallCodeBlock("createObject"), new AggregateCodeBlock(initializers));
     }
 
     @Override
