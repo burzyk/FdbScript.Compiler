@@ -216,6 +216,15 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateMemberAccess(ICodeBlock valueSource, List<String> ids) {
-        return new MemberAccessCodeBlock(valueSource, ids);
+        ICodeBlock[] members = new ICodeBlock[ids.size()];
+
+        for (int i = 0; i < ids.size(); i++) {
+            members[i] = new RuntimeCallCodeBlock(
+                    "accessMember",
+                    new EmptyCodeBlock(),
+                    new StringCodeBlock(ids.get(i)));
+        }
+
+        return new AggregateCodeBlock(valueSource, new AggregateCodeBlock(members));
     }
 }
