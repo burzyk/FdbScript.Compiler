@@ -4,10 +4,7 @@ import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import com.jpbnetsoftware.fdbscript.runtime.RuntimeMethods;
 import org.apache.bcel.Constants;
-import org.apache.bcel.generic.InstructionFactory;
-import org.apache.bcel.generic.InstructionList;
-import org.apache.bcel.generic.ObjectType;
-import org.apache.bcel.generic.Type;
+import org.apache.bcel.generic.*;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -73,7 +70,7 @@ public class RuntimeCallCodeBlock extends JvmCodeBlock {
         return types;
     }
 
-    private ObjectType convertJavaType(Class clazz) {
-        return new ObjectType(clazz.getTypeName());
+    private ReferenceType convertJavaType(Class clazz) {
+        return clazz.isArray() ? new ArrayType(Type.OBJECT, 1) : new ObjectType(clazz.getTypeName());
     }
 }

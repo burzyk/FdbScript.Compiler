@@ -78,24 +78,23 @@ public class RuntimeMethods {
         return (Double) lhs / (Double) rhs;
     }
 
-    public static Object invoke(InvokeContext parentContext, Object function, Object[] args) {
-        IInvokable func = (IInvokable) function;
+    public static Object invoke(InvokeContext parentContext, IInvokable function, Object[] args) {
 
-        if (func == null) {
+        if (function == null) {
             // TODO: throw runtime exception
         }
 
         InvokeContext context = InvokeContext.createChildContext(parentContext);
-        String[] arguments = func.getArguments();
+        String[] arguments = function.getArguments();
         int i = 0;
 
         for (Object arg : args) {
             context.defineValue(arguments[i++], arg);
         }
 
-        context.defineValue("self", func);
+        context.defineValue("self", function);
 
-        return func.invoke(context);
+        return function.invoke(context);
     }
 
     public static Object index(Object listObject, Object first, Object second, Boolean singleElementAccess) {

@@ -4,9 +4,6 @@ import com.jpbnetsoftware.fdbscript.compiler.IOutputManager;
 import com.jpbnetsoftware.fdbscript.compiler.generator.*;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ClassGenerator;
-import org.apache.bcel.Constants;
-import org.apache.bcel.generic.ALOAD;
-import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.Type;
 
 import java.util.List;
@@ -66,7 +63,11 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateInvoke(ICodeBlock definitionInvoke, List<ICodeBlock> arguments) {
-        return new InvokeCodeBlock(definitionInvoke, arguments);
+        return new RuntimeCallCodeBlock(
+                "invoke",
+                new GetContextCodeBlock(),
+                definitionInvoke,
+                new ArrayCodeBlock(Type.OBJECT, arguments));
     }
 
     @Override
