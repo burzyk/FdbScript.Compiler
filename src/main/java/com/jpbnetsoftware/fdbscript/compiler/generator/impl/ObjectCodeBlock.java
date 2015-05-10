@@ -2,9 +2,7 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.generator.ICodeBlock;
 import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ObjectGenerator;
 import org.apache.bcel.Constants;
-import org.apache.bcel.generic.ArrayType;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.Type;

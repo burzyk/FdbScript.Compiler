@@ -60,7 +60,7 @@ public class JvmGenerator implements IGenerator {
             e.printStackTrace();
         }
 
-        return new FunctionCodeBlock(functionClassName);
+        return new NewObjectCodeBlock(functionClassName);
     }
 
     @Override

@@ -1,5 +1,6 @@
-package com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers;
+package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
+import com.jpbnetsoftware.fdbscript.compiler.generator.IEmitter;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.InstructionFactory;
@@ -7,11 +8,18 @@ import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.Type;
 
 /**
- * Created by pawel on 04/05/15.
+ * Created by pawel on 10/05/15.
  */
-public class ObjectGenerator {
+public class NewObjectCodeBlock extends JvmCodeBlock {
 
-    public static void emitNewObject(String className, InstructionList il, InstructionFactory factory) {
+    private String className;
+
+    public NewObjectCodeBlock(String className) {
+        this.className = className;
+    }
+
+    @Override
+    protected void emitInternal(IEmitter emitter, InstructionList il, InstructionFactory factory) {
 
         il.append(factory.createNew(className));
         il.append(InstructionConstants.DUP);

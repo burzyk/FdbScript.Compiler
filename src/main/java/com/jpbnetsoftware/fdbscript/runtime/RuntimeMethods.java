@@ -1,10 +1,7 @@
 package com.jpbnetsoftware.fdbscript.runtime;
 
-import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ObjectGenerator;
 import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
 import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeObject;
-
-import java.util.Iterator;
 
 /**
  * Created by pawel on 14/04/15.
