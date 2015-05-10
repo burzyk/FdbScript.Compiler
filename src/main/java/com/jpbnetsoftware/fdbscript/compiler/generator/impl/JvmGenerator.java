@@ -2,8 +2,11 @@ package com.jpbnetsoftware.fdbscript.compiler.generator.impl;
 
 import com.jpbnetsoftware.fdbscript.compiler.IOutputManager;
 import com.jpbnetsoftware.fdbscript.compiler.generator.*;
+import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ArrayGenerator;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProvider;
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ClassGenerator;
+import org.apache.bcel.Constants;
+import org.apache.bcel.generic.ArrayType;
 import org.apache.bcel.generic.Type;
 
 import java.util.List;
@@ -87,7 +90,7 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateList(List<ICodeBlock> initValues) {
-        return new ListCodeBlock(initValues);
+        return new RuntimeCallCodeBlock("createList", new ArrayCodeBlock(Type.OBJECT, initValues));
     }
 
     @Override
