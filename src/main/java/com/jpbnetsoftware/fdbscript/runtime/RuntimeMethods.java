@@ -97,8 +97,7 @@ public class RuntimeMethods {
         return function.invoke(context);
     }
 
-    public static Object index(Object listObject, Object first, Object second, Boolean singleElementAccess) {
-        RuntimeList list = (RuntimeList) listObject;
+    public static Object index(RuntimeList list, Object first, Object second, Boolean singleElementAccess) {
         int begin = first != null ? (int) ((Double) first).doubleValue() : 0;
         int end = second != null ? (int) ((Double) second).doubleValue() : list.getLength();
 
@@ -117,8 +116,8 @@ public class RuntimeMethods {
         return new RuntimeObject();
     }
 
-    public static Object extendObject(Object object, String key, Object value) {
-        ((RuntimeObject) object).defineValue(key, value);
+    public static Object extendObject(RuntimeObject object, String key, Object value) {
+        object.defineValue(key, value);
 
         return object;
     }
@@ -131,7 +130,7 @@ public class RuntimeMethods {
         return context.getValue(name);
     }
 
-    public static Object accessMember(Object object, String key) {
-        return ((RuntimeObject) object).getValue(key);
+    public static Object accessMember(RuntimeObject object, String key) {
+        return object.getValue(key);
     }
 }
