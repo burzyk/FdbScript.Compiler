@@ -131,6 +131,10 @@ public class RuntimeMethods {
         return context.defineValue(name, value);
     }
 
+    public static Object getValue(InvokeContext context, String name) {
+        return context.getValue(name);
+    }
+
     public static Object accessMember(Object object, String key) {
         return ((RuntimeObject) object).getValue(key);
     }
