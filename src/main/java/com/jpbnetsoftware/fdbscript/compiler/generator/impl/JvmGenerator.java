@@ -6,6 +6,7 @@ import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.BytecodeProv
 import com.jpbnetsoftware.fdbscript.compiler.generator.impl.helpers.ClassGenerator;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.ALOAD;
+import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.Type;
 
 import java.util.List;
@@ -90,7 +91,13 @@ public class JvmGenerator implements IGenerator {
 
     @Override
     public ICodeBlock generateIndex(ICodeBlock first, ICodeBlock second, boolean separatorPresent) {
-        return new IndexCodeBlock(first, second, separatorPresent);
+
+        return new RuntimeCallCodeBlock(
+                "index",
+                new EmptyCodeBlock(),
+                first == null ? new NullCodeBlock() : first,
+                second == null ? new NullCodeBlock() : second,
+                new BoolPrimitiveCodeBlock(!separatorPresent));
     }
 
     @Override
