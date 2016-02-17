@@ -7,6 +7,12 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.jpbnetsoftware.fdbscript.compiler.Main'
+    }
+}
+
 dependencies {
     compile 'org.antlr:antlr4:4.5'
     compile 'org.apache.bcel:bcel:5.2'
