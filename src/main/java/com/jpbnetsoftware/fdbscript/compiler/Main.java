@@ -26,7 +26,9 @@ public class Main {
             BufferedReader fr = new BufferedReader(new FileReader(new File(fileName)));
 
             while ((line = fr.readLine()) != null) {
-                sb.append(line.replace('\n', ' ') + " ");
+                if (!line.startsWith("#")) {
+                    sb.append(line.replace('\n', ' ') + " ");
+                }
             }
 
             Compiler.compileModule(sb.toString(), new FileOutputManager());
