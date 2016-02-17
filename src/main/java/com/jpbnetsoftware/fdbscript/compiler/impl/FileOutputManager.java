@@ -12,22 +12,10 @@ import java.nio.file.Path;
  */
 public class FileOutputManager implements IOutputManager {
 
-    private String outputDirectory;
-
-    public FileOutputManager(String outputDirectory) {
-        this.outputDirectory = outputDirectory;
-    }
-
     @Override
     public void append(String name, byte[] content) throws Exception {
 
-        File dir = new File(this.outputDirectory);
-
-        if (dir.exists()) {
-            dir.createNewFile();
-        }
-
-        FileOutputStream w = new FileOutputStream(dir.getName() + "\\" + name + ".class");
+        FileOutputStream w = new FileOutputStream(name + ".class");
         w.write(content);
     }
 }

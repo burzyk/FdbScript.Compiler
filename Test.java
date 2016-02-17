@@ -3,18 +3,11 @@ import com.jpbnetsoftware.fdbscript.runtime.objects.RuntimeList;
 
 class Test {
 
-	public Object ttt(Object []args) {
-		String[] array = new String[2];
 
-		return array;
-	}
 
 	public static void main(String[] args) {
-		Fib f = new Fib();
+		Example f = new Example();
 		InvokeContext ctx = InvokeContext.createRootContext();
-
-		ctx.defineValue("x", RuntimeList.create(new Object[]{1.0, 2.0, 3.0}));
-
 		System.out.println(f.invoke(ctx));
 		
 

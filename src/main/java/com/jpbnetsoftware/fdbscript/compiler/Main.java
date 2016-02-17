@@ -13,23 +13,23 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         if (args.length < 1) {
-            System.out.println("Missing input file");
+            System.out.println("Missing input or output file");
             return;
         }
 
         try {
             String fileName = args[0];
+
             StringBuilder sb = new StringBuilder();
             String line = null;
 
             BufferedReader fr = new BufferedReader(new FileReader(new File(fileName)));
 
             while ((line = fr.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line.replace('\n', ' ') + " ");
             }
 
-            String outputDirectory = args.length == 2 ? args[1] : ".";
-            Compiler.compileModule(sb.toString(), new FileOutputManager(outputDirectory));
+            Compiler.compileModule(sb.toString(), new FileOutputManager());
 
             System.out.println("Done");
         } catch (Exception ex) {
